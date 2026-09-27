@@ -163,7 +163,6 @@ export function GoalConsole({ className }: { className?: string }) {
       <div className="flex flex-col gap-3 border-b border-rule px-5 pt-4 pb-4 sm:px-6">
         <div className="flex items-center justify-between">
           <p className="eyebrow">Your target</p>
-          <p className="font-mono text-[0.68rem] tracking-wide text-slate/80">EXAMPLE REPORT</p>
         </div>
         <div
           role="tablist"

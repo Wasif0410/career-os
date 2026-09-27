@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CoachPortrait } from "@/components/coaches/coach-card";
+import { CoachPortrait, Experience } from "@/components/coaches/coach-card";
 import { SessionFlow } from "@/components/landing/coaches-section";
 import { PageHeader } from "@/components/ui/page-header";
 import { Reveal } from "@/components/ui/reveal";
@@ -9,7 +9,7 @@ import { coaches } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Coaches",
   description:
-    "Career OS coaching is 1-1 with Wasif and Abishek, the two people who built it. Meet them and see how a session works.",
+    "Meet the Career OS coaches, Wasif Saeed and Abishek Naathan: eight tech internships between them, at AMD, RBC, Dayforce and more.",
   alternates: { canonical: "/coaches" },
 };
 
@@ -17,15 +17,14 @@ export default function CoachesPage() {
   return (
     <>
       <PageHeader
-        eyebrow="The coaches"
         title={
           <>
-            Two people. <span className="marker">Real</span> advice.
+            Our <span className="marker">coaches</span>
           </>
         }
       >
-        Career OS coaching isn&apos;t a chatbot. It&apos;s 1-1 time with the two people who built the product, prepared
-        from your score, your plan and your application results.
+        Eight tech internships between them. They&apos;ve been exactly where you are, and they built Career OS to get you
+        there faster.
       </PageHeader>
 
       <div className="mx-auto max-w-6xl space-y-5 px-5 sm:px-8">
@@ -37,10 +36,12 @@ export default function CoachesPage() {
             >
               <CoachPortrait coach={coach} className={i % 2 ? "md:order-2" : undefined} />
               <div className="flex flex-col px-3 pb-5 md:py-6 md:pr-8">
-                <p className="font-mono text-[0.7rem] tracking-wide text-slate uppercase">{coach.role}</p>
-                <h2 className="mt-2 font-display text-4xl font-bold tracking-[-0.025em]">{coach.name}</h2>
-                <p className="mt-2 text-ink-soft">{coach.builds}</p>
+                <h2 className="font-display text-4xl font-bold tracking-[-0.025em]">{coach.fullName}</h2>
+                <p className="mt-1 text-slate">{coach.program}</p>
                 <p className="mt-5 max-w-xl leading-relaxed text-ink-soft">{coach.bio}</p>
+                <p className="mt-3 text-ink-soft">{coach.builds}</p>
+
+                <Experience coach={coach} className="mt-6" />
 
                 {coach.highlights.length > 0 && (
                   <ul className="mt-5 flex flex-wrap gap-2">
@@ -52,8 +53,7 @@ export default function CoachesPage() {
                   </ul>
                 )}
 
-                <p className="eyebrow mt-7">Coaches you on</p>
-                <ul className="mt-2 flex flex-wrap gap-2">
+                <ul className="mt-6 flex flex-wrap gap-2" aria-label={`${coach.name} coaches you on`}>
                   {coach.coaches.map((topic) => (
                     <li key={topic} className="rounded-full bg-marker-soft px-3 py-1 text-sm text-ink">
                       {topic}
@@ -74,17 +74,13 @@ export default function CoachesPage() {
 
       <section aria-labelledby="session-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
         <Reveal className="max-w-2xl">
-          <p className="eyebrow">How a session works</p>
           <h2
             id="session-title"
-            className="mt-4 font-display text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.02] font-bold tracking-[-0.03em]"
+            className="font-display text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.02] font-bold tracking-[-0.03em]"
           >
             Sessions start where your data ends.
           </h2>
-          <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-            Software can score a resume and track an application. It can&apos;t tell you which of ten fixes matters for
-            the role you want, or when a plan has stopped working. That&apos;s what the sessions are for.
-          </p>
+          <p className="mt-5 text-lg text-ink-soft">Software scores your resume. Your coach decides what matters.</p>
         </Reveal>
         <Reveal className="mt-10">
           <SessionFlow />

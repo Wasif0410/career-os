@@ -7,7 +7,7 @@ export function SiteFooter() {
     {
       title: "Product",
       links: [
-        { label: "How it works", href: "/#how-it-works" },
+        { label: "How it works", href: "/#journey" },
         { label: "Pricing", href: "/pricing" },
         { label: "Guides", href: "/guides" },
       ],
@@ -60,7 +60,6 @@ export function SiteFooter() {
       <div className="border-t border-rule">
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-5 py-6 font-mono text-xs text-slate sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <p>© {new Date().getFullYear()} Career OS</p>
-          <p>Coached by people. Scored by software.</p>
         </div>
       </div>
     </footer>

@@ -14,9 +14,7 @@ export const metadata: Metadata = {
 export default function GuidesPage() {
   return (
     <>
-      <PageHeader eyebrow="Free guides" title="Short guides you can act on tonight.">
-        Written by the Career OS coaches. No sign-up, no fluff: each one ends with something to change.
-      </PageHeader>
+      <PageHeader title="Free guides you can act on tonight." />
 
       <section className="mx-auto max-w-6xl px-5 pb-24 sm:px-8 md:pb-32">
         <ul className="border-t border-rule">
