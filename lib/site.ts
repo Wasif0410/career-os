@@ -20,7 +20,7 @@ export const site = {
 } as const;
 
 export const nav = [
-  { label: "How it works", href: "/#how-it-works" },
+  { label: "How it works", href: "/#journey" },
   { label: "Coaches", href: "/coaches" },
   { label: "Pricing", href: "/pricing" },
   { label: "Guides", href: "/guides" },
@@ -28,13 +28,19 @@ export const nav = [
 
 export type Coach = {
   slug: string;
+  /** First name, used in running copy. */
   name: string;
+  fullName: string;
   initials: string;
   role: string;
+  program: string;
+  /** One line under the name: what they've done. */
+  headline: string;
   builds: string;
+  experience: { org: string; role: string }[];
   coaches: string[];
   bio: string;
-  /** Short, verifiable facts (internships, offers, schools). Rendered only when filled in. */
+  /** Short, verifiable facts. Rendered only when filled in. */
   highlights: string[];
   /** Path under /public, e.g. "/coaches/wasif.jpg". Falls back to a monogram. */
   photo?: string;
@@ -42,29 +48,47 @@ export type Coach = {
   bookingUrl?: string;
 };
 
-// confirm: coaching focus areas, bios and highlights.
+// Sources: Wasif's ML/AI resume and Abishek's LinkedIn profile (September 2026).
 export const coaches: Coach[] = [
   {
     slug: "wasif",
     name: "Wasif",
+    fullName: "Wasif Saeed",
     initials: "W",
     role: "Co-founder · Coach",
-    builds: "Builds the Career OS platform: scoring, courses and your dashboard.",
-    coaches: ["Resumes that show results", "Projects worth listing", "Your weekly plan"],
-    bio: "Wasif builds the software side of Career OS and coaches students on turning what they've built into a resume and a plan that hold up. Sessions start from your score and your application data, so the time goes to what's actually blocking you.",
-    highlights: [],
+    program: "Computer Science (Co-op), Toronto Metropolitan University",
+    headline: "Four internships in AI and software, most recently building GenAI and LLM systems at Dayforce.",
+    builds: "Builds the Career OS platform.",
+    experience: [
+      { org: "Dayforce", role: "Product & AI Developer Intern" },
+      { org: "IQonsulting", role: "Applied AI Developer Intern" },
+      { org: "Saige", role: "Software Developer Intern, ML/AI" },
+      { org: "RCMP", role: "Junior Programmer Analyst" },
+    ],
+    coaches: ["ML and AI roles", "Resumes that show results", "Projects worth listing"],
+    bio: "Wasif has spent co-op terms building LLM agents, RAG pipelines and computer vision models, and deploying them for real users. Wasif coaches students aiming for ML and AI roles on the projects, resumes and plans that get them there.",
+    highlights: ["Dean's List", "Exchange scholar, Chung-Ang University"],
     photo: undefined,
     bookingUrl: process.env.NEXT_PUBLIC_CAL_WASIF_URL || undefined,
   },
   {
     slug: "abishek",
     name: "Abishek",
+    fullName: "Abishek Naathan",
     initials: "A",
     role: "Co-founder · Coach",
-    builds: "Builds the job-matching and auto-apply engine.",
-    coaches: ["Choosing where to apply", "Reading your application results", "Getting from OA to interview"],
-    bio: "Abishek builds the engine that finds, scores and submits applications, so he sees what separates the ones that turn into interviews. In sessions he helps you aim at roles you can win and read what your results are telling you.",
-    highlights: [],
+    program: "Software Engineering, McMaster University",
+    headline: "Software engineering intern at AMD, after internships at RBC and Telesat.",
+    builds: "Builds the Career OS job-matching and auto-apply engine.",
+    experience: [
+      { org: "AMD", role: "Software Engineer Intern, dGPU team" },
+      { org: "RBC", role: "AI/ML Software Developer Intern" },
+      { org: "Telesat", role: "Software Developer Intern" },
+      { org: "A Round Entertainment", role: "Full Stack Developer Intern" },
+    ],
+    coaches: ["Software engineering roles", "Choosing where to apply", "Getting from OA to interview"],
+    bio: "Abishek works on AMD's discrete GPU team. Before that, he improved LLM-based contract tools at RBC and built internal tooling, automated testing and DevOps infrastructure for satellites at Telesat. He coaches students going after software engineering roles.",
+    highlights: ["Mentor, Canada Learning Code", "McMaster SumoBots technical lead"],
     photo: undefined,
     bookingUrl: process.env.NEXT_PUBLIC_CAL_ABISHEK_URL || undefined,
   },

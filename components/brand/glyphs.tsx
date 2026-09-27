@@ -93,6 +93,17 @@ export function RepeatGlyph({ className }: GlyphProps) {
   );
 }
 
+/** Learn: an open book with a cobalt bookmark. */
+export function BookGlyph({ className }: GlyphProps) {
+  return (
+    <Frame className={className}>
+      <path d="M12 6.5C10.2 5.2 7.6 4.8 4 5v13c3.6-.2 6.2.2 8 1.5 1.8-1.3 4.4-1.7 8-1.5V5c-3.6-.2-6.2.2-8 1.5z" />
+      <path d="M12 6.5v13" />
+      <path d="M15.2 5.7v5.1l1.4-1.1 1.4 1.1V5.2" className="fill-cobalt stroke-cobalt" />
+    </Frame>
+  );
+}
+
 export function ArrowGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={cn("size-4", className)} aria-hidden fill="none">
