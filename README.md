@@ -48,6 +48,29 @@ Auto-applier: Python service
 | [`docs/STRATEGY.md`](docs/STRATEGY.md) | Tiers, pricing, stack, architecture, roadmap |
 | `docs/frontend/PHASES.md` | Frontend build guide (on the `frontend` branch) |
 
+## Run Locally
+
+```bash
+npm install
+cp .env.example .env.local   # fill in what you have; everything is optional in dev
+npm run dev
+```
+
+## Deploy on Vercel
+
+1. Import the repo in Vercel. It detects Next.js, so leave the build settings on their defaults.
+2. Set **Production Branch** to `main`. Every other branch (like `frontend`) gets its own preview URL.
+3. Add the variables from [`.env.example`](.env.example) under **Settings → Environment Variables**. `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` are required in production or sign-ups fail. `NEXT_PUBLIC_SITE_URL` is optional.
+4. Turn on **Speed Insights** in the project to get Core Web Vitals from real visitors.
+5. Set the **Function Region** (Settings → Functions) to the one closest to the Supabase project, e.g. `yul1` for Supabase's `ca-central-1`.
+
+What the code handles:
+
+- Every page is prerendered at build time. Only the waitlist sign-up runs as a function.
+- Canonical URLs, the sitemap and Open Graph images use the right domain for production and for each preview.
+- Previews serve a `robots.txt` that blocks crawlers.
+- Node is pinned to 24.x in `package.json`.
+
 ## Branches
 
 | Branch | Purpose |

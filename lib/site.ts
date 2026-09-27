@@ -4,9 +4,24 @@
  * the founders still need to decide (see docs/STRATEGY.md → Open Questions).
  */
 
+/** "production", "preview" or "development" on Vercel; undefined everywhere else. */
+export const vercelEnv = process.env.VERCEL_ENV;
+
+/**
+ * Absolute origin for canonical URLs, the sitemap and Open Graph images.
+ * NEXT_PUBLIC_SITE_URL wins when set. On Vercel, production uses the project's
+ * production domain and previews use their own deployment URL, so shared
+ * preview links don't point back at production.
+ */
+function resolveSiteUrl() {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  const host = vercelEnv === "production" ? process.env.VERCEL_PROJECT_PRODUCTION_URL : process.env.VERCEL_URL;
+  return host ? `https://${host}` : "http://localhost:3000";
+}
+
 export const site = {
   name: "Career OS",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: resolveSiteUrl(),
   description:
     "Career OS helps CS students land the internship or new-grad role they're aiming for. Get your resume scored, get coached 1-1 by real people, and apply only to jobs that fit.",
   contactEmail: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",

@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { createClient } from "@supabase/supabase-js";
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { waitlistTargets } from "@/lib/site";
 
 export type WaitlistState =
@@ -18,6 +18,17 @@ const schema = z.object({
   // Honeypot. Real people never see or fill this field.
   website: z.string().max(0).optional(),
 });
+
+// Kept at module scope so warm Vercel instances reuse one client instead of building one per sign-up.
+let supabaseClient: SupabaseClient | undefined;
+
+function getSupabase() {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return undefined;
+  supabaseClient ??= createClient(url, key, { auth: { persistSession: false } });
+  return supabaseClient;
+}
 
 function read(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -48,10 +59,9 @@ export async function joinWaitlist(_prev: WaitlistState, formData: FormData): Pr
   }
 
   const { email, target, source } = parsed.data;
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabase = getSupabase();
 
-  if (!url || !key) {
+  if (!supabase) {
     if (process.env.NODE_ENV !== "production") {
       console.info("[waitlist] Supabase not configured; skipping insert for", email);
       return { status: "success", message: `You're on the list. We'll email ${email} when your spot opens.` };
@@ -60,7 +70,6 @@ export async function joinWaitlist(_prev: WaitlistState, formData: FormData): Pr
     return { status: "error", message: "Sign-ups aren't working right now. Try again in a few minutes.", values };
   }
 
-  const supabase = createClient(url, key, { auth: { persistSession: false } });
   const { error } = await supabase.from("waitlist").insert({ email, target: target ?? null, source: source ?? null });
 
   if (error) {

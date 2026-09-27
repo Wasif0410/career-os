@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Funnel_Display, Instrument_Sans, JetBrains_Mono, Kalam } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/components/motion-provider";
-import { site } from "@/lib/site";
+import { site, vercelEnv } from "@/lib/site";
 import "./globals.css";
 
 const display = Funnel_Display({
@@ -62,6 +63,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-dvh flex-col">
         <MotionProvider>{children}</MotionProvider>
+        {/* Real-visitor Core Web Vitals. Its script only exists on Vercel, so skip it elsewhere to avoid a 404. */}
+        {vercelEnv && <SpeedInsights />}
       </body>
     </html>
   );
