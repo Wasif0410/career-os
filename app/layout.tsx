@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Funnel_Display, Instrument_Sans, JetBrains_Mono, Kalam } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/components/motion-provider";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -62,6 +63,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-dvh flex-col">
         <MotionProvider>{children}</MotionProvider>
+        {/* Real-visitor Core Web Vitals. Does nothing off Vercel or until enabled in the project dashboard. */}
+        <SpeedInsights />
       </body>
     </html>
   );
