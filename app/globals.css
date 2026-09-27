@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+/*
+ * Career OS tokens.
+ * Cobalt is the software (scores, statuses, actions).
+ * Marker yellow is the humans (coach notes, highlights). Keep that split.
+ */
+@theme {
+  --color-paper: #f3f5f8;
+  --color-paper-deep: #e9edf2;
+  --color-surface: #ffffff;
+  --color-ink: #0c1424;
+  --color-ink-soft: #243044;
+  --color-slate: #5a6577;
+  --color-rule: #dce1e8;
+  --color-rule-strong: #c6cdd8;
+  --color-cobalt: #2447f5;
+  --color-cobalt-deep: #1a33c2;
+  --color-cobalt-wash: #e8ecfe;
+  --color-marker: #ffd84a;
+  --color-marker-soft: #fff1b8;
+  --color-go: #0e7a55;
+  --color-stop: #b4372a;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@theme inline {
+  --font-display: var(--font-funnel-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-hand: var(--font-kalam), "Comic Sans MS", cursive;
+}
+
+:root {
+  color-scheme: light;
+}
+
+/* Registered so the highlighter width can be animated in CSS. */
+@property --marker-progress {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes marker-in {
+  from {
+    --marker-progress: 0;
+  }
+  to {
+    --marker-progress: 1;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-marker);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-cobalt);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+@layer components {
+  /* Dot grid behind the hero, like the paper in a lab notebook. */
+  .paper-grid {
+    background-image: radial-gradient(circle at 1px 1px, rgb(12 20 36 / 0.1) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  /* A highlighter pass. Animate --marker-progress from 0 to 1. */
+  .marker {
+    background-image: linear-gradient(
+      100deg,
+      transparent 0.15em,
+      var(--color-marker) 0.25em,
+      var(--color-marker) calc(100% - 0.3em),
+      transparent calc(100% - 0.15em)
+    );
+    background-repeat: no-repeat;
+    background-position: 0 72%;
+    background-size: calc(var(--marker-progress) * 100%) 60%;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    padding-inline: 0.14em;
+    margin-inline: -0.14em;
+  }
+
+  /*
+   * Entrance animations for above-the-fold content. Pure CSS, so text is
+   * painted before JavaScript loads. Stagger with style={{ "--d": "0.2s" }}.
+   */
+  .anim-rise {
+    animation: rise 0.8s var(--ease-out-quint) both;
+    animation-delay: var(--d, 0s);
+  }
+  .anim-fade-up {
+    animation: fade-up 0.7s var(--ease-out-quint) both;
+    animation-delay: var(--d, 0s);
+  }
+  .anim-marker {
+    animation: marker-in 0.75s var(--ease-out-quint) both;
+    animation-delay: var(--d, 0s);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .anim-rise,
+    .anim-fade-up,
+    .anim-marker {
+      animation: none;
+    }
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-slate);
+  }
+}
