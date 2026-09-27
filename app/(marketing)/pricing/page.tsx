@@ -53,14 +53,12 @@ const faq: FaqItem[] = [
 export default function PricingPage() {
   return (
     <>
-      <PageHeader eyebrow="Pricing" title="Pay for the stage you're at.">
-        Free shows you where you stand. Pro gets you a coach and a plan. Elite is for an active search with more
-        sessions and more applications.
+      <PageHeader title="Pay for the stage you're at.">
+        Free shows where you stand. Pro adds a coach. Elite adds more of both.
       </PageHeader>
 
       <section className="mx-auto max-w-6xl px-5 sm:px-8">
         <TierCards />
-        <p className="mt-6 text-sm text-slate">Prices in USD. Every plan starts with the waitlist while we open in groups.</p>
       </section>
 
       <section aria-labelledby="compare-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-28">

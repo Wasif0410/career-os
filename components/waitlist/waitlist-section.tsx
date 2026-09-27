@@ -18,21 +18,18 @@ export function WaitlistSection({ source }: { source: string }) {
 
         <div className="mx-auto grid max-w-6xl items-end gap-12 md:grid-cols-[1.1fr_1fr]">
           <Reveal>
-            <p className="eyebrow !text-white/60">Opening in waves</p>
             <h2
               id="waitlist-title"
-              className="mt-4 font-display text-[clamp(2.4rem,6vw,4.4rem)] leading-[0.98] font-bold tracking-[-0.03em]"
+              className="font-display text-[clamp(2.4rem,6vw,4.4rem)] leading-[0.98] font-bold tracking-[-0.03em]"
             >
               Start with your score.
             </h2>
             <p className="mt-5 max-w-md text-lg leading-relaxed text-white/70">
-              Join the waitlist and get your free resume score as soon as your spot opens. We let students in a group at
-              a time, so the coaches can give each of them real attention.
+              Join the waitlist. We&apos;ll email you when your spot opens.
             </p>
           </Reveal>
           <Reveal delay={0.1}>
             <WaitlistForm source={source} withTarget tone="dark" />
-            <p className="mt-4 pl-5 text-sm text-white/50">Free to join. No card. One email when your spot opens.</p>
           </Reveal>
         </div>
       </div>
