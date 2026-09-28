@@ -75,7 +75,7 @@ export default async function GuidePage({ params }: PageProps<"/guides/[slug]">)
       <aside className="mx-auto mb-24 max-w-[44rem] border-t border-rule pt-8">
         <p className="eyebrow">Next guide</p>
         <Link href={`/guides/${next.slug}`} className="group mt-3 flex items-center justify-between gap-6">
-          <span className="font-display text-2xl font-bold tracking-[-0.02em] group-hover:text-cobalt-deep">
+          <span className="font-display text-2xl tracking-[-0.02em] group-hover:text-cobalt-deep">
             {next.title}
           </span>
           <span className="grid size-11 shrink-0 place-items-center rounded-full ring-1 ring-rule-strong transition-colors group-hover:bg-ink group-hover:text-white">

@@ -17,7 +17,7 @@ export default function PrivacyPage() {
       <h1 className="text-display-l mt-5">
         Privacy
       </h1>
-      <div className="mt-8 space-y-6 text-[1.05rem] leading-[1.75] text-ink-soft [&_h2]:mt-10 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-ink">
+      <div className="mt-8 space-y-6 text-[1.05rem] leading-[1.75] text-ink-soft [&_h2]:mt-10 [&_h2]:font-display [&_h2]:text-[1.75rem] [&_h2]:font-normal [&_h2]:text-ink">
         <p>
           This page covers the Career OS website and waitlist. We&apos;ll publish a full policy before accounts,
           resumes and applications go live.

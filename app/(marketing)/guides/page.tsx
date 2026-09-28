@@ -28,7 +28,7 @@ export default function GuidesPage() {
                   {guide.topic} · {guide.readingMinutes} min
                 </p>
                 <div>
-                  <h2 className="font-display text-[clamp(1.5rem,3vw,2.1rem)] leading-tight font-bold tracking-[-0.02em] transition-colors group-hover:text-cobalt-deep">
+                  <h2 className="font-display text-[clamp(1.6rem,3vw,2.3rem)] leading-tight tracking-[-0.02em] transition-colors group-hover:text-cobalt-deep">
                     {guide.title}
                   </h2>
                   <p className="mt-2 max-w-2xl text-ink-soft">{guide.description}</p>
