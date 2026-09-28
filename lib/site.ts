@@ -51,6 +51,8 @@ export type Coach = {
   focus: string;
   /** Where they've worked. Shown as a row of names. */
   companies: string[];
+  /** Each place and what they did there, in the same words as the bio. Shown as a list with logos. */
+  experience: { company: string; role: string }[];
   bio: string;
   coaches: string[];
   /** Path under /public, e.g. "/coaches/wasif.jpg". Falls back to a monogram. */
@@ -68,6 +70,11 @@ export const coaches: Coach[] = [
     initials: "W",
     focus: "AI and machine learning",
     companies: ["Dayforce", "Achievers", "AI research"],
+    experience: [
+      { company: "Dayforce", role: "Building GenAI systems" },
+      { company: "AI research", role: "AI researcher" },
+      { company: "Achievers", role: "Software engineer" },
+    ],
     bio: "Wasif focuses on AI and ML: building GenAI systems at Dayforce, working as an AI researcher, and engineering software at Achievers.",
     coaches: ["AI and ML roles", "Resumes that show results", "Projects worth building"],
     photo: undefined,
@@ -80,6 +87,11 @@ export const coaches: Coach[] = [
     initials: "A",
     focus: "Software engineering",
     companies: ["AMD", "RBC", "Telesat"],
+    experience: [
+      { company: "AMD", role: "Intern, GPU team" },
+      { company: "RBC", role: "Intern, building AI tools" },
+      { company: "Telesat", role: "Intern, satellite software" },
+    ],
     bio: "Abishek has interned at AMD on the GPU team, at RBC building AI tools, and at Telesat on satellite software.",
     coaches: ["Software engineering roles", "Choosing where to apply", "OAs and interviews"],
     photo: undefined,
