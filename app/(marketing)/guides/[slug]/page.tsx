@@ -57,7 +57,7 @@ export default async function GuidePage({ params }: PageProps<"/guides/[slug]">)
           <ArrowGlyph className="size-3.5 rotate-180 transition-transform group-hover:-translate-x-0.5" />
           All guides
         </Link>
-        <h1 className="mt-6 font-display text-[clamp(2.2rem,5.4vw,3.6rem)] leading-[1.02] font-bold tracking-[-0.03em]">
+        <h1 className="text-display-l mt-6">
           {guide.title}
         </h1>
         <p className="mt-5 text-xl leading-relaxed text-ink-soft">{guide.description}</p>

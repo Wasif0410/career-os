@@ -1,78 +1,67 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import {
-  animate,
-  AnimatePresence,
-  motion,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-} from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { Mark } from "@/components/brand/logo";
 import { CheckGlyph } from "@/components/brand/glyphs";
 import { cn } from "@/lib/utils";
 
-/**
- * 0 idle · 1 read posting · 2-4 inspect three lines · 5 optimize · 6 tailored · 7 coach approves · 8 auto-apply
- */
-type Stage = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-const TIMELINE: [Stage, number][] = [
-  [1, 0],
-  [2, 900],
-  [3, 2100],
-  [4, 3300],
-  [5, 4500],
-  [6, 5500],
-  [7, 7400],
-  [8, 8600],
-];
+/** 0 idle · 1 scan · 2 rewrite · 3 coach reviewing · 4 approved, applying · 5 applied */
+type Phase = 0 | 1 | 2 | 3 | 4 | 5;
 
-const LENS = 104; // px, diameter
+const LENS = 88; // px diameter
 const R = LENS / 2;
-const ZOOM = 1.7;
-const ease = [0.22, 1, 0.36, 1] as const;
+const ZOOM = 1.75;
+const SWEEP_PX_PER_S = 260;
 
 const keywords = ["PyTorch", "Deployed to users", "Measurable impact"];
+const steps = ["Scan", "Rewrite", "Coach approves", "Applied"];
 
 const lines = [
   {
     before: "Made a machine learning model to classify images.",
     after: "Trained a PyTorch CNN that sorts 10 plant diseases at 94% accuracy.",
-    tag: "+ metric",
   },
   {
     before: "Worked on a web app for the project.",
     after: "Deployed it as a web app used 200+ times by classmates.",
-    tag: "+ deployed",
   },
 ];
 
-const queue = [
-  { role: "ML Engineering Intern", org: "Fintech · Toronto" },
-  { role: "Machine Learning Intern", org: "AI startup · Remote" },
-  { role: "Data Science Intern", org: "Bank · Toronto" },
-];
+const sleep = (ms: number) => new Promise<void>((resolve) => window.setTimeout(resolve, ms));
 
-const statusText: Record<Stage, string> = {
-  0: "",
-  1: "Reading the job",
-  2: "Checking bullets",
-  3: "Checking bullets",
-  4: "Checking skills",
-  5: "Optimizing",
-  6: "Sent to your coach",
-  7: "Approved",
-  8: "Applying",
-};
+type Point = { x: number; y: number };
 
-type BodyProps = {
-  variant: "before" | "after";
-  flagged: boolean[];
-  revealed?: boolean;
-  targetRefs?: React.RefObject<(HTMLElement | null)[]>;
-};
+/**
+ * Move the lens from where it is to `to` on its own animation-frame loop, resolving on arrival.
+ * Resolves early if `alive` turns false, so a replay never fights an older run.
+ */
+function glide(
+  pos: { current: Point },
+  to: Point,
+  seconds: number,
+  curve: "linear" | "out",
+  apply: () => void,
+  alive: () => boolean,
+) {
+  return new Promise<void>((resolve) => {
+    const from = { ...pos.current };
+    const start = performance.now();
+    const step = (now: number) => {
+      if (!alive()) return resolve();
+      const t = seconds > 0 ? Math.min(1, (now - start) / (seconds * 1000)) : 1;
+      const k = curve === "linear" ? t : 1 - Math.pow(1 - t, 3);
+      pos.current = { x: from.x + (to.x - from.x) * k, y: from.y + (to.y - from.y) * k };
+      apply();
+      if (t < 1) requestAnimationFrame(step);
+      else resolve();
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+const lensTransform = ({ x, y }: Point) => `translate(${x}px, ${y}px)`;
+const zoomTransform = ({ x, y }: Point) => `translate(${R - (x + R) * ZOOM}px, ${R - (y + R) * ZOOM}px) scale(${ZOOM})`;
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -87,12 +76,19 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 const flagClass = "underline decoration-stop decoration-wavy decoration-[1.5px] underline-offset-[5px]";
 
-/** The resume itself. Rendered for the page and again, magnified, inside the lens. */
-function ResumeBody({ variant, flagged, revealed = false, targetRefs }: BodyProps) {
+type BodyProps = {
+  variant: "before" | "after";
+  flagged: boolean[];
+  tailored?: boolean;
+  targetRefs?: React.RefObject<(HTMLElement | null)[]>;
+};
+
+/** The resume. Rendered on the page and again, magnified, inside the lens. */
+function ResumeBody({ variant, flagged, tailored = false, targetRefs }: BodyProps) {
   const setRef = (i: number) => (el: HTMLElement | null) => {
     if (targetRefs?.current) targetRefs.current[i] = el;
   };
-  const after = variant === "after" && revealed;
+  const after = variant === "after" && tailored;
 
   return (
     <div className="text-[0.8rem] leading-relaxed text-ink-soft">
@@ -120,26 +116,16 @@ function ResumeBody({ variant, flagged, revealed = false, targetRefs }: BodyProp
           <p key={line.before} className="mt-0.5 pl-3 -indent-3">
             •{" "}
             {after ? (
-              <>
-                <motion.span
-                  className="rounded bg-cobalt-wash px-0.5 text-ink [box-decoration-break:clone]"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.6, delay: i * 0.45, ease: "easeOut" }}
-                >
-                  {line.after}
-                </motion.span>{" "}
-                <motion.span
-                  className="rounded-full bg-cobalt px-1.5 py-px text-[0.62rem] font-medium whitespace-nowrap text-white"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7 + i * 0.45 }}
-                >
-                  {line.tag}
-                </motion.span>
-              </>
+              <motion.span
+                className="rounded bg-cobalt-wash px-0.5 text-ink [box-decoration-break:clone]"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: i * 0.35, ease: "easeOut" }}
+              >
+                {line.after}
+              </motion.span>
             ) : (
-              <span ref={setRef(i)} className={cn("transition-all", flagged[i] && flagClass)}>
+              <span ref={setRef(i)} className={cn("transition-all duration-300", flagged[i] && flagClass)}>
                 {line.before}
               </span>
             )}
@@ -156,14 +142,14 @@ function ResumeBody({ variant, flagged, revealed = false, targetRefs }: BodyProp
                 className="rounded bg-cobalt-wash px-0.5 font-medium text-cobalt-deep"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
+                transition={{ delay: 0.8 }}
               >
                 PyTorch
               </motion.span>
               , TensorFlow, SQL, Git
             </>
           ) : (
-            <span ref={setRef(2)} className={cn("transition-all", flagged[2] && flagClass)}>
+            <span ref={setRef(2)} className={cn("transition-all duration-300", flagged[2] && flagClass)}>
               Python, TensorFlow, SQL, Git
             </span>
           )}
@@ -173,94 +159,158 @@ function ResumeBody({ variant, flagged, revealed = false, targetRefs }: BodyProp
   );
 }
 
+const pageClass =
+  "relative rounded-xl bg-surface p-6 shadow-[0_2px_0_rgb(12_20_36/0.03),0_20px_50px_-28px_rgb(12_20_36/0.4)] ring-1 sm:p-7";
+
 export function Optimizer() {
   const reduce = useReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
   const targetRefs = useRef<(HTMLElement | null)[]>([]);
-  const inView = useInView(rootRef, { once: true, margin: "0px 0px -35% 0px" });
-  const [stage, setStage] = useState<Stage>(0);
-  const [run, setRun] = useState(0);
+  const runRef = useRef(0);
+  // Not `once`: the demo loops while it's on screen and stops when it scrolls away.
+  const inView = useInView(rootRef, { margin: "0px 0px -20% 0px" });
+
+  const [phase, setPhase] = useState<Phase>(0);
+  const [flagged, setFlagged] = useState([false, false, false]);
+  const [tailored, setTailored] = useState(false);
+  const [lensOn, setLensOn] = useState(false);
   const [pageWidth, setPageWidth] = useState(0);
 
-  const lensX = useMotionValue(0);
-  const lensY = useMotionValue(0);
-  const inner = useTransform([lensX, lensY], ([x, y]: number[]) => {
-    return `translate(${R - (x + R) * ZOOM}px, ${R - (y + R) * ZOOM}px) scale(${ZOOM})`;
-  });
+  // The lens position lives outside React state and is written straight to the DOM each frame.
+  const pos = useRef<Point>({ x: 0, y: 0 });
+  const lensRef = useRef<HTMLDivElement>(null);
+  const zoomRef = useRef<HTMLDivElement>(null);
+  const apply = useCallback(() => {
+    if (lensRef.current) lensRef.current.style.transform = lensTransform(pos.current);
+    if (zoomRef.current) zoomRef.current.style.transform = zoomTransform(pos.current);
+  }, []);
 
-  // Keep the magnified copy the same width as the page it mirrors.
+  // Position the lens as soon as it exists. React never renders its transform, so re-renders don't reset it.
+  useLayoutEffect(() => {
+    if (pageWidth > 0) apply();
+  }, [pageWidth, apply]);
+
+  // The magnified copy must be exactly as wide as the page so its lines wrap the same way.
   useLayoutEffect(() => {
     const el = pageRef.current;
     if (!el) return;
     const ro = new ResizeObserver(() => setPageWidth(el.offsetWidth));
-    // Park the lens over the middle of the page so it never flashes in the corner.
-    lensX.set(el.offsetWidth * 0.55 - R);
-    lensY.set(el.offsetHeight * 0.45 - R);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [lensX, lensY]);
-
-  const lensTarget = useCallback((i: number) => {
-    const el = targetRefs.current[i];
-    if (!el) return null;
-    const cx = el.offsetLeft + Math.min(el.offsetWidth * 0.5, 150);
-    const cy = el.offsetTop + el.offsetHeight / 2;
-    return { x: cx - R, y: cy - R };
   }, []);
 
-  // Run the timeline once the section is on screen.
+  /** Line boxes of a flagged phrase, in page coordinates. Wrapped phrases give one box per line. */
+  const lineBoxes = useCallback((i: number) => {
+    const el = targetRefs.current[i];
+    const page = pageRef.current;
+    if (!el || !page) return [];
+    const p = page.getBoundingClientRect();
+    return Array.from(el.getClientRects()).map((r) => ({
+      start: r.left - p.left,
+      end: r.right - p.left,
+      mid: r.top - p.top + r.height / 2,
+    }));
+  }, []);
+
+  const run = useCallback(
+    async (token: number) => {
+      const alive = () => token === runRef.current;
+      // The whole demo repeats until it scrolls out of view.
+      for (;;) {
+        setLensOn(false);
+        setPhase(1);
+        setFlagged([false, false, false]);
+        setTailored(false);
+        await sleep(600);
+        if (!alive()) return;
+
+        // Scan: the lens reads each weak line from its first word to its last.
+        const first = lineBoxes(0)[0];
+        if (first) {
+          pos.current = { x: first.start - R, y: first.mid - R };
+          apply();
+        }
+        setLensOn(true);
+        for (let i = 0; i < 3; i++) {
+          for (const box of lineBoxes(i)) {
+            const from = { x: box.start - R, y: box.mid - R };
+            const to = { x: box.end - R, y: box.mid - R };
+            await glide(pos, from, 0.45, "out", apply, alive);
+            if (!alive()) return;
+            await glide(pos, to, Math.max(0.5, (to.x - from.x) / SWEEP_PX_PER_S), "linear", apply, alive);
+            if (!alive()) return;
+          }
+          setFlagged((f) => f.map((v, j) => (j === i ? true : v)));
+          await sleep(200);
+          if (!alive()) return;
+        }
+        setLensOn(false);
+
+        setPhase(2);
+        await sleep(1600);
+        if (!alive()) return;
+        setTailored(true);
+        await sleep(1600);
+        if (!alive()) return;
+        setPhase(3);
+        await sleep(1500);
+        if (!alive()) return;
+        setPhase(4);
+        await sleep(1200);
+        if (!alive()) return;
+        setPhase(5);
+        await sleep(3800);
+        if (!alive()) return;
+      }
+    },
+    [apply, lineBoxes],
+  );
+
   useEffect(() => {
     if (!inView) return;
-    if (reduce) {
-      const t = window.setTimeout(() => setStage(8), 0);
-      return () => window.clearTimeout(t);
-    }
-    const timers = TIMELINE.map(([s, at]) => window.setTimeout(() => setStage(s), at));
-    return () => timers.forEach(window.clearTimeout);
+    const token = ++runRef.current;
+    const t = window.setTimeout(() => {
+      if (reduce) {
+        setFlagged([true, true, true]);
+        setTailored(true);
+        setPhase(5);
+      } else {
+        void run(token);
+      }
+    }, 0);
+    return () => {
+      window.clearTimeout(t);
+      // Invalidate this run so any pending steps stop.
+      runRef.current = token + 1;
+    };
   }, [inView, reduce, run]);
 
-  // Move the lens to the line being inspected.
-  useEffect(() => {
-    if (stage < 2 || stage > 4) return;
-    const target = lensTarget(stage - 2);
-    if (!target) return;
-    const opts = { duration: 0.7, ease };
-    const a = animate(lensX, target.x, opts);
-    const b = animate(lensY, target.y, opts);
-    return () => {
-      a.stop();
-      b.stop();
-    };
-  }, [stage, lensTarget, lensX, lensY]);
-
-  const flagged = [stage >= 2, stage >= 3, stage >= 4];
-  const showLens = stage >= 2 && stage <= 4;
-  const tailored = stage >= 6;
-
-  const replay = () => {
-    setStage(0);
-    setRun((r) => r + 1);
-  };
-
   return (
-    <div ref={rootRef}>
+    <div
+      ref={rootRef}
+      className="overflow-hidden rounded-[1.75rem] bg-surface shadow-[0_40px_100px_-50px_rgb(12_20_36/0.45)] ring-1 ring-rule"
+    >
       {/* The job */}
-      <div className="flex flex-col gap-3 rounded-2xl bg-surface px-5 py-4 ring-1 ring-rule sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-ink">
-          <span className="text-slate">Applying to </span>
-          <span className="font-display font-semibold">ML Engineering Intern</span>
-          <span className="text-slate"> · Fintech, Toronto</span>
-        </p>
+      <div className="flex flex-col gap-4 border-b border-rule px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+        <div className="flex items-center gap-3">
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-ink text-white">
+            <Mark className="size-6" />
+          </span>
+          <div>
+            <p className="font-display text-lg leading-tight font-semibold">ML Engineering Intern</p>
+            <p className="text-sm text-slate">Fintech · Toronto</p>
+          </div>
+        </div>
         <ul className="flex flex-wrap gap-2" aria-label="What the job asks for">
           {keywords.map((k, i) => (
             <li
               key={k}
               className={cn(
                 "rounded-full px-3 py-1 text-sm ring-1 transition-colors duration-500",
-                stage >= 1 ? "bg-cobalt-wash text-cobalt-deep ring-transparent" : "text-slate ring-rule",
+                phase >= 1 ? "bg-cobalt-wash text-cobalt-deep ring-transparent" : "text-slate ring-rule",
               )}
-              style={{ transitionDelay: stage >= 1 ? `${i * 0.2}s` : "0s" }}
+              style={{ transitionDelay: phase >= 1 ? `${i * 0.15}s` : "0s" }}
             >
               {k}
             </li>
@@ -268,191 +318,139 @@ export function Optimizer() {
         </ul>
       </div>
 
-      <div className="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_5.5rem_1fr] lg:gap-4">
-        {/* Before */}
-        <div>
-          <PageLabel label="Your resume" score={62} />
-          <div className="relative rounded-xl bg-surface p-6 shadow-[0_2px_0_rgb(12_20_36/0.03),0_20px_50px_-28px_rgb(12_20_36/0.4)] ring-1 ring-rule sm:p-7" ref={pageRef}>
+      {/* Before and after */}
+      <div className="grid bg-paper lg:grid-cols-2">
+        <div className="p-5 sm:p-8">
+          <PageLabel label="Your resume" fit={62} />
+          <div ref={pageRef} className={cn(pageClass, "ring-rule")}>
             <ResumeBody variant="before" flagged={flagged} targetRefs={targetRefs} />
 
-            <AnimatePresence>
-              {showLens && pageWidth > 0 && (
+            {pageWidth > 0 && (
+              <div
+                ref={lensRef}
+                aria-hidden
+                className="pointer-events-none absolute top-0 left-0 z-10"
+              >
                 <motion.div
-                  aria-hidden
-                  className="pointer-events-none absolute top-0 left-0 z-10"
-                  style={{ x: lensX, y: lensY }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.3 }}
+                  className="relative"
+                  style={{ width: LENS, height: LENS }}
+                  initial={false}
+                  animate={lensOn ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.85 }}
+                  transition={{ duration: 0.25 }}
                 >
-                  <div className="relative" style={{ width: LENS, height: LENS }}>
-                    <span className="absolute right-[-26px] bottom-[-26px] h-11 w-3.5 origin-top -rotate-45 rounded-full bg-ink" />
-                    <div className="absolute inset-0 overflow-hidden rounded-full bg-surface shadow-[0_14px_30px_-10px_rgb(12_20_36/0.55)] ring-[5px] ring-ink">
-                      <motion.div
-                        className="absolute top-0 left-0 p-6 sm:p-7"
-                        style={{ width: pageWidth, transform: inner, transformOrigin: "0 0" }}
-                      >
-                        <ResumeBody variant="before" flagged={flagged} />
-                      </motion.div>
-                      <span className="absolute inset-0 rounded-full bg-gradient-to-br from-white/40 via-transparent to-transparent" />
+                  <span className="absolute right-[-22px] bottom-[-22px] h-10 w-3 origin-top -rotate-45 rounded-full bg-ink" />
+                  <div className="absolute inset-0 overflow-hidden rounded-full bg-surface shadow-[0_14px_30px_-10px_rgb(12_20_36/0.55)] ring-4 ring-ink">
+                    <div
+                      ref={zoomRef}
+                      className="absolute top-0 left-0 p-6 sm:p-7"
+                      style={{ width: pageWidth, transformOrigin: "0 0" }}
+                    >
+                      <ResumeBody variant="before" flagged={flagged} />
                     </div>
+                    <span className="absolute inset-0 rounded-full bg-gradient-to-br from-white/35 via-transparent to-transparent" />
                   </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-
-        {/* Optimizer */}
-        <div className="flex items-center justify-center gap-3 lg:flex-col lg:self-center">
-          <motion.div
-            className={cn(
-              "grid size-16 shrink-0 place-items-center rounded-full bg-ink text-white shadow-[0_10px_30px_-10px_rgb(12_20_36/0.6)] transition-transform duration-300",
-              stage === 5 && "scale-110",
+              </div>
             )}
-            animate={stage === 5 ? { rotate: 360 } : { rotate: 0 }}
-            transition={stage === 5 ? { duration: 1.2, repeat: Infinity, ease: "linear" } : { duration: 0.4 }}
-          >
-            <Mark className="size-8" />
-          </motion.div>
-          <p aria-live="polite" className="min-h-5 font-mono text-xs text-slate lg:text-center">
-            {statusText[stage]}
-          </p>
+          </div>
         </div>
 
-        {/* After */}
-        <div>
-          <PageLabel label="Tailored for this job" score={tailored ? 88 : null} highlight />
-          <div className="relative">
-            <div
-              className={cn(
-                "relative overflow-hidden rounded-xl bg-surface p-6 shadow-[0_2px_0_rgb(12_20_36/0.03),0_20px_50px_-28px_rgb(12_20_36/0.4)] ring-1 transition-opacity duration-500 sm:p-7",
-                tailored ? "opacity-100 ring-cobalt/40" : "opacity-45 ring-rule",
-              )}
-            >
-              <ResumeBody variant="after" flagged={[false, false, false]} revealed={tailored} />
-              {stage === 5 && (
-                <motion.span
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 h-16 bg-gradient-to-b from-transparent via-cobalt/20 to-transparent"
-                  initial={{ top: "-15%" }}
-                  animate={{ top: "105%" }}
-                  transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
-                />
-              )}
-            </div>
+        <div className="relative border-t border-rule p-5 sm:p-8 lg:border-t-0 lg:border-l">
+          {/* The optimizer sits on the seam between the two pages. */}
+          <motion.span
+            aria-hidden
+            className="absolute top-0 left-1/2 z-10 grid size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-ink text-white shadow-[0_10px_24px_-10px_rgb(12_20_36/0.6)] lg:top-1/2 lg:left-0"
+            animate={phase === 2 ? { rotate: 360 } : { rotate: 0 }}
+            transition={phase === 2 ? { duration: 1.1, repeat: Infinity, ease: "linear" } : { duration: 0.4 }}
+          >
+            <Mark className="size-7" />
+          </motion.span>
 
-            <AnimatePresence>
-              {stage >= 7 && (
-                <motion.figure
-                  initial={{ opacity: 0, y: -10, rotate: 6 }}
-                  animate={{ opacity: 1, y: 0, rotate: 3 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.5, ease }}
-                  className="relative mt-4 ml-auto w-52 rounded-lg sm:absolute sm:-right-4 sm:-bottom-14 sm:mt-0 bg-marker-soft px-3.5 py-2.5 shadow-[0_12px_28px_-14px_rgb(12_20_36/0.5)] sm:-right-4"
-                >
-                  <p className="flex items-center justify-between">
-                    <span className="rounded border-2 border-go px-1 text-[0.62rem] font-bold tracking-wide text-go uppercase">
-                      Approved
-                    </span>
-                    <span className="font-hand text-sm text-slate">Abishek</span>
-                  </p>
-                  <blockquote className="mt-1 font-hand leading-snug text-ink">
-                    “Lead with the deployed app in interviews.”
-                  </blockquote>
-                </motion.figure>
-              )}
-            </AnimatePresence>
+          <PageLabel
+            label={phase >= 4 ? "Approved by your coach" : "Tailored for this job"}
+            fit={tailored ? 88 : null}
+            approved={phase >= 4}
+            accent
+          />
+          <div
+            className={cn(
+              pageClass,
+              "overflow-hidden transition-[opacity,box-shadow] duration-500",
+              tailored ? "opacity-100" : "opacity-40",
+              phase >= 4 ? "ring-2 ring-go/60" : tailored ? "ring-cobalt/40" : "ring-rule",
+            )}
+          >
+            <ResumeBody variant="after" flagged={[false, false, false]} tailored={tailored} />
+            {phase === 2 && (
+              <motion.span
+                aria-hidden
+                className="pointer-events-none absolute inset-x-0 h-16 bg-gradient-to-b from-transparent via-cobalt/20 to-transparent"
+                initial={{ top: "-15%" }}
+                animate={{ top: "105%" }}
+                transition={{ duration: 0.9, repeat: Infinity, ease: "linear" }}
+              />
+            )}
           </div>
         </div>
       </div>
 
-      {/* Auto-apply */}
-      <div className="mt-8 rounded-2xl bg-surface p-5 ring-1 ring-rule sm:mt-20 sm:p-6">
-        <div className="flex flex-wrap items-baseline justify-between gap-2">
-          <p className="font-display text-lg font-semibold">Auto-apply</p>
-          <p className="text-sm text-slate">Jobs you approved, each with its own tailored resume</p>
-        </div>
-        <ul className="mt-4 grid gap-2 md:grid-cols-3">
-          {queue.map((job, i) => (
-            <QueueRow key={job.role} job={job} sent={stage >= 8} delay={i * 0.6} />
-          ))}
-        </ul>
+      {/* Progress */}
+      <div className="flex flex-col gap-4 border-t border-rule px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
+        <ol className="flex flex-wrap items-center gap-x-2 gap-y-2" aria-label="Progress">
+          {steps.map((label, i) => {
+            const n = i + 1;
+            const done = phase > n;
+            const current = phase === n;
+            return (
+              <li key={label} className="flex items-center gap-2">
+                <span
+                  className={cn(
+                    "grid size-6 place-items-center rounded-full text-xs transition-colors duration-300",
+                    done && "bg-ink text-white",
+                    current && "bg-cobalt text-white",
+                    !done && !current && "bg-paper-deep text-slate",
+                  )}
+                  aria-hidden
+                >
+                  {done ? <CheckGlyph className="size-3.5" /> : n}
+                </span>
+                <span className={cn("text-sm", done || current ? "font-medium text-ink" : "text-slate")}>
+                  {label}
+                  <span className="sr-only">{done ? " (done)" : current ? " (in progress)" : ""}</span>
+                </span>
+                {i < steps.length - 1 && <span aria-hidden className="mx-1 hidden h-px w-6 bg-rule sm:block" />}
+              </li>
+            );
+          })}
+        </ol>
       </div>
-
-      {stage >= 8 && !reduce && (
-        <button
-          type="button"
-          onClick={replay}
-          className="mt-4 text-sm font-medium text-cobalt hover:text-cobalt-deep"
-        >
-          Replay
-        </button>
-      )}
     </div>
   );
 }
 
-function PageLabel({ label, score, highlight = false }: { label: string; score: number | null; highlight?: boolean }) {
+function PageLabel({
+  label,
+  fit,
+  approved = false,
+  accent = false,
+}: {
+  label: string;
+  fit: number | null;
+  approved?: boolean;
+  accent?: boolean;
+}) {
   return (
-    <div className="mb-3 flex items-baseline justify-between px-1">
-      <p className="font-medium text-ink">{label}</p>
+    <div className="mb-3 flex items-center justify-between gap-3 px-1">
+      <p className={cn("flex items-center gap-1.5 font-medium", approved ? "text-go" : "text-ink")}>
+        {approved && <CheckGlyph className="size-4" />}
+        {label}
+      </p>
       <p className="text-sm text-slate">
         Fit{" "}
-        <span
-          className={cn(
-            "font-mono text-base font-semibold tabular-nums",
-            highlight && score !== null ? "text-cobalt" : "text-ink",
-          )}
-        >
-          {score ?? "—"}
+        <span className={cn("font-mono text-base font-semibold tabular-nums", accent && fit ? "text-cobalt" : "text-ink")}>
+          {fit ?? "—"}
         </span>
       </p>
     </div>
-  );
-}
-
-function QueueRow({ job, sent, delay }: { job: { role: string; org: string }; sent: boolean; delay: number }) {
-  const [applied, setApplied] = useState(false);
-
-  useEffect(() => {
-    if (!sent) {
-      const t = window.setTimeout(() => setApplied(false), 0);
-      return () => window.clearTimeout(t);
-    }
-    const t = window.setTimeout(() => setApplied(true), delay * 1000 + 400);
-    return () => window.clearTimeout(t);
-  }, [sent, delay]);
-
-  return (
-    <li className="flex items-center justify-between gap-3 rounded-xl bg-paper px-4 py-3">
-      <div className="min-w-0">
-        <p className="truncate font-medium text-ink">{job.role}</p>
-        <p className="truncate text-sm text-slate">{job.org}</p>
-      </div>
-      <AnimatePresence mode="wait" initial={false}>
-        {applied ? (
-          <motion.span
-            key="applied"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="inline-flex shrink-0 items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-xs font-medium text-white"
-          >
-            <CheckGlyph className="size-3" /> Applied
-          </motion.span>
-        ) : (
-          <motion.span
-            key="queued"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="shrink-0 rounded-full bg-surface px-2.5 py-1 text-xs text-slate ring-1 ring-rule"
-          >
-            {sent ? "Sending" : "Queued"}
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </li>
   );
 }

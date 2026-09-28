@@ -14,7 +14,7 @@ export default function PrivacyPage() {
   return (
     <article className="mx-auto max-w-[44rem] px-5 pt-14 pb-24 sm:px-8 md:pt-20">
       <p className="eyebrow">Last updated {updated}</p>
-      <h1 className="mt-5 font-display text-[clamp(2.4rem,6vw,3.8rem)] leading-[1] font-bold tracking-[-0.03em]">
+      <h1 className="text-display-l mt-5">
         Privacy
       </h1>
       <div className="mt-8 space-y-6 text-[1.05rem] leading-[1.75] text-ink-soft [&_h2]:mt-10 [&_h2]:font-display [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:text-ink">

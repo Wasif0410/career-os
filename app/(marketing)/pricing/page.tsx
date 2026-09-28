@@ -63,7 +63,7 @@ export default function PricingPage() {
 
       <section aria-labelledby="compare-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-28">
         <Reveal>
-          <h2 id="compare-title" className="font-display text-3xl font-bold tracking-[-0.02em] md:text-4xl">
+          <h2 id="compare-title" className="text-display-m">
             Compare plans
           </h2>
         </Reveal>
@@ -106,7 +106,7 @@ export default function PricingPage() {
       <section aria-labelledby="billing-faq" className="mx-auto max-w-6xl px-5 pb-24 sm:px-8 md:pb-32">
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <Reveal>
-            <h2 id="billing-faq" className="font-display text-3xl font-bold tracking-[-0.02em] md:text-4xl">
+            <h2 id="billing-faq" className="text-display-m">
               Billing questions
             </h2>
           </Reveal>

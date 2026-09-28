@@ -154,6 +154,44 @@ body {
     }
   }
 
+  /*
+   * Type scale. Every large heading on the site uses one of these three,
+   * so sizes stay consistent from page to page.
+   */
+  .text-display-xl,
+  .text-display-l,
+  .text-display-m {
+    font-family: var(--font-display);
+    font-weight: 700;
+    text-wrap: balance;
+  }
+  .text-display-xl {
+    font-size: clamp(2.75rem, 6.2vw, 4.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+  }
+  .text-display-l {
+    font-size: clamp(2.4rem, 5.2vw, 4rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .text-display-m {
+    font-size: clamp(2.1rem, 4.2vw, 3.25rem);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+  }
+  .text-lead {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--color-ink-soft);
+    text-wrap: pretty;
+  }
+  @media (min-width: 640px) {
+    .text-lead {
+      font-size: 1.25rem;
+    }
+  }
+
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.72rem;

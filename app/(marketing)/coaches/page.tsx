@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CoachPortrait, Experience } from "@/components/coaches/coach-card";
+import { CoachPortrait, CoachTopics } from "@/components/coaches/coach-card";
 import { SessionFlow } from "@/components/landing/coaches-section";
 import { PageHeader } from "@/components/ui/page-header";
 import { Reveal } from "@/components/ui/reveal";
@@ -9,7 +9,7 @@ import { coaches } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Coaches",
   description:
-    "Meet the Career OS coaches, Wasif Saeed and Abishek Naathan: eight tech internships between them, at AMD, RBC, Dayforce and more.",
+    "Meet the Career OS coaches, Wasif Saeed and Abishek Naathan. Between them: AMD, RBC, Dayforce, Achievers and more.",
   alternates: { canonical: "/coaches" },
 };
 
@@ -23,8 +23,8 @@ export default function CoachesPage() {
           </>
         }
       >
-        Eight tech internships between them. They&apos;ve been exactly where you are, and they built Career OS to get you
-        there faster.
+        We&apos;ve worked at AMD, RBC, Dayforce and Achievers, landing internship after internship. Now we help you do
+        the same.
       </PageHeader>
 
       <div className="mx-auto max-w-6xl space-y-5 px-5 sm:px-8">
@@ -32,36 +32,15 @@ export default function CoachesPage() {
           <Reveal key={coach.slug}>
             <article
               id={coach.slug}
-              className="grid gap-8 rounded-[1.6rem] bg-surface p-3 ring-1 ring-rule md:grid-cols-[0.9fr_1.1fr] md:gap-12"
+              className="grid overflow-hidden rounded-[1.75rem] bg-surface ring-1 ring-rule md:grid-cols-2"
             >
-              <CoachPortrait coach={coach} className={i % 2 ? "md:order-2" : undefined} />
-              <div className="flex flex-col px-3 pb-5 md:py-6 md:pr-8">
-                <h2 className="font-display text-4xl font-bold tracking-[-0.025em]">{coach.fullName}</h2>
-                <p className="mt-1 text-slate">{coach.program}</p>
-                <p className="mt-5 max-w-xl leading-relaxed text-ink-soft">{coach.bio}</p>
-                <p className="mt-3 text-ink-soft">{coach.builds}</p>
-
-                <Experience coach={coach} className="mt-6" />
-
-                {coach.highlights.length > 0 && (
-                  <ul className="mt-5 flex flex-wrap gap-2">
-                    {coach.highlights.map((h) => (
-                      <li key={h} className="rounded-full bg-paper px-3 py-1 text-sm ring-1 ring-rule">
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-
-                <ul className="mt-6 flex flex-wrap gap-2" aria-label={`${coach.name} coaches you on`}>
-                  {coach.coaches.map((topic) => (
-                    <li key={topic} className="rounded-full bg-marker-soft px-3 py-1 text-sm text-ink">
-                      {topic}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-auto pt-8">
+              <CoachPortrait coach={coach} className={i % 2 ? "md:order-2 md:aspect-auto" : "md:aspect-auto"} />
+              <div className="flex flex-col p-7 sm:p-10">
+                <p className="text-sm font-medium text-cobalt">{coach.focus}</p>
+                <h2 className="mt-1 font-display text-4xl font-bold tracking-[-0.025em]">{coach.fullName}</h2>
+                <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-soft">{coach.bio}</p>
+                <CoachTopics coach={coach} className="mt-6" />
+                <div className="mt-auto pt-9">
                   <ButtonLink href={coach.bookingUrl ?? "#waitlist"} variant="ink" arrow>
                     {coach.bookingUrl ? `Book 15 minutes with ${coach.name}` : "Join the waitlist"}
                   </ButtonLink>
@@ -72,15 +51,17 @@ export default function CoachesPage() {
         ))}
       </div>
 
-      <section aria-labelledby="session-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
+      <section aria-labelledby="session-title" className="mx-auto max-w-6xl px-5 py-28 sm:px-8 md:py-36">
         <Reveal className="max-w-2xl">
           <h2
             id="session-title"
-            className="font-display text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.02] font-bold tracking-[-0.03em]"
+            className="text-display-m"
           >
-            Sessions start where your data ends.
+            How a session works
           </h2>
-          <p className="mt-5 text-lg text-ink-soft">Software scores your resume. Your coach decides what matters.</p>
+          <p className="text-lead mt-5">
+            Software scores your resume. Your coach decides what matters.
+          </p>
         </Reveal>
         <Reveal className="mt-10">
           <SessionFlow />

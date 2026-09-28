@@ -20,11 +20,11 @@ export function WaitlistSection({ source }: { source: string }) {
           <Reveal>
             <h2
               id="waitlist-title"
-              className="font-display text-[clamp(2.4rem,6vw,4.4rem)] leading-[0.98] font-bold tracking-[-0.03em]"
+              className="text-display-l"
             >
               Start with your score.
             </h2>
-            <p className="mt-5 max-w-md text-lg leading-relaxed text-white/70">
+            <p className="text-lead mt-5 max-w-md text-white/70">
               Join the waitlist. We&apos;ll email you when your spot opens.
             </p>
           </Reveal>

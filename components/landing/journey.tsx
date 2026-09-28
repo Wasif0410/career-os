@@ -1,257 +1,369 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { ApplyGlyph, DiagnoseGlyph, GoalGlyph, ImproveGlyph, TrackGlyph } from "@/components/brand/glyphs";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
+import { CheckGlyph } from "@/components/brand/glyphs";
+import { Section } from "@/components/ui/section";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { cn } from "@/lib/utils";
 
-type Stage = {
-  Glyph: (p: { className?: string }) => React.ReactNode;
-  short: string;
-  title: string;
-  body: string;
-  give: string[];
-  score: number;
-  stat: string;
-  note: string;
-  coach: string;
-};
+const CYCLE_MS = 6500;
+const ease = [0.22, 1, 0.36, 1] as const;
 
-// One example student, followed from day one to an offer.
-const stages: Stage[] = [
+const phases = [
   {
-    Glyph: GoalGlyph,
-    short: "Target",
-    title: "Pick your target",
-    body: "Know exactly what you're aiming for, and when recruiting opens.",
-    give: ["Target setup", "Recruiting timeline", "Targeting guide"],
-    score: 34,
-    stat: "Target set: SWE intern, Summer 2027",
-    note: "Good pick. Postings open in September, so we have 8 weeks.",
-    coach: "Abishek",
+    title: "Pick a target you can win",
+    body: "Your coach helps you choose the role and season, and maps out when to apply.",
+    Visual: TargetVisual,
   },
   {
-    Glyph: DiagnoseGlyph,
-    short: "Gaps",
-    title: "Find your gaps",
-    body: "See how your resume compares to the role, and what to fix first.",
-    give: ["Resume score", "Ranked fixes", "Gap report"],
-    score: 48,
-    stat: "6 fixes found, 3 that matter most",
-    note: "Your projects are good. Your bullets hide them.",
-    coach: "Wasif",
+    title: "Close your gaps with a coach",
+    body: "A resume score, a weekly plan and 1-1 sessions show you exactly what to work on.",
+    Visual: ImproveVisual,
   },
   {
-    Glyph: ImproveGlyph,
-    short: "Improve",
-    title: "Close them with a coach",
-    body: "1-1 sessions and a weekly plan keep you moving, not guessing.",
-    give: ["1-1 coaching", "Weekly action plan", "Courses", "Project feedback"],
-    score: 71,
-    stat: "Plan: 5 of 6 tasks done this week",
-    note: "Tests are in. Next week: deploy it so people can use it.",
-    coach: "Abishek",
+    title: "Apply on autopilot",
+    body: "We send a tailored resume to every job you approve, and track every application.",
+    Visual: ApplyVisual,
   },
   {
-    Glyph: ApplyGlyph,
-    short: "Apply",
-    title: "Apply where you fit",
-    body: "Tailored resumes, sent to the jobs you approve. Every one tracked.",
-    give: ["Job matching", "Resume tailoring", "Auto-apply", "Application tracker"],
-    score: 86,
-    stat: "24 applied · 5 OAs · 2 interviews",
-    note: "5 OAs from 24 is strong. Let's prep for the interviews.",
-    coach: "Wasif",
-  },
-  {
-    Glyph: TrackGlyph,
-    short: "Offer",
-    title: "Interview and land it",
-    body: "Prep for OAs and interviews with coaches who've passed them.",
-    give: ["OA prep", "Interview coaching", "Guides"],
-    score: 92,
-    stat: "SWE intern, Summer 2027",
-    note: "Congrats. You earned this one.",
-    coach: "Abishek",
+    title: "Interview and get the offer",
+    body: "Your coach preps you for OAs and interviews until the offer comes in.",
+    Visual: OfferVisual,
   },
 ];
 
 export function Journey() {
+  const reduce = useReducedMotion();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(rootRef, { margin: "0px 0px -30% 0px" });
   const [active, setActive] = useState(0);
-  const refs = useRef<(HTMLLIElement | null)[]>([]);
+  const [hovering, setHovering] = useState(false);
+  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
+  const auto = !reduce && inView;
 
-  // The active step is the last one whose top has passed the middle of the screen.
+  // Keep stepping through the phases. Hovering pauses; picking one jumps there and the cycle continues.
   useEffect(() => {
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const line = window.innerHeight * 0.5;
-      let next = 0;
-      refs.current.forEach((el, i) => {
-        if (el && el.getBoundingClientRect().top < line) next = i;
-      });
-      setActive(next);
-    };
-    const onScroll = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
-    return () => {
-      cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onScroll);
-    };
-  }, []);
+    if (!auto || hovering) return;
+    const t = window.setTimeout(() => setActive((i) => (i + 1) % phases.length), CYCLE_MS);
+    return () => window.clearTimeout(t);
+  }, [active, auto, hovering]);
+
+  const select = (i: number, focus = false) => {
+    setActive(i);
+    if (focus) tabs.current[i]?.focus();
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    const last = phases.length - 1;
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") select(active === last ? 0 : active + 1, true);
+    else if (e.key === "ArrowUp" || e.key === "ArrowLeft") select(active === 0 ? last : active - 1, true);
+    else return;
+    e.preventDefault();
+  };
+
+  const { Visual } = phases[active];
 
   return (
-    <section id="journey" aria-labelledby="journey-title" className="border-y border-rule bg-surface">
-      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
-        <div className="max-w-2xl">
-          <h2
-            id="journey-title"
-            className="font-display text-[clamp(2.2rem,5vw,3.8rem)] leading-[1] font-bold tracking-[-0.035em]"
+    <Section id="journey" labelledBy="journey-title" tone="surface">
+        <SectionHeading
+          id="journey-title"
+          title={
+            <>
+              We guide you <span className="marker">the whole way</span>
+            </>
+          }
+          lead="From picking a target to signing an offer, you never do it alone."
+        />
+
+        <div
+          ref={rootRef}
+          onPointerEnter={() => setHovering(true)}
+          onPointerLeave={() => setHovering(false)}
+          className="mt-16 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-10"
+        >
+          <div
+            role="tablist"
+            aria-orientation="vertical"
+            aria-label="How Career OS guides you"
+            onKeyDown={onKeyDown}
+            className="flex flex-col gap-2 lg:justify-center"
           >
-            From your first resume to <span className="marker">your first offer.</span>
-          </h2>
-          <p className="mt-5 text-lg text-ink-soft">
-            We guide you through every step, and give you what you need at each one.
-          </p>
-        </div>
+            {phases.map((p, i) => {
+              const selected = i === active;
+              return (
+                <button
+                  key={p.title}
+                  ref={(el) => {
+                    tabs.current[i] = el;
+                  }}
+                  role="tab"
+                  id={`journey-tab-${i}`}
+                  aria-selected={selected}
+                  aria-controls="journey-panel"
+                  tabIndex={selected ? 0 : -1}
+                  onClick={() => select(i)}
+                  className={cn(
+                    "relative overflow-hidden rounded-2xl px-5 py-4 text-left transition-colors duration-300",
+                    selected ? "bg-paper ring-1 ring-rule" : "hover:bg-paper/60",
+                  )}
+                >
+                  <span className="flex items-center gap-4">
+                    <span
+                      className={cn(
+                        "grid size-8 shrink-0 place-items-center rounded-full font-mono text-sm transition-colors duration-300",
+                        selected ? "bg-ink text-white" : "bg-paper-deep text-slate",
+                      )}
+                    >
+                      {i + 1}
+                    </span>
+                    <span
+                      className={cn(
+                        "font-display text-xl font-semibold tracking-[-0.015em] transition-colors",
+                        !selected && "text-ink/55",
+                      )}
+                    >
+                      {p.title}
+                    </span>
+                  </span>
+                  <AnimatePresence initial={false}>
+                    {selected && (
+                      <motion.span
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.35, ease }}
+                        className="block overflow-hidden pl-12 text-ink-soft"
+                      >
+                        <span className="block pt-2">{p.body}</span>
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                  {selected && auto && (
+                    <motion.span
+                      key={`bar-${active}`}
+                      aria-hidden
+                      className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-cobalt"
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: hovering ? 0 : 1 }}
+                      transition={{ duration: hovering ? 0 : CYCLE_MS / 1000, ease: "linear" }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
 
-        <div className="mt-16 grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-20">
-          <ol className="relative">
-            <span aria-hidden className="absolute top-6 bottom-6 left-[1.4rem] w-px bg-rule" />
-            {stages.map((stage, i) => (
-              <li
-                key={stage.title}
-                ref={(el) => {
-                  refs.current[i] = el;
-                }}
-                data-index={i}
-                className="relative grid grid-cols-[2.8rem_1fr] gap-5 pb-14 last:pb-0 lg:min-h-[21rem] lg:pb-0"
+          <div
+            id="journey-panel"
+            role="tabpanel"
+            aria-labelledby={`journey-tab-${active}`}
+            className="relative isolate grid min-h-[25rem] place-items-center overflow-hidden rounded-[1.75rem] bg-paper p-5 ring-1 ring-rule sm:min-h-[29rem] sm:p-10"
+          >
+            <div aria-hidden className="paper-grid absolute inset-0 -z-10 opacity-70" />
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 14, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.4, ease }}
+                className="w-full max-w-md"
               >
-                <span
-                  className={cn(
-                    "relative z-10 grid size-11 place-items-center rounded-full ring-1 transition-colors duration-500",
-                    i <= active ? "bg-ink text-white ring-ink" : "bg-surface text-ink ring-rule-strong",
-                  )}
-                >
-                  <stage.Glyph className="size-5" />
-                </span>
-                <div
-                  className={cn(
-                    "pt-1 transition-opacity duration-500",
-                    i === active ? "opacity-100" : "opacity-100 lg:opacity-45",
-                  )}
-                >
-                  <p className="font-mono text-sm text-slate">Step {i + 1}</p>
-                  <h3 className="mt-1 font-display text-[1.75rem] leading-tight font-bold tracking-[-0.02em]">
-                    {stage.title}
-                  </h3>
-                  <p className="mt-2 max-w-md text-lg text-ink-soft">{stage.body}</p>
-                  <p className="mt-5 text-sm font-medium text-ink">What you get</p>
-                  <ul className="mt-2 flex flex-wrap gap-2">
-                    {stage.give.map((g) => (
-                      <li key={g} className="rounded-full bg-cobalt-wash px-3 py-1 text-sm text-cobalt-deep">
-                        {g}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          <div className="hidden lg:block">
-            <div className="sticky top-28">
-              <ProgressCard active={active} />
-            </div>
+                <Visual />
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
-      </div>
-    </section>
+    </Section>
   );
 }
 
-function ProgressCard({ active }: { active: number }) {
-  const reduce = useReducedMotion();
-  const stage = stages[active];
-  const done = active === stages.length - 1;
+/* One clean card per phase. Example data only. */
 
+function Card({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className="rounded-[1.4rem] bg-paper p-2 ring-1 ring-rule">
-      <div className="rounded-[1.1rem] bg-surface p-6 shadow-[0_24px_60px_-30px_rgb(12_20_36/0.35)] ring-1 ring-rule">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-display text-lg font-semibold">Maya&apos;s progress</p>
-            <p className="text-sm text-slate">Target: SWE intern, Summer 2027</p>
+    <div
+      className={cn(
+        "rounded-2xl bg-surface p-6 shadow-[0_24px_60px_-30px_rgb(12_20_36/0.35)] ring-1 ring-rule",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+function TargetVisual() {
+  const milestones = [
+    { label: "Resume ready", done: true },
+    { label: "Applications open", done: false },
+    { label: "Interviews", done: false },
+  ];
+  return (
+    <Card>
+      <p className="text-sm text-slate">Your target</p>
+      <p className="mt-1 font-display text-3xl font-bold tracking-[-0.02em]">SWE intern</p>
+      <p className="text-lg text-ink-soft">Summer 2027 · Toronto or remote</p>
+      <div className="mt-7 grid grid-cols-3 gap-2">
+        {milestones.map((m, i) => (
+          <div key={m.label}>
+            <motion.div
+              className={cn("h-1.5 origin-left rounded-full", m.done ? "bg-cobalt" : "bg-paper-deep")}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.12, ease }}
+            />
+            <p className={cn("mt-2 text-sm", m.done ? "text-ink" : "text-slate")}>{m.label}</p>
           </div>
-          <p className="text-right">
-            <motion.span
-              key={stage.score}
-              initial={reduce ? false : { opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="block font-mono text-4xl font-semibold tabular-nums text-ink"
-            >
-              {stage.score}
-            </motion.span>
-            <span className="text-xs text-slate">readiness</span>
-          </p>
-        </div>
+        ))}
+      </div>
+      <p className="mt-6 -rotate-1 font-hand text-lg leading-snug text-ink">
+        <span className="marker">Applications open in 6 weeks.</span> Let&apos;s get your resume ready first.
+      </p>
+      <p className="mt-1 -rotate-1 font-hand text-slate">— Your coach</p>
+    </Card>
+  );
+}
 
-        {/* Milestones */}
-        <div className="relative mt-7">
-          {/* Dots sit at the centre of 5 equal columns, so the track runs from 10% to 90%. */}
-          <div className="absolute top-[0.6rem] right-[10%] left-[10%] h-1 rounded-full bg-paper-deep" />
-          <motion.div
-            className="absolute top-[0.6rem] left-[10%] h-1 rounded-full bg-cobalt"
-            initial={false}
-            animate={{ width: `${(active / (stages.length - 1)) * 80}%` }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          />
-          <ol className="relative grid grid-cols-5">
-            {stages.map((s, i) => (
-              <li key={s.short} className="flex flex-col items-center gap-2">
-                <span
-                  className={cn(
-                    "grid size-6 place-items-center rounded-full border-2 transition-colors duration-500",
-                    i <= active ? "border-cobalt bg-cobalt" : "border-rule-strong bg-surface",
-                    i === stages.length - 1 && i <= active && "border-marker bg-marker",
-                  )}
-                />
-                <span className={cn("text-xs", i <= active ? "text-ink" : "text-slate")}>{s.short}</span>
+function ImproveVisual() {
+  const tasks = ["Cut your resume to one page", "Deploy your ML project", "Add results to 3 bullets"];
+  const circumference = 2 * Math.PI * 34;
+  return (
+    <Card>
+      <div className="flex items-center gap-5">
+        <div className="relative size-20 shrink-0">
+          <svg viewBox="0 0 80 80" className="size-20 -rotate-90" aria-hidden>
+            <circle cx="40" cy="40" r="34" fill="none" strokeWidth="7" className="stroke-paper-deep" />
+            <motion.circle
+              cx="40"
+              cy="40"
+              r="34"
+              fill="none"
+              strokeWidth="7"
+              strokeLinecap="round"
+              className="stroke-cobalt"
+              strokeDasharray={circumference}
+              initial={{ strokeDashoffset: circumference * (1 - 0.48) }}
+              animate={{ strokeDashoffset: circumference * (1 - 0.81) }}
+              transition={{ duration: 1.4, delay: 0.3, ease }}
+            />
+          </svg>
+          <span className="absolute inset-0 grid place-items-center font-mono text-xl font-semibold">81</span>
+        </div>
+        <div>
+          <p className="font-display text-xl font-semibold">Readiness up 33 points</p>
+          <p className="text-slate">After three weeks with your coach</p>
+        </div>
+      </div>
+      <div className="mt-6 rounded-xl bg-marker-soft p-4">
+        <p className="font-hand text-lg font-bold">This week</p>
+        <ul className="mt-1 space-y-1">
+          {tasks.map((t, i) => {
+            const done = i < 2;
+            return (
+              <li key={t} className="flex items-center gap-2.5 font-hand text-lg text-ink">
+                <motion.span
+                  className="grid size-4 shrink-0 place-items-center rounded border-2 border-ink/70"
+                  initial={{ backgroundColor: "rgba(12, 20, 36, 0)" }}
+                  animate={{ backgroundColor: done ? "rgba(12, 20, 36, 1)" : "rgba(12, 20, 36, 0)" }}
+                  transition={{ delay: 0.6 + i * 0.4 }}
+                >
+                  {done && <CheckGlyph className="size-3 text-white" />}
+                </motion.span>
+                <span className={cn(done && "text-ink/60 line-through")}>{t}</span>
               </li>
-            ))}
-          </ol>
-        </div>
+            );
+          })}
+        </ul>
+      </div>
+    </Card>
+  );
+}
 
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={active}
-            initial={reduce ? false : { opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+function ApplyVisual() {
+  const jobs = [
+    { role: "Software Engineer Intern", org: "Fintech · Toronto", fit: 91, status: "Applied" },
+    { role: "Backend Intern", org: "Cloud startup · Remote", fit: 86, status: "Applied" },
+    { role: "Platform Intern", org: "Bank · Toronto", fit: 82, status: "Applying" },
+    { role: "Full-stack Intern", org: "SaaS · Waterloo", fit: 79, status: "Queued" },
+  ];
+  return (
+    <Card className="p-4 sm:p-5">
+      <div className="flex items-center justify-between gap-4 px-1 pb-3">
+        <p className="font-display text-lg font-semibold">Auto-apply</p>
+        <p className="text-sm text-slate">Tailored resume on each</p>
+      </div>
+      <ul className="space-y-1.5">
+        {jobs.map((j, i) => (
+          <motion.li
+            key={j.role}
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 + i * 0.1, ease }}
+            className="flex items-center gap-3 rounded-xl bg-paper px-3 py-2.5"
           >
-            <div
+            <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-cobalt-wash font-mono text-sm font-semibold text-cobalt-deep">
+              {j.fit}
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block truncate font-medium">{j.role}</span>
+              <span className="block truncate text-sm text-slate">{j.org}</span>
+            </span>
+            <span
               className={cn(
-                "mt-7 rounded-xl px-4 py-3.5 font-medium",
-                done ? "bg-ink text-white" : "bg-paper text-ink ring-1 ring-rule",
+                "shrink-0 rounded-full px-2.5 py-1 text-xs font-medium",
+                j.status === "Applied" && "bg-ink text-white",
+                j.status === "Applying" && "bg-cobalt text-white",
+                j.status === "Queued" && "bg-surface text-slate ring-1 ring-rule",
               )}
             >
-              {done && <span className="mr-2 rounded bg-marker px-1.5 py-0.5 text-sm text-ink">Offer</span>}
-              {stage.stat}
-            </div>
+              {j.status}
+            </span>
+          </motion.li>
+        ))}
+      </ul>
+    </Card>
+  );
+}
 
-            <figure className="mt-5 -rotate-1 rounded-xl bg-marker-soft p-4">
-              <blockquote className="font-hand text-[1.1rem] leading-snug text-ink">“{stage.note}”</blockquote>
-              <figcaption className="mt-1 font-hand text-slate">— {stage.coach}, coach</figcaption>
-            </figure>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-    </div>
+function OfferVisual() {
+  const funnel = [
+    { label: "Applied", value: 24 },
+    { label: "OAs", value: 6 },
+    { label: "Interviews", value: 3 },
+    { label: "Offers", value: 1 },
+  ];
+  return (
+    <Card>
+      <ul className="space-y-3">
+        {funnel.map((f, i) => (
+          <li key={f.label} className="grid grid-cols-[5.5rem_1fr_1.5rem] items-center gap-3">
+            <span className="text-sm text-slate">{f.label}</span>
+            <span className="h-2.5 overflow-hidden rounded-full bg-paper-deep">
+              <motion.span
+                className={cn("block h-full rounded-full", i === funnel.length - 1 ? "bg-marker" : "bg-cobalt")}
+                initial={{ width: 0 }}
+                animate={{ width: `${Math.max(6, (f.value / funnel[0].value) * 100)}%` }}
+                transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease }}
+              />
+            </span>
+            <span className="text-right font-mono text-sm font-semibold tabular-nums">{f.value}</span>
+          </li>
+        ))}
+      </ul>
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.5, ease }}
+        className="mt-6 flex items-center justify-between gap-4 rounded-xl bg-ink px-5 py-4 text-white"
+      >
+        <div>
+          <p className="text-sm text-white/60">Offer received</p>
+          <p className="font-display text-xl font-semibold">SWE Intern, Summer 2027</p>
+        </div>
+        <span className="rounded-md bg-marker px-2 py-1 text-sm font-semibold text-ink">Accepted</span>
+      </motion.div>
+    </Card>
   );
 }

@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { ApplyGlyph, ArrowGlyph, BookGlyph, DiagnoseGlyph, GoalGlyph, TrackGlyph } from "@/components/brand/glyphs";
 import { Reveal } from "@/components/ui/reveal";
+import { Section } from "@/components/ui/section";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { coaches } from "@/lib/site";
 
 const services = [
@@ -13,20 +15,17 @@ const services = [
 
 export function Services() {
   return (
-    <section aria-labelledby="services-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
-      <Reveal>
-        <h2
-          id="services-title"
-          className="max-w-2xl font-display text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.02] font-bold tracking-[-0.03em]"
-        >
-          Everything you need to get hired
-        </h2>
-      </Reveal>
+    <Section labelledBy="services-title">
+      <SectionHeading
+        id="services-title"
+        title="Everything you need to land the internship"
+        lead="Real coaches and smart software, in one place."
+      />
 
-      <div className="mt-12 grid gap-4 md:grid-cols-3">
+      <div className="mt-16 grid gap-4 md:grid-cols-3">
         {/* Coaching leads. It's the thing software can't do. */}
         <Reveal className="md:col-span-2 md:row-span-2">
-          <article className="relative flex h-full flex-col overflow-hidden rounded-[1.4rem] bg-ink p-7 text-white md:p-9">
+          <article className="relative flex h-full flex-col overflow-hidden rounded-[1.75rem] bg-ink p-7 text-white md:p-10">
             <div className="flex -space-x-3">
               {coaches.map((c) => (
                 <span
@@ -38,21 +37,32 @@ export function Services() {
                 </span>
               ))}
             </div>
-            <h3 className="mt-7 font-display text-[clamp(2rem,4vw,3rem)] leading-none font-bold tracking-[-0.03em]">
+            <h3 className="text-display-m mt-7">
               1-1 coaching
             </h3>
             <p className="mt-4 max-w-md text-lg leading-relaxed text-white/75">
-              Real sessions with {coaches.map((c) => c.name).join(" or ")}. They find your top 3 gaps and write your
+              Sessions with coaches who&apos;ve landed the internships you want. They find your gaps and build your
               plan.
             </p>
 
-            <div className="mt-8 w-full max-w-sm -rotate-1 rounded-xl bg-marker-soft p-5 font-hand text-[1.1rem] leading-relaxed text-ink md:mt-auto">
-              <p className="font-bold">This week</p>
-              <p>
-                <span className="line-through decoration-2">Cut resume to one page</span>
-              </p>
-              <p>Add tests to your best repo</p>
-              <p>Apply to the 6 roles we approved</p>
+            {/* A session, prepared before you join. Example only. */}
+            <div className="mt-auto w-full max-w-sm pt-8">
+            <div className="rounded-2xl bg-surface p-5 text-ink shadow-[0_20px_40px_-20px_rgb(0_0_0/0.5)]">
+              <div className="flex items-center justify-between gap-3">
+                <p className="font-display text-lg font-semibold">Your next session</p>
+                <p className="text-sm text-slate">Thu · 6:00 PM</p>
+              </div>
+              <ol className="mt-3 space-y-2 border-t border-rule pt-3">
+                {["Rewrite your project bullets", "Pick 10 roles to apply to", "Plan your OA prep"].map((item, i) => (
+                  <li key={item} className="flex items-center gap-3 text-[0.95rem]">
+                    <span className="grid size-5 shrink-0 place-items-center rounded-full bg-marker text-xs font-semibold">
+                      {i + 1}
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ol>
+            </div>
             </div>
 
             <Link
@@ -67,7 +77,7 @@ export function Services() {
 
         {services.map(({ Glyph, title, body }, i) => (
           <Reveal key={title} delay={0.05 * (i + 1)}>
-            <article className="h-full rounded-[1.4rem] bg-surface p-6 ring-1 ring-rule">
+            <article className="h-full rounded-[1.75rem] bg-surface p-7 ring-1 ring-rule">
               <Glyph className="size-7 text-ink" />
               <h3 className="mt-5 font-display text-xl font-semibold tracking-[-0.01em]">{title}</h3>
               <p className="mt-1.5 text-ink-soft">{body}</p>
@@ -75,6 +85,6 @@ export function Services() {
           </Reveal>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
