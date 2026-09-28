@@ -12,7 +12,7 @@ export default function MarketingLayout({ children }: { children: React.ReactNod
         Skip to content
       </a>
       <SiteHeader />
-      <main id="main" className="flex-1">
+      <main id="main" className="flex-1 pt-16">
         {children}
       </main>
       <WaitlistSection source="footer-cta" />
