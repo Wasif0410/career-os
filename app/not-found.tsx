@@ -10,7 +10,7 @@ export default function NotFound() {
       </Link>
       <div className="flex flex-1 flex-col items-start justify-center py-24">
         <p className="font-mono text-sm text-slate">status: 404 · page not found</p>
-        <h1 className="mt-4 font-display text-[clamp(2.6rem,7vw,4.8rem)] leading-[0.98] font-bold tracking-[-0.035em]">
+        <h1 className="text-display-l mt-4">
           This page isn&apos;t on the plan.
         </h1>
         <p className="mt-5 max-w-md text-lg text-ink-soft">The link may be old, or the address has a typo.</p>

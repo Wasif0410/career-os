@@ -12,10 +12,10 @@ export function PageHeader({
         className="paper-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_60%_80%_at_20%_0%,black,transparent)]"
       />
       <div className="anim-fade-up mx-auto max-w-6xl px-5 pt-14 pb-14 sm:px-8 md:pt-20 md:pb-20">
-        <h1 className="max-w-4xl font-display text-[clamp(2.5rem,6.4vw,4.6rem)] leading-[0.98] font-bold tracking-[-0.035em]">
+        <h1 className="text-display-l max-w-4xl">
           {title}
         </h1>
-        {children && <div className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">{children}</div>}
+        {children && <div className="text-lead mt-6 max-w-2xl">{children}</div>}
       </div>
     </header>
   );

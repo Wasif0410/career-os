@@ -5,7 +5,8 @@ import { buttonClass } from "@/components/ui/button";
 import { tiers } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function TierCards() {
+/** `tone` is the background the cards sit on, so plain cards always contrast with it. */
+export function TierCards({ tone = "paper" }: { tone?: "paper" | "surface" }) {
   return (
     <div className="grid gap-4 lg:grid-cols-3">
       {tiers.map((tier, i) => {
@@ -14,8 +15,8 @@ export function TierCards() {
           <Reveal key={tier.id} delay={i * 0.07} className="h-full">
             <article
               className={cn(
-                "relative flex h-full flex-col rounded-[1.4rem] p-7",
-                featured ? "bg-ink text-white" : "bg-surface ring-1 ring-rule",
+                "relative flex h-full flex-col rounded-[1.75rem] p-8",
+                featured ? "bg-ink text-white" : cn(tone === "surface" ? "bg-paper" : "bg-surface", "ring-1 ring-rule"),
               )}
             >
               {featured && (
