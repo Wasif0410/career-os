@@ -6,16 +6,19 @@ import { cn } from "@/lib/utils";
 
 export type FaqItem = { q: string; a: React.ReactNode };
 
-export function Faq({ items }: { items: FaqItem[] }) {
+export function Faq({ items, tone = "light" }: { items: FaqItem[]; tone?: "light" | "dark" }) {
   const [open, setOpen] = useState<number | null>(0);
   const id = useId();
+  const dark = tone === "dark";
 
   return (
-    <ul className="border-t border-rule">
+    <ul className={cn("border-t", dark ? "border-white/10" : "border-rule")}>
       {items.map((item, i) => {
         const expanded = open === i;
+        // The plus/minus strokes invert with the filled circle.
+        const bar = expanded ? (dark ? "bg-ink" : "bg-white") : dark ? "bg-white" : "bg-ink";
         return (
-          <li key={item.q} className="border-b border-rule">
+          <li key={item.q} className={cn("border-b", dark ? "border-white/10" : "border-rule")}>
             <h3>
               <button
                 type="button"
@@ -23,22 +26,23 @@ export function Faq({ items }: { items: FaqItem[] }) {
                 aria-expanded={expanded}
                 aria-controls={`${id}-a-${i}`}
                 onClick={() => setOpen(expanded ? null : i)}
-                className="flex w-full items-center justify-between gap-6 py-5 text-left font-display text-lg font-semibold tracking-[-0.01em] transition-colors hover:text-cobalt-deep sm:text-xl"
+                className={cn(
+                  "flex w-full items-center justify-between gap-6 py-6 text-left font-display text-[1.35rem] leading-snug tracking-[-0.01em] transition-colors sm:text-[1.6rem]",
+                  dark ? "text-white hover:text-sky" : "hover:text-cobalt-deep",
+                )}
               >
                 {item.q}
                 <span
                   aria-hidden
                   className={cn(
-                    "relative grid size-8 shrink-0 place-items-center rounded-full ring-1 ring-rule-strong transition-colors",
-                    expanded && "bg-ink ring-ink",
+                    "relative grid size-8 shrink-0 place-items-center rounded-full ring-1 transition-colors",
+                    dark ? "ring-white/20" : "ring-rule-strong",
+                    expanded && (dark ? "bg-white ring-white" : "bg-cobalt ring-cobalt"),
                   )}
                 >
-                  <span className={cn("absolute h-[1.5px] w-3 bg-ink", expanded && "bg-white")} />
+                  <span className={cn("absolute h-[1.5px] w-3", bar)} />
                   <span
-                    className={cn(
-                      "absolute h-3 w-[1.5px] bg-ink transition-transform duration-300",
-                      expanded && "scale-y-0 bg-white",
-                    )}
+                    className={cn("absolute h-3 w-[1.5px] transition-transform duration-300", bar, expanded && "scale-y-0")}
                   />
                 </span>
               </button>
@@ -55,7 +59,9 @@ export function Faq({ items }: { items: FaqItem[] }) {
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className="max-w-2xl pb-6 leading-relaxed text-ink-soft">{item.a}</div>
+                  <div className={cn("max-w-2xl pb-7 text-[1.02rem] leading-relaxed", dark ? "text-white/65" : "text-ink-soft")}>
+                    {item.a}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
