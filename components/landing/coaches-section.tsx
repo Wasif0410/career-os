@@ -1,5 +1,7 @@
 import { CoachCard } from "@/components/coaches/coach-card";
 import { Reveal } from "@/components/ui/reveal";
+import { Section } from "@/components/ui/section";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { coaches } from "@/lib/site";
 
 export function SessionFlow() {
@@ -22,31 +24,20 @@ export function SessionFlow() {
 
 export function CoachesSection() {
   return (
-    <section id="coaches" aria-labelledby="coaches-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
-      <Reveal className="max-w-2xl">
-        <h2
-          id="coaches-title"
-          className="font-display text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.02] font-bold tracking-[-0.03em]"
-        >
-          Our coaches
-        </h2>
-        <p className="mt-5 text-lg text-ink-soft">
-          Eight tech internships between them, at AMD, RBC, Dayforce and more. They&apos;ve been exactly where you
-          are.
-        </p>
-      </Reveal>
+    <Section id="coaches" labelledBy="coaches-title">
+      <SectionHeading
+        id="coaches-title"
+        title="Our coaches"
+        lead="We've worked at AMD, RBC, Dayforce and Achievers, landing internship after internship. Now we help you do the same."
+      />
 
-      <div className="mt-12 grid gap-5 md:grid-cols-2">
+      <div className="mt-16 grid gap-5 md:grid-cols-2">
         {coaches.map((coach, i) => (
-          <Reveal key={coach.slug} delay={i * 0.08}>
+          <Reveal key={coach.slug} delay={i * 0.08} className="h-full">
             <CoachCard coach={coach} />
           </Reveal>
         ))}
       </div>
-
-      <Reveal className="mt-5">
-        <SessionFlow />
-      </Reveal>
-    </section>
+    </Section>
   );
 }

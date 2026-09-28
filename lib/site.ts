@@ -47,42 +47,29 @@ export type Coach = {
   name: string;
   fullName: string;
   initials: string;
-  role: string;
-  program: string;
-  /** One line under the name: what they've done. */
-  headline: string;
-  builds: string;
-  experience: { org: string; role: string }[];
-  coaches: string[];
+  /** What they know best, in a few words. */
+  focus: string;
+  /** Where they've worked. Shown as a row of names. */
+  companies: string[];
   bio: string;
-  /** Short, verifiable facts. Rendered only when filled in. */
-  highlights: string[];
+  coaches: string[];
   /** Path under /public, e.g. "/coaches/wasif.jpg". Falls back to a monogram. */
   photo?: string;
   /** Cal.com link for a 15-minute intro call. Falls back to the waitlist. */
   bookingUrl?: string;
 };
 
-// Sources: Wasif's ML/AI resume and Abishek's LinkedIn profile (September 2026).
+// Sources: Wasif (directly) and Abishek's LinkedIn profile, September 2026. No schools, by request.
 export const coaches: Coach[] = [
   {
     slug: "wasif",
     name: "Wasif",
     fullName: "Wasif Saeed",
     initials: "W",
-    role: "Co-founder · Coach",
-    program: "Computer Science (Co-op), Toronto Metropolitan University",
-    headline: "Four internships in AI and software, most recently building GenAI and LLM systems at Dayforce.",
-    builds: "Builds the Career OS platform.",
-    experience: [
-      { org: "Dayforce", role: "Product & AI Developer Intern" },
-      { org: "IQonsulting", role: "Applied AI Developer Intern" },
-      { org: "Saige", role: "Software Developer Intern, ML/AI" },
-      { org: "RCMP", role: "Junior Programmer Analyst" },
-    ],
-    coaches: ["ML and AI roles", "Resumes that show results", "Projects worth listing"],
-    bio: "Wasif has spent co-op terms building LLM agents, RAG pipelines and computer vision models, and deploying them for real users. Wasif coaches students aiming for ML and AI roles on the projects, resumes and plans that get them there.",
-    highlights: ["Dean's List", "Exchange scholar, Chung-Ang University"],
+    focus: "AI and machine learning",
+    companies: ["Dayforce", "Achievers", "AI research"],
+    bio: "Wasif focuses on AI and ML: building GenAI systems at Dayforce, working as an AI researcher, and engineering software at Achievers.",
+    coaches: ["AI and ML roles", "Resumes that show results", "Projects worth building"],
     photo: undefined,
     bookingUrl: process.env.NEXT_PUBLIC_CAL_WASIF_URL || undefined,
   },
@@ -91,23 +78,28 @@ export const coaches: Coach[] = [
     name: "Abishek",
     fullName: "Abishek Naathan",
     initials: "A",
-    role: "Co-founder · Coach",
-    program: "Software Engineering, McMaster University",
-    headline: "Software engineering intern at AMD, after internships at RBC and Telesat.",
-    builds: "Builds the Career OS job-matching and auto-apply engine.",
-    experience: [
-      { org: "AMD", role: "Software Engineer Intern, dGPU team" },
-      { org: "RBC", role: "AI/ML Software Developer Intern" },
-      { org: "Telesat", role: "Software Developer Intern" },
-      { org: "A Round Entertainment", role: "Full Stack Developer Intern" },
-    ],
-    coaches: ["Software engineering roles", "Choosing where to apply", "Getting from OA to interview"],
-    bio: "Abishek works on AMD's discrete GPU team. Before that, he improved LLM-based contract tools at RBC and built internal tooling, automated testing and DevOps infrastructure for satellites at Telesat. He coaches students going after software engineering roles.",
-    highlights: ["Mentor, Canada Learning Code", "McMaster SumoBots technical lead"],
+    focus: "Software engineering",
+    companies: ["AMD", "RBC", "Telesat"],
+    bio: "Abishek has interned at AMD on the GPU team, at RBC building AI tools, and at Telesat on satellite software.",
+    coaches: ["Software engineering roles", "Choosing where to apply", "OAs and interviews"],
     photo: undefined,
     bookingUrl: process.env.NEXT_PUBLIC_CAL_ABISHEK_URL || undefined,
   },
 ];
+
+/**
+ * Companies the coaches have worked at, for the strip under the hero. Files live in public/logos.
+ * Sources: AMD (Simple Icons, CC0), RBC, Achievers and Telesat (their own websites), Dayforce (Wikimedia Commons).
+ * Logos are trademarks of their owners and are shown only to say where the coaches have worked.
+ * `height` evens out the optical size of very different logo shapes; `mono` says how to flatten them to one tone.
+ */
+export const coachCompanies = [
+  { name: "AMD", src: "/logos/amd.svg", width: 96, height: 24, mono: "ink" },
+  { name: "RBC", src: "/logos/rbc.svg", width: 38, height: 44, mono: "grey" },
+  { name: "Dayforce", src: "/logos/dayforce.svg", width: 118, height: 28, mono: "ink" },
+  { name: "Achievers", src: "/logos/achievers.svg", width: 130, height: 24, mono: "ink" },
+  { name: "Telesat", src: "/logos/telesat.png", width: 143, height: 20, mono: "ink" },
+] as const;
 
 export type Tier = {
   id: "free" | "pro" | "elite";
