@@ -2,17 +2,25 @@ import Link from "next/link";
 import { Hero } from "@/components/landing/hero";
 import { Services } from "@/components/landing/services";
 import { Journey } from "@/components/landing/journey";
+import { GroundUp } from "@/components/landing/ground-up";
 import { Optimizer } from "@/components/landing/optimizer";
+import { Tracker } from "@/components/landing/tracker";
 import { CoachesSection } from "@/components/landing/coaches-section";
 import { TierCards } from "@/components/pricing/tier-cards";
 import { Faq, type FaqItem } from "@/components/ui/faq";
 import { Reveal } from "@/components/ui/reveal";
+import { Section } from "@/components/ui/section";
+import { SectionHeading } from "@/components/ui/section-heading";
 import { ArrowGlyph } from "@/components/brand/glyphs";
 
 const faq: FaqItem[] = [
   {
     q: "Is the coaching done by AI?",
-    a: "No. Every session is with Wasif or Abishek, the two people who built Career OS.",
+    a: "No. Every session is 1-1 with one of our coaches, the two people who built Career OS.",
+  },
+  {
+    q: "I'm starting from zero. Is that okay?",
+    a: "Yes. Your coach helps you set up your GitHub, build your first projects and write your resume from scratch.",
   },
   {
     q: "Will auto-apply look like spam?",
@@ -28,63 +36,62 @@ const faq: FaqItem[] = [
   },
 ];
 
-const heading = "font-display text-[clamp(2rem,4.4vw,3.2rem)] leading-[1.02] font-bold tracking-[-0.03em]";
-
+// Sections alternate paper and surface backgrounds so each one reads as its own band.
 export default function HomePage() {
   return (
     <>
       <Hero />
       <Services />
       <Journey />
+      <GroundUp />
 
-      <section aria-labelledby="tailor-title">
-        <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
-          <Reveal className="max-w-2xl">
-            <h2 id="tailor-title" className={heading}>
-              Auto-apply, with a resume <span className="marker">tailored for every job.</span>
-            </h2>
-            <p className="mt-5 text-lg text-ink-soft">
-              Approve the jobs you want. We rewrite your resume for each one, your coach signs off, and we send it.
-            </p>
-          </Reveal>
-          <div className="mt-14">
-            <Optimizer />
-          </div>
-        </div>
-      </section>
+      <Section labelledBy="tailor-title" tone="surface">
+        <SectionHeading
+          id="tailor-title"
+          title={
+            <>
+              Auto-apply, with a resume <span className="marker">tailored to every job</span>
+            </>
+          }
+          lead="Approve the jobs you want. We tailor your resume for each one, your coach signs off, we apply, and we track every application."
+        />
+        <Reveal className="mt-16">
+          <Optimizer />
+        </Reveal>
+        <Reveal className="mt-6">
+          <Tracker />
+        </Reveal>
+      </Section>
 
       <CoachesSection />
 
-      <section aria-labelledby="pricing-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
-        <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <h2 id="pricing-title" className={`max-w-xl ${heading}`}>
-            Start free. Pay when you want a coach.
-          </h2>
-          <Link
-            href="/pricing"
-            className="group inline-flex items-center gap-1.5 font-medium text-cobalt hover:text-cobalt-deep"
-          >
-            Compare plans
-            <ArrowGlyph className="transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </Reveal>
-        <div className="mt-12">
-          <TierCards />
+      <Section labelledBy="pricing-title" tone="surface">
+        <SectionHeading
+          id="pricing-title"
+          title="Start free. Upgrade when you want a coach."
+          lead={
+            <Link
+              href="/pricing"
+              className="group inline-flex items-center gap-1.5 font-medium text-cobalt hover:text-cobalt-deep"
+            >
+              Compare plans
+              <ArrowGlyph className="transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          }
+        />
+        <div className="mt-16">
+          <TierCards tone="surface" />
         </div>
-      </section>
+      </Section>
 
-      <section aria-labelledby="faq-title" className="mx-auto max-w-6xl px-5 pb-24 sm:px-8 md:pb-32">
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <Reveal>
-            <h2 id="faq-title" className={heading}>
-              Questions
-            </h2>
-          </Reveal>
-          <Reveal delay={0.08}>
+      <Section labelledBy="faq-title">
+        <div className="mx-auto max-w-3xl">
+          <SectionHeading id="faq-title" title="Questions" />
+          <Reveal delay={0.08} className="mt-12">
             <Faq items={faq} />
           </Reveal>
         </div>
-      </section>
+      </Section>
     </>
   );
 }
