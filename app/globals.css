@@ -2,45 +2,44 @@
 
 /*
  * Career OS tokens.
- * Cobalt is the software (scores, statuses, actions).
- * Marker yellow is the humans (coach notes, highlights). Keep that split.
+ * The home page reads in three chapters: deep blue (the promise and how it
+ * works), light (the people: coaching and coaches), deep blue again (the
+ * software, pricing and the close). Cobalt and sky are the accents.
+ * Type: an editorial serif for headlines, Inter for everything else.
  */
 @theme {
-  --color-paper: #f3f5f8;
-  --color-paper-deep: #e9edf2;
+  --color-paper: #f2f5fc;
+  --color-paper-deep: #e5eaf6;
   --color-surface: #ffffff;
-  --color-ink: #0c1424;
-  --color-ink-soft: #243044;
-  --color-slate: #5a6577;
-  --color-rule: #dce1e8;
-  --color-rule-strong: #c6cdd8;
+  --color-ink: #0a1433;
+  --color-ink-soft: #27324f;
+  --color-slate: #58637c;
+  --color-rule: #e1e6f1;
+  --color-rule-strong: #cbd3e4;
   --color-cobalt: #2447f5;
-  --color-cobalt-deep: #1a33c2;
-  --color-cobalt-wash: #e8ecfe;
-  --color-marker: #ffd84a;
-  --color-marker-soft: #fff1b8;
-  --color-go: #0e7a55;
+  --color-cobalt-deep: #1b36c9;
+  --color-cobalt-wash: #ecf0ff;
+  --color-cobalt-bright: #5d7bff;
+  --color-sky: #a8b9ff;
+  --color-midnight: #050b24;
+  --color-navy: #0a1845;
+  --color-go: #0f7b57;
+  --color-go-wash: #e7f5ef;
   --color-stop: #b4372a;
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --font-display: var(--font-funnel-display), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
-  --font-hand: var(--font-kalam), "Comic Sans MS", cursive;
 }
 
 :root {
   color-scheme: light;
-}
-
-/* Registered so the highlighter width can be animated in CSS. */
-@property --marker-progress {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 1;
+  /* Fine film grain. Keeps the deep blue gradients smooth (no banding) and gives them some texture. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.07 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 @keyframes rise {
@@ -55,7 +54,7 @@
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
@@ -63,12 +62,13 @@
   }
 }
 
-@keyframes marker-in {
-  from {
-    --marker-progress: 0;
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: var(--o, 0.6);
   }
-  to {
-    --marker-progress: 1;
+  50% {
+    opacity: calc(var(--o, 0.6) * 0.2);
   }
 }
 
@@ -91,7 +91,7 @@ body {
 }
 
 ::selection {
-  background: var(--color-marker);
+  background: var(--color-cobalt-wash);
   color: var(--color-ink);
 }
 
@@ -106,28 +106,36 @@ body {
 }
 
 @layer components {
-  /* Dot grid behind the hero, like the paper in a lab notebook. */
-  .paper-grid {
-    background-image: radial-gradient(circle at 1px 1px, rgb(12 20 36 / 0.1) 1px, transparent 0);
-    background-size: 22px 22px;
+  /*
+   * The deep blue surface: navy fading to midnight, one broad cobalt light
+   * from above, and a fine grain. Used for the hero, page headers, the
+   * auto-apply band, the close and the footer.
+   */
+  .deep-blue {
+    background-color: var(--color-midnight);
+    background-image:
+      var(--grain),
+      radial-gradient(90% 55% at 50% 0%, rgb(36 71 245 / 0.42), transparent 75%),
+      linear-gradient(180deg, var(--color-navy) 0%, var(--color-midnight) 80%);
+    background-size:
+      180px 180px,
+      auto,
+      auto;
+    color: #fff;
   }
 
-  /* A highlighter pass. Animate --marker-progress from 0 to 1. */
-  .marker {
-    background-image: linear-gradient(
-      100deg,
-      transparent 0.15em,
-      var(--color-marker) 0.25em,
-      var(--color-marker) calc(100% - 0.3em),
-      transparent calc(100% - 0.15em)
-    );
-    background-repeat: no-repeat;
-    background-position: 0 72%;
-    background-size: calc(var(--marker-progress) * 100%) 60%;
-    box-decoration-break: clone;
-    -webkit-box-decoration-break: clone;
-    padding-inline: 0.14em;
-    margin-inline: -0.14em;
+  /* The same grain on its own, for flat midnight surfaces such as the footer. */
+  .grain {
+    background-image: var(--grain);
+    background-size: 180px 180px;
+  }
+
+  /* Flat midnight with grain: the quiet continuation of a deep blue chapter. */
+  .night {
+    background-color: var(--color-midnight);
+    background-image: var(--grain);
+    background-size: 180px 180px;
+    color: #fff;
   }
 
   /*
@@ -135,60 +143,66 @@ body {
    * painted before JavaScript loads. Stagger with style={{ "--d": "0.2s" }}.
    */
   .anim-rise {
-    animation: rise 0.8s var(--ease-out-quint) both;
+    animation: rise 0.9s var(--ease-out-quint) both;
     animation-delay: var(--d, 0s);
   }
   .anim-fade-up {
-    animation: fade-up 0.7s var(--ease-out-quint) both;
+    animation: fade-up 0.8s var(--ease-out-quint) both;
     animation-delay: var(--d, 0s);
   }
-  .anim-marker {
-    animation: marker-in 0.75s var(--ease-out-quint) both;
-    animation-delay: var(--d, 0s);
+  /* Stars in the deep blue sky (components/brand/starfield.tsx). */
+  .star-twinkle {
+    animation: twinkle var(--dur, 4s) ease-in-out var(--delay, 0s) infinite;
   }
   @media (prefers-reduced-motion: reduce) {
     .anim-rise,
     .anim-fade-up,
-    .anim-marker {
+    .star-twinkle {
       animation: none;
     }
   }
 
   /*
    * Type scale. Every large heading on the site uses one of these three,
-   * so sizes stay consistent from page to page.
+   * so sizes stay consistent from page to page. Set light and tight, the way
+   * editorial serifs are meant to be used at size; <em> gives the italic accent.
    */
   .text-display-xl,
   .text-display-l,
   .text-display-m {
     font-family: var(--font-display);
-    font-weight: 700;
+    font-weight: 400;
+    font-optical-sizing: auto;
     text-wrap: balance;
   }
   .text-display-xl {
-    font-size: clamp(2.75rem, 6.2vw, 4.75rem);
+    font-size: clamp(3rem, 7vw, 5.75rem);
     line-height: 0.98;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.028em;
   }
   .text-display-l {
-    font-size: clamp(2.4rem, 5.2vw, 4rem);
-    line-height: 1;
-    letter-spacing: -0.035em;
+    font-size: clamp(2.6rem, 5.4vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.024em;
   }
   .text-display-m {
-    font-size: clamp(2.1rem, 4.2vw, 3.25rem);
+    font-size: clamp(2.3rem, 4.4vw, 3.5rem);
     line-height: 1.04;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.022em;
+  }
+  :is(.text-display-xl, .text-display-l, .text-display-m) em {
+    font-style: italic;
+    letter-spacing: -0.01em;
   }
   .text-lead {
-    font-size: 1.125rem;
+    font-size: 1.0625rem;
     line-height: 1.65;
-    color: var(--color-ink-soft);
+    color: var(--color-slate);
     text-wrap: pretty;
   }
   @media (min-width: 640px) {
     .text-lead {
-      font-size: 1.25rem;
+      font-size: 1.1875rem;
     }
   }
 

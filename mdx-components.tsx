@@ -5,12 +5,12 @@ import type { MDXComponents } from "mdx/types";
 const components: MDXComponents = {
   h2: (props) => (
     <h2
-      className="mt-14 mb-4 font-display text-[1.9rem] leading-tight font-bold tracking-[-0.02em] text-ink"
+      className="mt-14 mb-4 font-display text-[2.1rem] leading-tight tracking-[-0.02em] text-ink"
       {...props}
     />
   ),
   h3: (props) => (
-    <h3 className="mt-9 mb-3 font-display text-[1.35rem] leading-snug font-semibold tracking-[-0.01em]" {...props} />
+    <h3 className="mt-9 mb-3 font-display text-[1.55rem] leading-snug tracking-[-0.01em]" {...props} />
   ),
   p: (props) => <p className="my-5 text-[1.075rem] leading-[1.75] text-ink-soft" {...props} />,
   strong: (props) => <strong className="font-semibold text-ink" {...props} />,

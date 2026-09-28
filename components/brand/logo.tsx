@@ -21,13 +21,22 @@ export function Mark({ className, title }: { className?: string; title?: string 
   );
 }
 
-export function Logo({ className }: { className?: string }) {
+/** tone: "dark" for deep blue surfaces. */
+export function Logo({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
+  const dark = tone === "dark";
   return (
-    <span className={cn("inline-flex items-center gap-2 text-ink", className)}>
+    <span className={cn("inline-flex items-center gap-2", dark ? "text-white" : "text-ink", className)}>
       <Mark />
-      <span className="font-display text-[1.28rem] leading-none font-bold tracking-[-0.02em]">
+      <span className="font-sans text-[1.2rem] leading-none font-semibold tracking-[-0.035em]">
         Career
-        <span className="ml-[0.18em] font-mono text-[0.78em] font-medium tracking-normal text-slate">OS</span>
+        <span
+          className={cn(
+            "ml-[0.18em] font-mono text-[0.78em] font-medium tracking-normal",
+            dark ? "text-sky" : "text-slate",
+          )}
+        >
+          OS
+        </span>
       </span>
     </span>
   );
