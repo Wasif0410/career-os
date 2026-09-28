@@ -57,7 +57,7 @@ export default function PricingPage() {
         Free shows where you stand. Pro adds a coach. Elite adds more of both.
       </PageHeader>
 
-      <section className="mx-auto max-w-6xl px-5 sm:px-8">
+      <section aria-label="Plans" className="mx-auto max-w-6xl px-5 pt-14 sm:px-8 md:pt-16">
         <TierCards />
       </section>
 
@@ -67,7 +67,7 @@ export default function PricingPage() {
             Compare plans
           </h2>
         </Reveal>
-        <Reveal className="mt-8 overflow-x-auto rounded-[1.2rem] bg-surface ring-1 ring-rule">
+        <Reveal className="mt-8 overflow-x-auto rounded-2xl bg-surface ring-1 ring-rule">
           <table className="w-full min-w-[40rem] border-collapse text-left text-[0.93rem]">
             <thead>
               <tr className="border-b border-rule">
@@ -75,7 +75,7 @@ export default function PricingPage() {
                   <span className="sr-only">Feature</span>
                 </th>
                 {["Free", "Pro", "Elite"].map((t) => (
-                  <th scope="col" key={t} className="px-5 py-4 font-display text-lg font-bold">
+                  <th scope="col" key={t} className="px-5 py-4 font-display text-xl font-normal">
                     {t}
                   </th>
                 ))}
