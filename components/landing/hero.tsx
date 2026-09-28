@@ -1,6 +1,8 @@
 import type { CSSProperties } from "react";
+import Image from "next/image";
 import { GoalConsole } from "@/components/landing/goal-console";
 import { WaitlistForm } from "@/components/waitlist/waitlist-form";
+import { coachCompanies } from "@/lib/site";
 
 const plain = ["Land", "the", "role", "you're", "actually"];
 const marked = ["aiming", "for."];
@@ -24,11 +26,11 @@ export function Hero() {
         aria-hidden
         className="paper-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_70%_35%,black,transparent)]"
       />
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pt-10 pb-16 sm:px-8 md:pt-16 lg:grid-cols-[1fr_minmax(0,33rem)] lg:gap-14 lg:pb-24">
+      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pt-12 pb-16 sm:px-8 md:pt-20 lg:grid-cols-[1fr_minmax(0,31rem)] lg:gap-16 lg:pb-24">
         <div>
           <h1
             id="hero-title"
-            className="font-display text-[clamp(2.9rem,7.4vw,5.4rem)] leading-[0.95] font-bold tracking-[-0.035em] text-ink"
+            className="text-display-xl text-ink"
           >
             {plain.map((w, i) => (
               <span key={w}>
@@ -46,10 +48,10 @@ export function Hero() {
           </h1>
 
           <p
-            className="anim-fade-up mt-6 max-w-[34rem] text-[1.08rem] leading-relaxed text-ink-soft sm:text-lg"
+            className="text-lead anim-fade-up mt-7 max-w-[33rem]"
             style={delay(0.45)}
           >
-            1-1 coaching, every resource you need, and applications sent for you.
+            Coaches who&apos;ve landed the internships guide you the whole way. We apply to the right jobs for you.
           </p>
 
           <div className="anim-fade-up mt-8 max-w-[31rem]" style={delay(0.55)}>
@@ -58,6 +60,32 @@ export function Hero() {
         </div>
 
         <GoalConsole />
+      </div>
+
+      {/* Credibility, straight under the hero. */}
+      <div className="anim-fade-up border-y border-rule bg-surface" style={delay(0.9)}>
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-5 py-8 sm:px-8 lg:flex-row lg:justify-between lg:gap-10">
+          <p className="shrink-0 text-ink-soft">Coached by people who&apos;ve worked at</p>
+          <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
+            {coachCompanies.map((c) => (
+              <li key={c.name} className="flex items-center">
+                <Image
+                  src={c.src}
+                  alt={c.name}
+                  width={c.width}
+                  height={c.height}
+                  unoptimized
+                  className={
+                    c.mono === "ink"
+                      ? "opacity-60 brightness-0 transition-opacity hover:opacity-90"
+                      : "opacity-70 grayscale transition-opacity hover:opacity-100"
+                  }
+                  style={{ width: c.width, height: c.height }}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
