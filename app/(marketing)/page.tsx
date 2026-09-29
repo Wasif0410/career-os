@@ -1,16 +1,13 @@
-import Link from "next/link";
 import { Hero } from "@/components/landing/hero";
 import { Statement } from "@/components/landing/statement";
 import { Journey } from "@/components/landing/journey";
 import { Coaching } from "@/components/landing/coaching";
 import { AutoApply } from "@/components/landing/auto-apply";
 import { CoachesSection } from "@/components/landing/coaches-section";
-import { TierCards } from "@/components/pricing/tier-cards";
 import { Faq, type FaqItem } from "@/components/ui/faq";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { ArrowGlyph } from "@/components/brand/glyphs";
 
 const faq: FaqItem[] = [
   {
@@ -42,8 +39,7 @@ const faq: FaqItem[] = [
  *   Light:     how we guide you, as cards that stack while you scroll.
  *   Deep blue: auto-apply, the software doing the busywork.
  *   Light:     the people. Coaching from the ground up, and your coaches.
- *   Deep blue: pricing.
- *   Light:     questions.
+ *   Light:     questions (pricing lives on its own page).
  *   Deep blue: the close, running into the footer.
  */
 export default function HomePage() {
@@ -56,29 +52,8 @@ export default function HomePage() {
       <Coaching />
       <CoachesSection />
 
-      <Section id="pricing" labelledBy="pricing-title" tone="dark">
-        <SectionHeading
-          id="pricing-title"
-          title="Start free."
-          muted="Upgrade for a coach."
-          dark
-          aside={
-            <Link
-              href="/pricing"
-              className="group inline-flex items-center gap-1.5 font-medium text-sky transition-colors hover:text-white"
-            >
-              Compare plans
-              <ArrowGlyph className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          }
-        />
-        <div className="mt-14 md:mt-16">
-          <TierCards tone="dark" />
-        </div>
-      </Section>
-
-      <Section id="faq" labelledBy="faq-title" tone="light">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+      <Section id="faq" labelledBy="faq-title" tone="light" innerClassName="pt-0 md:pt-0">
+        <div className="grid gap-10 border-t border-rule pt-24 md:pt-28 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
           <SectionHeading id="faq-title" title="Questions," muted="answered." stacked className="lg:self-start" />
           <Reveal delay={0.08}>
             <Faq items={faq} />
