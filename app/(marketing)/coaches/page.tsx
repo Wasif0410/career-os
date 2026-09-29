@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CoachPortrait, CoachTopics } from "@/components/coaches/coach-card";
+import { CoachAvatar, CoachCompanies, CoachTopics } from "@/components/coaches/coach-card";
 import { SessionFlow } from "@/components/landing/coaches-section";
 import { PageHeader } from "@/components/ui/page-header";
 import { Reveal } from "@/components/ui/reveal";
@@ -16,32 +16,30 @@ export const metadata: Metadata = {
 export default function CoachesPage() {
   return (
     <>
-      <PageHeader
-        title={
-          <>
-            Our <span className="marker">coaches</span>
-          </>
-        }
-      >
+      <PageHeader title="Our coaches">
         We&apos;ve worked at AMD, RBC, Dayforce and Achievers, landing internship after internship. Now we help you do
         the same.
       </PageHeader>
 
-      <div className="mx-auto max-w-6xl space-y-5 px-5 sm:px-8">
-        {coaches.map((coach, i) => (
+      <div className="mx-auto max-w-6xl space-y-4 px-5 pt-14 sm:px-8 md:pt-16">
+        {coaches.map((coach) => (
           <Reveal key={coach.slug}>
             <article
               id={coach.slug}
-              className="grid overflow-hidden rounded-[1.75rem] bg-surface ring-1 ring-rule md:grid-cols-2"
+              className="grid gap-8 rounded-3xl bg-surface p-7 ring-1 ring-rule sm:p-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16"
             >
-              <CoachPortrait coach={coach} className={i % 2 ? "md:order-2 md:aspect-auto" : "md:aspect-auto"} />
-              <div className="flex flex-col p-7 sm:p-10">
-                <p className="text-sm font-medium text-cobalt">{coach.focus}</p>
-                <h2 className="mt-1 font-display text-4xl font-bold tracking-[-0.025em]">{coach.fullName}</h2>
-                <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-soft">{coach.bio}</p>
-                <CoachTopics coach={coach} className="mt-6" />
+              <div>
+                <CoachAvatar coach={coach} className="size-16 text-2xl" />
+                <h2 className="mt-6 font-display text-[2.5rem] leading-tight tracking-[-0.02em] text-ink">{coach.fullName}</h2>
+                <p className="mt-1 font-medium text-cobalt">{coach.focus}</p>
+                <CoachCompanies coach={coach} className="mt-6" />
+              </div>
+              <div className="flex flex-col">
+                <p className="text-lead text-ink-soft">{coach.bio}</p>
+                <p className="mt-8 text-sm font-medium text-ink">Coaches you on</p>
+                <CoachTopics coach={coach} className="mt-3" />
                 <div className="mt-auto pt-9">
-                  <ButtonLink href={coach.bookingUrl ?? "#waitlist"} variant="ink" arrow>
+                  <ButtonLink href={coach.bookingUrl ?? "#waitlist"} variant="primary" arrow>
                     {coach.bookingUrl ? `Book 15 minutes with ${coach.name}` : "Join the waitlist"}
                   </ButtonLink>
                 </div>
@@ -51,19 +49,14 @@ export default function CoachesPage() {
         ))}
       </div>
 
-      <section aria-labelledby="session-title" className="mx-auto max-w-6xl px-5 py-28 sm:px-8 md:py-36">
-        <Reveal className="max-w-2xl">
-          <h2
-            id="session-title"
-            className="text-display-m"
-          >
+      <section aria-labelledby="session-title" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32">
+        <Reveal className="grid gap-x-16 gap-y-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:items-end">
+          <h2 id="session-title" className="text-display-m">
             How a session works
           </h2>
-          <p className="text-lead mt-5">
-            Software scores your resume. Your coach decides what matters.
-          </p>
+          <p className="text-lead lg:pb-1.5">Software scores your resume. Your coach decides what matters.</p>
         </Reveal>
-        <Reveal className="mt-10">
+        <Reveal className="mt-12">
           <SessionFlow />
         </Reveal>
       </section>

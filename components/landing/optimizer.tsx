@@ -92,9 +92,11 @@ function ResumeBody({ variant, flagged, tailored = false, targetRefs }: BodyProp
 
   return (
     <div className="text-[0.8rem] leading-relaxed text-ink-soft">
-      <p className="font-display text-xl leading-none font-bold tracking-[-0.01em] text-ink">Jordan Lee</p>
+      <p className="font-display text-2xl leading-none font-medium tracking-[-0.01em] text-ink">Jordan Lee</p>
       <p className="mt-1 text-[0.72rem] text-slate">Toronto, ON · Computer Science, Class of 2027</p>
 
+      {/* On phones the resume shows only the parts that change, so the demo fits on one screen. */}
+      <div className="hidden sm:block">
       <Section title="Education">
         <p className="flex justify-between gap-3">
           <span className="font-semibold text-ink">B.Sc. Computer Science</span>
@@ -109,6 +111,7 @@ function ResumeBody({ variant, flagged, tailored = false, targetRefs }: BodyProp
         </p>
         <p className="mt-0.5 pl-3 -indent-3">• Resolved 30+ support tickets a week for students and staff.</p>
       </Section>
+      </div>
 
       <Section title="Projects">
         <p className="font-semibold text-ink">Plant Disease Classifier</p>
@@ -289,7 +292,7 @@ export function Optimizer() {
   return (
     <div
       ref={rootRef}
-      className="overflow-hidden rounded-[1.75rem] bg-surface shadow-[0_40px_100px_-50px_rgb(12_20_36/0.45)] ring-1 ring-rule"
+      className="overflow-hidden rounded-3xl bg-surface text-ink shadow-[0_50px_120px_-40px_rgb(0_0_0/0.65)] ring-1 ring-white/10"
     >
       {/* The job */}
       <div className="flex flex-col gap-4 border-b border-rule px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
@@ -298,7 +301,7 @@ export function Optimizer() {
             <Mark className="size-6" />
           </span>
           <div>
-            <p className="font-display text-lg leading-tight font-semibold">ML Engineering Intern</p>
+            <p className="text-lg leading-tight font-semibold tracking-[-0.015em]">ML Engineering Intern</p>
             <p className="text-sm text-slate">Fintech · Toronto</p>
           </div>
         </div>

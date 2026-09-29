@@ -1,17 +1,13 @@
-import Link from "next/link";
 import { Hero } from "@/components/landing/hero";
-import { Services } from "@/components/landing/services";
+import { Statement } from "@/components/landing/statement";
 import { Journey } from "@/components/landing/journey";
-import { GroundUp } from "@/components/landing/ground-up";
-import { Optimizer } from "@/components/landing/optimizer";
-import { Tracker } from "@/components/landing/tracker";
+import { Coaching } from "@/components/landing/coaching";
+import { AutoApply } from "@/components/landing/auto-apply";
 import { CoachesSection } from "@/components/landing/coaches-section";
-import { TierCards } from "@/components/pricing/tier-cards";
 import { Faq, type FaqItem } from "@/components/ui/faq";
 import { Reveal } from "@/components/ui/reveal";
 import { Section } from "@/components/ui/section";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { ArrowGlyph } from "@/components/brand/glyphs";
 
 const faq: FaqItem[] = [
   {
@@ -36,58 +32,30 @@ const faq: FaqItem[] = [
   },
 ];
 
-// Sections alternate paper and surface backgrounds so each one reads as its own band.
+/*
+ * The page alternates between deep blue (under a starfield) and light, one
+ * idea per chapter:
+ *   Deep blue: the promise, the product and the manifesto.
+ *   Light:     how we guide you, as cards that stack while you scroll.
+ *   Deep blue: auto-apply, the software doing the busywork.
+ *   Light:     the people. Coaching from the ground up, and your coaches.
+ *   Light:     questions (pricing lives on its own page).
+ *   Deep blue: the close, running into the footer.
+ */
 export default function HomePage() {
   return (
     <>
       <Hero />
-      <Services />
+      <Statement />
       <Journey />
-      <GroundUp />
-
-      <Section labelledBy="tailor-title" tone="surface">
-        <SectionHeading
-          id="tailor-title"
-          title={
-            <>
-              Auto-apply, with a resume <span className="marker">tailored to every job</span>
-            </>
-          }
-          lead="Approve the jobs you want. We tailor your resume for each one, your coach signs off, we apply, and we track every application."
-        />
-        <Reveal className="mt-16">
-          <Optimizer />
-        </Reveal>
-        <Reveal className="mt-6">
-          <Tracker />
-        </Reveal>
-      </Section>
-
+      <AutoApply />
+      <Coaching />
       <CoachesSection />
 
-      <Section labelledBy="pricing-title" tone="surface">
-        <SectionHeading
-          id="pricing-title"
-          title="Start free. Upgrade when you want a coach."
-          lead={
-            <Link
-              href="/pricing"
-              className="group inline-flex items-center gap-1.5 font-medium text-cobalt hover:text-cobalt-deep"
-            >
-              Compare plans
-              <ArrowGlyph className="transition-transform group-hover:translate-x-0.5" />
-            </Link>
-          }
-        />
-        <div className="mt-16">
-          <TierCards tone="surface" />
-        </div>
-      </Section>
-
-      <Section labelledBy="faq-title">
-        <div className="mx-auto max-w-3xl">
-          <SectionHeading id="faq-title" title="Questions" />
-          <Reveal delay={0.08} className="mt-12">
+      <Section id="faq" labelledBy="faq-title" tone="light" innerClassName="pt-0 md:pt-0">
+        <div className="grid gap-10 border-t border-rule pt-24 md:pt-28 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+          <SectionHeading id="faq-title" title="Questions," muted="answered." stacked className="lg:self-start" />
+          <Reveal delay={0.08}>
             <Faq items={faq} />
           </Reveal>
         </div>

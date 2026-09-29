@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * Career OS glyph set. Drawn on a 24px grid, 1.6 stroke, square-ish joins,
- * with a single cobalt (software) or marker (human) detail per glyph.
+ * with a single cobalt detail per glyph.
  */
 type GlyphProps = { className?: string };
 
@@ -47,11 +47,11 @@ export function DiagnoseGlyph({ className }: GlyphProps) {
   );
 }
 
-/** Improve: a coach's highlighter across a line of your resume. */
+/** Improve: a line of your resume, marked up and rewritten. */
 export function ImproveGlyph({ className }: GlyphProps) {
   return (
     <Frame className={className}>
-      <rect x="3.5" y="9.2" width="12.5" height="5" rx="1" className="fill-marker stroke-none" />
+      <rect x="3.5" y="9.2" width="12.5" height="5" rx="1" className="fill-cobalt/20 stroke-none" />
       <path d="M4 6h16M4 11.7h11M4 17.5h9" />
       <path d="M17.5 16.2l2.8-2.8 1.2 1.2-2.8 2.8-1.7.5z" />
     </Frame>
@@ -88,7 +88,29 @@ export function RepeatGlyph({ className }: GlyphProps) {
     <Frame className={className}>
       <path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3" />
       <path d="M17.8 3.2l-.4 3.6-3.6-.3" />
-      <circle cx="12" cy="12" r="2" className="fill-marker stroke-ink" />
+      <circle cx="12" cy="12" r="2" className="fill-cobalt stroke-cobalt" />
+    </Frame>
+  );
+}
+
+/** Coaching: a conversation, with a cobalt reply. */
+export function ChatGlyph({ className }: GlyphProps) {
+  return (
+    <Frame className={className}>
+      <path d="M4.5 5.5h11a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5H10l-3.5 3v-3h-2A1.5 1.5 0 0 1 3 13V7a1.5 1.5 0 0 1 1.5-1.5z" />
+      <path d="M17 9h2.5A1.5 1.5 0 0 1 21 10.5V16a1.5 1.5 0 0 1-1.5 1.5H18v2.5l-3-2.5h-3" className="stroke-cobalt" />
+    </Frame>
+  );
+}
+
+/** Home: a dashboard of four tiles, one lit. */
+export function HomeGlyph({ className }: GlyphProps) {
+  return (
+    <Frame className={className}>
+      <rect x="4" y="4" width="7" height="7" rx="1.5" className="fill-cobalt stroke-cobalt" />
+      <rect x="13" y="4" width="7" height="7" rx="1.5" />
+      <rect x="4" y="13" width="7" height="7" rx="1.5" />
+      <rect x="13" y="13" width="7" height="7" rx="1.5" />
     </Frame>
   );
 }

@@ -14,7 +14,7 @@ export default function NotFound() {
           This page isn&apos;t on the plan.
         </h1>
         <p className="mt-5 max-w-md text-lg text-ink-soft">The link may be old, or the address has a typo.</p>
-        <Link href="/" className={buttonClass({ variant: "ink", size: "lg", className: "mt-8" })}>
+        <Link href="/" className={buttonClass({ variant: "primary", size: "lg", className: "mt-8" })}>
           Go to the homepage
         </Link>
       </div>

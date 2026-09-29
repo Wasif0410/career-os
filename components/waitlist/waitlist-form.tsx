@@ -39,10 +39,10 @@ export function WaitlistForm({
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className={cn(
               "flex items-start gap-3 rounded-2xl p-4 text-[0.95rem]",
-              dark ? "bg-white/10 text-white" : "bg-surface text-ink ring-1 ring-rule",
+              dark ? "bg-white/10 text-white" : "bg-go-wash text-ink",
             )}
           >
-            <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-marker text-ink">
+            <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-go text-white">
               <CheckGlyph className="size-3.5" />
             </span>
             <p>{state.message}</p>
@@ -75,7 +75,7 @@ export function WaitlistForm({
                     className={cn(
                       "h-12 w-full appearance-none rounded-full pr-10 pl-5 text-[0.95rem] outline-none transition-shadow",
                       dark
-                        ? "bg-white/10 text-white ring-1 ring-white/20 ring-inset focus:ring-2 focus:ring-marker [&>option]:text-ink"
+                        ? "bg-white/[0.07] text-white ring-1 ring-white/15 ring-inset focus:ring-2 focus:ring-cobalt-bright [&>option]:text-ink"
                         : "bg-surface text-ink ring-1 ring-rule-strong ring-inset focus:ring-2 focus:ring-cobalt",
                     )}
                   >
@@ -116,21 +116,17 @@ export function WaitlistForm({
                 aria-invalid={emailError || undefined}
                 aria-describedby={state.status === "error" ? `${id}-error` : undefined}
                 className={cn(
-                  "h-12 w-full min-w-0 rounded-full px-5 sm:flex-1 text-[0.95rem] outline-none transition-shadow",
+                  "h-12 w-full min-w-0 rounded-full px-5 text-[0.95rem] outline-none transition-shadow sm:flex-1",
                   dark
-                    ? "bg-white/10 text-white ring-1 ring-white/20 ring-inset placeholder:text-white/50 focus:ring-2 focus:ring-marker"
+                    ? "bg-white/[0.07] text-white ring-1 ring-white/15 ring-inset placeholder:text-white/45 focus:ring-2 focus:ring-cobalt-bright"
                     : "bg-surface text-ink ring-1 ring-rule-strong ring-inset placeholder:text-slate/70 focus:ring-2 focus:ring-cobalt",
-                  emailError && (dark ? "ring-2 ring-marker" : "ring-2 ring-stop"),
+                  emailError && (dark ? "ring-2 ring-red-300" : "ring-2 ring-stop"),
                 )}
               />
               <button
                 type="submit"
                 disabled={pending}
-                className={buttonClass({
-                  variant: "primary",
-                  size: "lg",
-                  className: cn("shrink-0", dark && "bg-marker text-ink shadow-none hover:bg-marker-soft"),
-                })}
+                className={buttonClass({ variant: dark ? "light" : "primary", size: "lg", className: "shrink-0" })}
               >
                 {pending ? "Joining…" : "Join the waitlist"}
               </button>
@@ -140,7 +136,7 @@ export function WaitlistForm({
               <p
                 id={`${id}-error`}
                 role="alert"
-                className={cn("pl-5 text-sm", dark ? "text-marker" : "text-stop")}
+                className={cn("pl-5 text-sm", dark ? "text-red-300" : "text-stop")}
               >
                 {state.message}
               </p>

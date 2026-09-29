@@ -1,18 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Funnel_Display, Instrument_Sans, JetBrains_Mono, Kalam } from "next/font/google";
+import { Inter, JetBrains_Mono, Newsreader } from "next/font/google";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/components/motion-provider";
 import { site, vercelEnv } from "@/lib/site";
 import "./globals.css";
 
-const display = Funnel_Display({
-  variable: "--font-funnel-display",
+// Headlines: an editorial serif with optical sizes, so large type stays crisp and light.
+const display = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
 });
 
-const sans = Instrument_Sans({
-  variable: "--font-instrument-sans",
+// Everything else: the same workhorse sans most product teams ship with.
+const sans = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -20,12 +23,6 @@ const mono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-});
-
-const hand = Kalam({
-  variable: "--font-kalam",
-  subsets: ["latin"],
-  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -52,15 +49,12 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f3f5f8",
+  themeColor: "#050b24",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${sans.variable} ${mono.variable} ${hand.variable} antialiased`}
-    >
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable} antialiased`}>
       <body className="flex min-h-dvh flex-col">
         <MotionProvider>{children}</MotionProvider>
         {/* Real-visitor Core Web Vitals. Its script only exists on Vercel, so skip it elsewhere to avoid a 404. */}
