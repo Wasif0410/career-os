@@ -95,6 +95,8 @@ function ResumeBody({ variant, flagged, tailored = false, targetRefs }: BodyProp
       <p className="font-display text-2xl leading-none font-medium tracking-[-0.01em] text-ink">Jordan Lee</p>
       <p className="mt-1 text-[0.72rem] text-slate">Toronto, ON · Computer Science, Class of 2027</p>
 
+      {/* On phones the resume shows only the parts that change, so the demo fits on one screen. */}
+      <div className="hidden sm:block">
       <Section title="Education">
         <p className="flex justify-between gap-3">
           <span className="font-semibold text-ink">B.Sc. Computer Science</span>
@@ -109,6 +111,7 @@ function ResumeBody({ variant, flagged, tailored = false, targetRefs }: BodyProp
         </p>
         <p className="mt-0.5 pl-3 -indent-3">• Resolved 30+ support tickets a week for students and staff.</p>
       </Section>
+      </div>
 
       <Section title="Projects">
         <p className="font-semibold text-ink">Plant Disease Classifier</p>
