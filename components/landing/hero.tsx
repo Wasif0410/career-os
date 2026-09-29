@@ -23,7 +23,7 @@ export function Hero() {
         className="absolute top-[44%] left-1/2 -z-10 h-[36rem] w-[64rem] max-w-[150vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(36_71_245/0.38),transparent)]"
       />
 
-      <div className="mx-auto max-w-6xl px-5 pt-36 sm:px-8 md:pt-44">
+      <div className="mx-auto max-w-6xl px-5 pt-28 sm:px-8 sm:pt-36 md:pt-44">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-end lg:gap-16">
           <h1 id="hero-title" className="text-display-xl max-w-[11ch] text-white">
             {words.map((w, i) => (
@@ -46,7 +46,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="anim-fade-up mt-14 md:mt-20" style={delay(0.5)}>
+        <div className="anim-fade-up mt-10 sm:mt-14 md:mt-20" style={delay(0.5)}>
           <ScrollTilt from={10}>
             <Dashboard />
           </ScrollTilt>
@@ -56,7 +56,7 @@ export function Hero() {
       {/* Credibility, straight under the product. */}
       <div className="anim-fade-up mx-auto max-w-6xl px-5 py-14 sm:px-8 md:py-20" style={delay(0.7)}>
         <p className="text-center text-sm text-white/45">Coached by people who&apos;ve worked at</p>
-        <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-12 gap-y-6 sm:gap-x-16">
+        <ul className="mt-7 flex flex-wrap items-center justify-center gap-x-7 gap-y-5 sm:gap-x-16 sm:gap-y-6">
           {coachCompanies.map((c) => (
             <li key={c.name} className="flex items-center">
               <Image
@@ -65,13 +65,14 @@ export function Hero() {
                 width={c.width}
                 height={c.height}
                 unoptimized
+                // Logos render at 70% on phones so all five fit on two rows.
                 className={cn(
-                  "transition-opacity",
+                  "h-[calc(var(--h)*0.7)] w-[calc(var(--w)*0.7)] transition-opacity sm:h-(--h) sm:w-(--w)",
                   c.mono === "ink"
                     ? "opacity-60 brightness-0 invert hover:opacity-90"
                     : "opacity-70 grayscale invert hover:opacity-95",
                 )}
-                style={{ width: c.width, height: c.height }}
+                style={{ "--w": `${c.width}px`, "--h": `${c.height}px` } as CSSProperties}
               />
             </li>
           ))}

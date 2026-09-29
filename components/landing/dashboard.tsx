@@ -231,7 +231,7 @@ export function Dashboard({ className }: { className?: string }) {
               </div>
 
               {/* This week's plan, written by the coach. */}
-              <div className="rounded-2xl p-4 ring-1 ring-rule sm:p-5 lg:col-span-2">
+              <div className="hidden rounded-2xl p-4 ring-1 ring-rule sm:block sm:p-5 lg:col-span-2">
                 <CardHeader title="This week" meta={`${planDone} of 3 done`} />
                 <p className="mt-0.5 text-xs text-slate">Set by your coach</p>
                 <ul className="mt-4 space-y-3">
