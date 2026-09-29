@@ -90,6 +90,9 @@ export function Journey() {
             stacked={desktop && !reduce}
           />
         ))}
+        {/* Scroll room after the last card: sticky elements can only hold while their parent continues,
+            so this lets the finished stack sit on screen before the section moves on. */}
+        {desktop && !reduce && <div aria-hidden className="h-[35vh]" />}
       </div>
     </Section>
   );
@@ -116,8 +119,8 @@ function StepCard({
 
   return (
     <div
-      // The last card needs no scroll room after it: once it lands, the section moves on.
-      className={cn(stacked && "sticky top-0", stacked && !finale && "h-[88vh]")}
+      // Every wrapper is the same height, so the whole stack stays stuck together and leaves together.
+      className={cn(stacked && "sticky top-0 h-[88vh]")}
       style={stacked ? { paddingTop: `calc(6.5rem + ${index * 1.5}rem)` } : undefined}
     >
       <motion.article
