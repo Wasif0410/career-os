@@ -48,7 +48,7 @@ export function Section({
       )}
     >
       {deep && stars && <Starfield seed={seedFrom(labelledBy)} count={70} />}
-      <div className={cn("mx-auto max-w-6xl px-5 py-24 sm:px-8 md:py-32", innerClassName)}>{children}</div>
+      <div className={cn("mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24 md:py-32", innerClassName)}>{children}</div>
     </section>
   );
 }

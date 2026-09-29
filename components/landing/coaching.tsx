@@ -115,12 +115,12 @@ function Contributions() {
               </span>
               <span>
                 <span className="block text-sm font-semibold text-ink">Maya</span>
-                <span className="block text-xs text-slate">github.com/maya-builds</span>
+                <span className="block text-xs whitespace-nowrap text-slate">github.com/maya-builds</span>
               </span>
             </div>
             <p className="text-right">
               <span className="block text-3xl font-semibold tracking-[-0.03em] text-ink tabular-nums">{total}</span>
-              <span className="block text-xs text-slate">contributions since week 1</span>
+              <span className="block text-xs text-slate">contributions</span>
             </p>
           </div>
 
