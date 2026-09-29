@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useSyncExternalStore } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import { motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
 import { Starfield } from "@/components/brand/starfield";
 import {
@@ -69,6 +69,15 @@ export function Journey() {
   const desktop = useIsDesktop();
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  // On phones the cards sit side by side and swipe; this tracks which one is showing for the dots.
+  const [shown, setShown] = useState(0);
+  const onSwipe = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const card = el.firstElementChild as HTMLElement | null;
+    if (!card) return;
+    const i = Math.round(el.scrollLeft / (card.offsetWidth + 12));
+    setShown((prev) => (prev === i ? prev : Math.min(steps.length - 1, Math.max(0, i))));
+  };
 
   return (
     <Section id="journey" labelledBy="journey-title" tone="light" className="overflow-visible">
@@ -80,7 +89,17 @@ export function Journey() {
         center
       />
 
-      <div ref={ref} className="mt-14 space-y-4 md:mt-16 lg:mt-0 lg:space-y-0">
+      <div
+        ref={ref}
+        onScroll={desktop ? undefined : onSwipe}
+        className={cn(
+          "mt-12 md:mt-16 lg:mt-0",
+          // Phones and tablets: a swipeable row of cards. Desktop: the scroll stack.
+          "-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:-mx-8 sm:px-8 [&::-webkit-scrollbar]:hidden",
+          "lg:mx-0 lg:block lg:overflow-visible lg:px-0 lg:pb-0",
+          reduce && "lg:space-y-4",
+        )}
+      >
         {steps.map((step, i) => (
           <StepCard
             key={step.title}
@@ -93,6 +112,16 @@ export function Journey() {
         {/* Scroll room after the last card: sticky elements can only hold while their parent continues,
             so this lets the finished stack sit on screen before the section moves on. */}
         {desktop && !reduce && <div aria-hidden className="h-[35vh]" />}
+      </div>
+
+      {/* Where you are in the row, on phones and tablets */}
+      <div className="mt-6 flex justify-center gap-2 lg:hidden" aria-hidden>
+        {steps.map((s, i) => (
+          <span
+            key={s.title}
+            className={cn("h-1.5 rounded-full transition-all duration-300", i === shown ? "w-6 bg-cobalt" : "w-1.5 bg-rule-strong")}
+          />
+        ))}
       </div>
     </Section>
   );
@@ -120,43 +149,43 @@ function StepCard({
   return (
     <div
       // Every wrapper is the same height, so the whole stack stays stuck together and leaves together.
-      className={cn(stacked && "sticky top-0 h-[88vh]")}
+      className={cn("w-[88%] max-w-[26rem] shrink-0 snap-center lg:w-auto lg:max-w-none", stacked && "sticky top-0 h-[88vh]")}
       style={stacked ? { paddingTop: `calc(6.5rem + ${index * 1.5}rem)` } : undefined}
     >
       <motion.article
         ref={ref}
         style={stacked ? { scale, transformOrigin: "50% 0%" } : undefined}
         className={cn(
-          "relative isolate grid grid-cols-1 overflow-hidden rounded-[2rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]",
+          "relative isolate grid h-full grid-cols-1 overflow-hidden rounded-[1.75rem] lg:h-auto lg:rounded-[2rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]",
           finale
             ? "deep-blue shadow-[0_40px_100px_-40px_rgb(36_71_245/0.6)] ring-1 ring-white/10"
             : "bg-surface shadow-[0_30px_80px_-50px_rgb(10_20_51/0.45)] ring-1 ring-rule",
         )}
       >
         {finale && <Starfield seed={71} count={45} />}
-        <div className="flex flex-col justify-between gap-10 p-7 sm:p-10 lg:p-12">
+        <div className="flex flex-col justify-between gap-5 p-6 sm:p-10 lg:gap-10 lg:p-12">
           <p className={cn("text-sm font-medium", finale ? "text-sky" : "text-cobalt")}>{step.week}</p>
           <div>
             <h3
               className={cn(
-                "font-display text-[clamp(2.1rem,3.6vw,3.25rem)] leading-[1.04] tracking-[-0.022em]",
+                "font-display text-[clamp(1.85rem,3.6vw,3.25rem)] leading-[1.04] tracking-[-0.022em]",
                 finale ? "text-white" : "text-ink",
               )}
             >
               {step.title}
             </h3>
-            <p className={cn("mt-4 max-w-sm text-[1.05rem] leading-relaxed", finale ? "text-white/65" : "text-slate")}>
+            <p className={cn("mt-3 max-w-sm text-base leading-relaxed sm:mt-4 sm:text-[1.05rem]", finale ? "text-white/65" : "text-slate")}>
               {step.body}
             </p>
           </div>
         </div>
         <div
           className={cn(
-            "m-2 grid min-h-[22rem] place-items-center rounded-[1.6rem] px-4 py-8 sm:m-3 sm:px-10 sm:py-12",
+            "m-1.5 grid grid-cols-1 place-items-center rounded-[1.4rem] px-2 py-4 sm:m-3 sm:min-h-[22rem] sm:rounded-[1.6rem] sm:px-10 sm:py-12",
             finale ? "bg-white/[0.05] ring-1 ring-white/10" : "bg-[linear-gradient(160deg,#eef2ff_0%,#dde5ff_100%)]",
           )}
         >
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-md min-w-0">
             <Visual key={inView ? "in" : "out"} />
           </div>
         </div>
@@ -299,7 +328,7 @@ function OfferVisual() {
       >
         <div className="min-w-0">
           <p className="text-xs text-white/60">Offer received</p>
-          <p className="truncate text-lg font-semibold tracking-[-0.015em]">SWE Intern, Summer 2027</p>
+          <p className="truncate text-base font-semibold tracking-[-0.015em] sm:text-lg">SWE Intern, Summer 2027</p>
         </div>
         <span className="shrink-0 rounded-full bg-go px-2.5 py-1 text-xs font-medium text-white">Accepted</span>
       </motion.div>
