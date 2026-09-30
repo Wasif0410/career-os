@@ -65,7 +65,10 @@ export function SiteFooter() {
                           {link.label}
                         </a>
                       ) : (
-                        <Link href={link.href} className="text-[0.95rem] text-white/75 transition-colors hover:text-white">
+                        <Link
+                          href={link.href}
+                          className="text-[0.95rem] text-white/75 transition-colors hover:text-white"
+                        >
                           {link.label}
                         </Link>
                       )}

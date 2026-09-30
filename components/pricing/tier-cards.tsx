@@ -22,7 +22,9 @@ export function TierCards({ tone = "light" }: { tone?: "light" | "dark" }) {
             <article
               className={cn(
                 "relative flex h-full flex-col rounded-3xl p-7 sm:p-8",
-                featured && !dark && "deep-blue shadow-[0_40px_90px_-40px_rgb(36_71_245/0.75)] ring-1 ring-cobalt-bright/30",
+                featured &&
+                  !dark &&
+                  "deep-blue shadow-[0_40px_90px_-40px_rgb(36_71_245/0.75)] ring-1 ring-cobalt-bright/30",
                 featured && dark && "bg-surface text-ink shadow-[0_40px_100px_-40px_rgb(93_123_255/0.6)]",
                 !featured && !dark && "bg-surface ring-1 ring-rule",
                 !featured && dark && "bg-white/[0.035] text-white ring-1 ring-white/10",
@@ -50,7 +52,10 @@ export function TierCards({ tone = "light" }: { tone?: "light" | "dark" }) {
 
               <ul className={cn("mt-6 space-y-2.5 border-t pt-6", inverse ? "border-white/10" : "border-rule")}>
                 {tier.features.map((f) => (
-                  <li key={f} className={cn("flex gap-2.5 text-[0.93rem]", inverse ? "text-white/85" : "text-ink-soft")}>
+                  <li
+                    key={f}
+                    className={cn("flex gap-2.5 text-[0.93rem]", inverse ? "text-white/85" : "text-ink-soft")}
+                  >
                     <CheckGlyph className={cn("mt-0.5 size-4 shrink-0", inverse ? "text-sky" : "text-cobalt")} />
                     {f}
                   </li>

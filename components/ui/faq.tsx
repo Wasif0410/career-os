@@ -42,7 +42,11 @@ export function Faq({ items, tone = "light" }: { items: FaqItem[]; tone?: "light
                 >
                   <span className={cn("absolute h-[1.5px] w-3", bar)} />
                   <span
-                    className={cn("absolute h-3 w-[1.5px] transition-transform duration-300", bar, expanded && "scale-y-0")}
+                    className={cn(
+                      "absolute h-3 w-[1.5px] transition-transform duration-300",
+                      bar,
+                      expanded && "scale-y-0",
+                    )}
                   />
                 </span>
               </button>
@@ -59,7 +63,12 @@ export function Faq({ items, tone = "light" }: { items: FaqItem[]; tone?: "light
                   transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                   className="overflow-hidden"
                 >
-                  <div className={cn("max-w-2xl pb-7 text-[1.02rem] leading-relaxed", dark ? "text-white/65" : "text-ink-soft")}>
+                  <div
+                    className={cn(
+                      "max-w-2xl pb-7 text-[1.02rem] leading-relaxed",
+                      dark ? "text-white/65" : "text-ink-soft",
+                    )}
+                  >
                     {item.a}
                   </div>
                 </motion.div>

@@ -56,6 +56,16 @@ cp .env.example .env.local   # fill in what you have; everything is optional in 
 npm run dev
 ```
 
+| Command | What it does |
+|---|---|
+| `npm run check` | Lint, type check, format check and unit tests. Run before you push |
+| `npm run format` | Format everything with Prettier |
+| `npm test` / `npm run test:watch` | Unit and component tests (Vitest). They sit next to the code as `*.test.ts(x)` |
+| `npm run test:e2e` | Browser tests in `e2e/` (Playwright). First time: `npx playwright install chromium` |
+| `npm run build` | Production build |
+
+CI runs all of these on every pull request. `main` only accepts changes through a PR with green checks.
+
 ## Deploy on Vercel
 
 1. Import the repo in Vercel. It detects Next.js, so leave the build settings on their defaults.

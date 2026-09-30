@@ -97,20 +97,20 @@ function ResumeBody({ variant, flagged, tailored = false, targetRefs }: BodyProp
 
       {/* On phones the resume shows only the parts that change, so the demo fits on one screen. */}
       <div className="hidden sm:block">
-      <Section title="Education">
-        <p className="flex justify-between gap-3">
-          <span className="font-semibold text-ink">B.Sc. Computer Science</span>
-          <span className="shrink-0 text-slate">2023 – 2027</span>
-        </p>
-      </Section>
+        <Section title="Education">
+          <p className="flex justify-between gap-3">
+            <span className="font-semibold text-ink">B.Sc. Computer Science</span>
+            <span className="shrink-0 text-slate">2023 – 2027</span>
+          </p>
+        </Section>
 
-      <Section title="Experience">
-        <p className="flex justify-between gap-3">
-          <span className="font-semibold text-ink">IT Support Assistant, Campus IT</span>
-          <span className="shrink-0 text-slate">2025</span>
-        </p>
-        <p className="mt-0.5 pl-3 -indent-3">• Resolved 30+ support tickets a week for students and staff.</p>
-      </Section>
+        <Section title="Experience">
+          <p className="flex justify-between gap-3">
+            <span className="font-semibold text-ink">IT Support Assistant, Campus IT</span>
+            <span className="shrink-0 text-slate">2025</span>
+          </p>
+          <p className="mt-0.5 pl-3 -indent-3">• Resolved 30+ support tickets a week for students and staff.</p>
+        </Section>
       </div>
 
       <Section title="Projects">
@@ -120,7 +120,7 @@ function ResumeBody({ variant, flagged, tailored = false, targetRefs }: BodyProp
             •{" "}
             {after ? (
               <motion.span
-                className="rounded bg-cobalt-wash px-0.5 text-ink [box-decoration-break:clone]"
+                className="rounded bg-cobalt-wash [box-decoration-break:clone] px-0.5 text-ink"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: i * 0.35, ease: "easeOut" }}
@@ -329,11 +329,7 @@ export function Optimizer() {
             <ResumeBody variant="before" flagged={flagged} targetRefs={targetRefs} />
 
             {pageWidth > 0 && (
-              <div
-                ref={lensRef}
-                aria-hidden
-                className="pointer-events-none absolute top-0 left-0 z-10"
-              >
+              <div ref={lensRef} aria-hidden className="pointer-events-none absolute top-0 left-0 z-10">
                 <motion.div
                   className="relative"
                   style={{ width: LENS, height: LENS }}
@@ -450,7 +446,9 @@ function PageLabel({
       </p>
       <p className="text-sm text-slate">
         Fit{" "}
-        <span className={cn("font-mono text-base font-semibold tabular-nums", accent && fit ? "text-cobalt" : "text-ink")}>
+        <span
+          className={cn("font-mono text-base font-semibold tabular-nums", accent && fit ? "text-cobalt" : "text-ink")}
+        >
           {fit ?? "—"}
         </span>
       </p>

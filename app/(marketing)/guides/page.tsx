@@ -7,7 +7,8 @@ import { guides } from "@/lib/guides";
 
 export const metadata: Metadata = {
   title: "Guides",
-  description: "Free, practical guides for CS students on targeting roles, fixing resumes and reading application results.",
+  description:
+    "Free, practical guides for CS students on targeting roles, fixing resumes and reading application results.",
   alternates: { canonical: "/guides" },
 };
 

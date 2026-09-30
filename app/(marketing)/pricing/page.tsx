@@ -27,7 +27,12 @@ const rows: { feature: string; free: Cell; pro: Cell; elite: Cell }[] = [
 
 function Value({ v }: { v: Cell }) {
   if (v === true) return <CheckGlyph className="size-4 text-cobalt" />;
-  if (v === false) return <span className="text-slate/60" aria-label="Not included">—</span>;
+  if (v === false)
+    return (
+      <span className="text-slate/60" aria-label="Not included">
+        —
+      </span>
+    );
   return <span>{v}</span>;
 }
 

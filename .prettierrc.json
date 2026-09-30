@@ -1,0 +1,7 @@
+{
+  "printWidth": 120,
+  "endOfLine": "auto",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindStylesheet": "./app/globals.css",
+  "tailwindFunctions": ["cn", "clsx"]
+}

@@ -114,8 +114,7 @@ body {
   .deep-blue {
     background-color: var(--color-midnight);
     background-image:
-      var(--grain),
-      radial-gradient(90% 55% at 50% 0%, rgb(36 71 245 / 0.42), transparent 75%),
+      var(--grain), radial-gradient(90% 55% at 50% 0%, rgb(36 71 245 / 0.42), transparent 75%),
       linear-gradient(180deg, var(--color-navy) 0%, var(--color-midnight) 80%);
     background-size:
       180px 180px,
