@@ -8,11 +8,19 @@ afterEach(() => {
 });
 
 describe("getCurrentUser by environment", () => {
-  it("returns nobody in production, even with a demo tier cookie", async () => {
+  it("returns nobody in production without APP_PASSWORD, even with a demo tier cookie", async () => {
     vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("APP_PASSWORD", "");
     const mod = await import("./current-user");
     expect(mod.demoModeEnabled).toBe(false);
     expect(await mod.getCurrentUser()).toBeNull();
+  });
+
+  it("returns the demo student in production when APP_PASSWORD is set", async () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    vi.stubEnv("APP_PASSWORD", "test-secret");
+    const mod = await import("./current-user");
+    expect((await mod.getCurrentUser())?.tier).toBe("elite");
   });
 
   it("returns the demo student on previews", async () => {
