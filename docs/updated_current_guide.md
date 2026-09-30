@@ -116,8 +116,10 @@ Building a page for real means a new `page/<name>` branch off `dashboard` and a 
 ### How the auth bypass works
 
 - Every page gets the user from `getCurrentUser()`. Today that returns the demo student. When we build auth, we change **only that function** to read the Supabase session, and add `redirect("/login")` in `app/(app)/layout.tsx`.
-- **Production safety:** in production (`VERCEL_ENV=production`), `getCurrentUser()` returns nobody, so the whole app returns 404. Even if `dashboard` is merged into `main` before auth exists, the demo can't show up on the live site.
-- Preview URLs are public, so anyone with the link can see the demo. That's fine because it's fake data. **Never put real student data in until auth is built.**
+- **Production is password-protected:** `proxy.ts` asks for a shared password (HTTP Basic auth; any username) on every app page whenever `APP_PASSWORD` is set. The password lives only in Vercel's environment variables, never in the repo, because the repo is public.
+- **Safe default:** in production without `APP_PASSWORD`, `getCurrentUser()` returns nobody, so the whole app returns 404. Tests cover both cases and check that every app route is behind the password.
+- **To change or remove the password:** edit or delete `APP_PASSWORD` in Vercel (Settings → Environment Variables), then redeploy.
+- Preview URLs are public, so anyone with the link can see the demo unless `APP_PASSWORD` is also set for Preview. That's fine because it's fake data. **Never put real student data in until auth is built.** The shared password is a stopgap, not real accounts.
 
 ### Try it locally
 
@@ -150,6 +152,7 @@ In parallel on `frontend`: marketing changes, plus the Phase 1 leftovers (PostHo
 | Supabase in the app (auth, profiles, storage) | We're designing with mock data first | With auth |
 | Separate dev and prod Supabase projects | Nothing in the app uses Supabase yet | With auth |
 | Env var validation | Few env vars so far, all optional in dev | With auth |
+| Real accounts (replacing the shared password) | Needs Supabase Auth | Phase 2 |
 | Sentry error tracking | No real users in the app yet | Before real users log in |
 | Coach app `(coach)` | Comes after the student app | Phase 6 |
 

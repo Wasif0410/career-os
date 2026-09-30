@@ -12,8 +12,11 @@ import type { CurrentUser } from "./user";
  * body of `getCurrentUser` and nothing else in the app has to change.
  */
 
-/** The demo is for local development and preview deployments. Production never serves it. */
-export const demoModeEnabled = vercelEnv !== "production";
+/**
+ * The demo runs locally and on preview deployments. Production serves it only
+ * when APP_PASSWORD is set, so proxy.ts asks for the password first.
+ */
+export const demoModeEnabled = vercelEnv !== "production" || Boolean(process.env.APP_PASSWORD);
 
 /** Cookie set by the tier switcher so the Free, Pro and Elite views can be checked without real accounts. */
 export const DEMO_TIER_COOKIE = "cos_demo_tier";

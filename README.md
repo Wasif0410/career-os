@@ -97,7 +97,7 @@ CI runs all of these on every pull request. `main` only accepts changes through 
 What the code handles:
 
 - Every marketing page is prerendered at build time. The waitlist sign-up and the student app run as functions.
-- The student app returns 404 in production until real login exists. It runs on local and preview deployments only.
+- The student app is hidden (404) in production unless `APP_PASSWORD` is set in Vercel. With it set, the browser asks for that password before any app page loads (any username works). Locally and on previews it's open unless `APP_PASSWORD` is set there too.
 - Canonical URLs, the sitemap and Open Graph images use the right domain for production and for each preview.
 - Previews serve a `robots.txt` that blocks crawlers.
 - Node is pinned to 24.x in `package.json`.
