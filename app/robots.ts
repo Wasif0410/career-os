@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { appNav, accountNav } from "@/components/app/nav-items";
 import { site, vercelEnv } from "@/lib/site";
 
 export default function robots(): MetadataRoute.Robots {
@@ -7,7 +8,8 @@ export default function robots(): MetadataRoute.Robots {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // The student app is private. Its pages also send noindex.
+    rules: { userAgent: "*", allow: "/", disallow: [...appNav, ...accountNav].map((item) => item.href) },
     sitemap: `${site.url}/sitemap.xml`,
   };
 }
