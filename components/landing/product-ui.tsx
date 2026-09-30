@@ -10,7 +10,7 @@ export function ProductCard({ className, children }: { className?: string; child
   return (
     <div
       className={cn(
-        "rounded-2xl bg-surface p-4 ring-1 ring-rule shadow-[0_1px_2px_rgb(11_18_32/0.04),0_12px_32px_-18px_rgb(11_18_32/0.28)] sm:p-5",
+        "rounded-2xl bg-surface p-4 shadow-[0_1px_2px_rgb(11_18_32/0.04),0_12px_32px_-18px_rgb(11_18_32/0.28)] ring-1 ring-rule sm:p-5",
         className,
       )}
     >
@@ -52,7 +52,9 @@ export function CoachMessage({ text, time = "now", className }: { text: string; 
           <span className="font-semibold text-ink">Your coach</span>
           <span className="text-slate">{time}</span>
         </p>
-        <p className="mt-1 rounded-2xl rounded-tl-md bg-paper px-3.5 py-2.5 text-sm leading-snug text-ink-soft">{text}</p>
+        <p className="mt-1 rounded-2xl rounded-tl-md bg-paper px-3.5 py-2.5 text-sm leading-snug text-ink-soft">
+          {text}
+        </p>
       </div>
     </div>
   );

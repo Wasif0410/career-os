@@ -73,7 +73,7 @@ export function WaitlistForm({
                     name="target"
                     defaultValue={kept?.target ?? ""}
                     className={cn(
-                      "h-12 w-full appearance-none rounded-full pr-10 pl-5 text-[0.95rem] outline-none transition-shadow",
+                      "h-12 w-full appearance-none rounded-full pr-10 pl-5 text-[0.95rem] transition-shadow outline-none",
                       dark
                         ? "bg-white/[0.07] text-white ring-1 ring-white/15 ring-inset focus:ring-2 focus:ring-cobalt-bright [&>option]:text-ink"
                         : "bg-surface text-ink ring-1 ring-rule-strong ring-inset focus:ring-2 focus:ring-cobalt",
@@ -116,7 +116,7 @@ export function WaitlistForm({
                 aria-invalid={emailError || undefined}
                 aria-describedby={state.status === "error" ? `${id}-error` : undefined}
                 className={cn(
-                  "h-12 w-full min-w-0 rounded-full px-5 text-[0.95rem] outline-none transition-shadow sm:flex-1",
+                  "h-12 w-full min-w-0 rounded-full px-5 text-[0.95rem] transition-shadow outline-none sm:flex-1",
                   dark
                     ? "bg-white/[0.07] text-white ring-1 ring-white/15 ring-inset placeholder:text-white/45 focus:ring-2 focus:ring-cobalt-bright"
                     : "bg-surface text-ink ring-1 ring-rule-strong ring-inset placeholder:text-slate/70 focus:ring-2 focus:ring-cobalt",
@@ -133,11 +133,7 @@ export function WaitlistForm({
             </div>
 
             {state.status === "error" && (
-              <p
-                id={`${id}-error`}
-                role="alert"
-                className={cn("pl-5 text-sm", dark ? "text-red-300" : "text-stop")}
-              >
+              <p id={`${id}-error`} role="alert" className={cn("pl-5 text-sm", dark ? "text-red-300" : "text-stop")}>
                 {state.message}
               </p>
             )}

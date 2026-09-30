@@ -48,7 +48,9 @@ export function SectionHeading({
       <Reveal className={cn("text-center", className)}>
         {heading}
         {lead && (
-          <p className={cn("text-lead mx-auto mt-6 max-w-[34rem] [text-wrap:balance]", dark && "text-white/65")}>{lead}</p>
+          <p className={cn("text-lead mx-auto mt-6 max-w-[34rem] [text-wrap:balance]", dark && "text-white/65")}>
+            {lead}
+          </p>
         )}
         {aside && <div className="mt-6 flex justify-center">{aside}</div>}
       </Reveal>

@@ -25,7 +25,10 @@ export function CoachAvatar({ coach, className }: { coach: Coach; className?: st
 /** Where the coach has worked: real logos where we have them, plain text otherwise. */
 export function CoachCompanies({ coach, className }: { coach: Coach; className?: string }) {
   return (
-    <ul className={cn("flex flex-wrap items-center gap-x-6 gap-y-3", className)} aria-label={`Where ${coach.name} has worked`}>
+    <ul
+      className={cn("flex flex-wrap items-center gap-x-6 gap-y-3", className)}
+      aria-label={`Where ${coach.name} has worked`}
+    >
       {coach.companies.map((name) => {
         const logo = coachCompanies.find((c) => c.name === name);
         if (!logo) {
@@ -107,7 +110,9 @@ export function CoachProfile({ coach, className, seed = 1 }: { coach: Coach; cla
             {coach.focus}
           </span>
         </div>
-        <h3 className="mt-10 font-display text-[2.4rem] leading-none tracking-[-0.022em] text-white">{coach.fullName}</h3>
+        <h3 className="mt-10 font-display text-[2.4rem] leading-none tracking-[-0.022em] text-white">
+          {coach.fullName}
+        </h3>
       </header>
 
       <div className="flex flex-1 flex-col px-7 pt-7 pb-7 sm:px-9 sm:pb-9">

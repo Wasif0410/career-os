@@ -95,19 +95,13 @@ export function Journey() {
         className={cn(
           "mt-12 md:mt-16 lg:mt-0",
           // Phones and tablets: a swipeable row of cards. Desktop: the scroll stack.
-          "-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] sm:-mx-8 sm:px-8 [&::-webkit-scrollbar]:hidden",
+          "-mx-5 flex snap-x snap-mandatory [scrollbar-width:none] gap-3 overflow-x-auto px-5 pb-2 sm:-mx-8 sm:px-8 [&::-webkit-scrollbar]:hidden",
           "lg:mx-0 lg:block lg:overflow-visible lg:px-0 lg:pb-0",
           reduce && "lg:space-y-4",
         )}
       >
         {steps.map((step, i) => (
-          <StepCard
-            key={step.title}
-            step={step}
-            index={i}
-            progress={scrollYProgress}
-            stacked={desktop && !reduce}
-          />
+          <StepCard key={step.title} step={step} index={i} progress={scrollYProgress} stacked={desktop && !reduce} />
         ))}
         {/* Scroll room after the last card: sticky elements can only hold while their parent continues,
             so this lets the finished stack sit on screen before the section moves on. */}
@@ -119,7 +113,10 @@ export function Journey() {
         {steps.map((s, i) => (
           <span
             key={s.title}
-            className={cn("h-1.5 rounded-full transition-all duration-300", i === shown ? "w-6 bg-cobalt" : "w-1.5 bg-rule-strong")}
+            className={cn(
+              "h-1.5 rounded-full transition-all duration-300",
+              i === shown ? "w-6 bg-cobalt" : "w-1.5 bg-rule-strong",
+            )}
           />
         ))}
       </div>
@@ -149,14 +146,17 @@ function StepCard({
   return (
     <div
       // Every wrapper is the same height, so the whole stack stays stuck together and leaves together.
-      className={cn("w-[88%] max-w-[26rem] shrink-0 snap-center lg:w-auto lg:max-w-none", stacked && "sticky top-0 h-[88vh]")}
+      className={cn(
+        "w-[88%] max-w-[26rem] shrink-0 snap-center lg:w-auto lg:max-w-none",
+        stacked && "sticky top-0 h-[88vh]",
+      )}
       style={stacked ? { paddingTop: `calc(6.5rem + ${index * 1.5}rem)` } : undefined}
     >
       <motion.article
         ref={ref}
         style={stacked ? { scale, transformOrigin: "50% 0%" } : undefined}
         className={cn(
-          "relative isolate grid h-full grid-cols-1 overflow-hidden rounded-[1.75rem] lg:h-auto lg:rounded-[2rem] lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]",
+          "relative isolate grid h-full grid-cols-1 overflow-hidden rounded-[1.75rem] lg:h-auto lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:rounded-[2rem]",
           finale
             ? "deep-blue shadow-[0_40px_100px_-40px_rgb(36_71_245/0.6)] ring-1 ring-white/10"
             : "bg-surface shadow-[0_30px_80px_-50px_rgb(10_20_51/0.45)] ring-1 ring-rule",
@@ -174,7 +174,12 @@ function StepCard({
             >
               {step.title}
             </h3>
-            <p className={cn("mt-3 max-w-sm text-base leading-relaxed sm:mt-4 sm:text-[1.05rem]", finale ? "text-white/65" : "text-slate")}>
+            <p
+              className={cn(
+                "mt-3 max-w-sm text-base leading-relaxed sm:mt-4 sm:text-[1.05rem]",
+                finale ? "text-white/65" : "text-slate",
+              )}
+            >
               {step.body}
             </p>
           </div>
@@ -241,9 +246,7 @@ function GapsVisual() {
     <ProductCard>
       <CardHeader title="Resume score" meta="Reviewed with your coach" />
       <div className="mt-3 flex items-baseline gap-3">
-        <span className="text-4xl font-semibold tracking-[-0.04em] text-slate/60 line-through decoration-2">
-          62
-        </span>
+        <span className="text-4xl font-semibold tracking-[-0.04em] text-slate/60 line-through decoration-2">62</span>
         <motion.span
           className="text-5xl font-semibold tracking-[-0.04em] text-cobalt"
           initial={{ opacity: 0, y: 6 }}
