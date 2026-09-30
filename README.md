@@ -46,8 +46,8 @@ Auto-applier: Python service
 |---|---|
 | [`docs/PROJECT_CONTEXT.md`](docs/PROJECT_CONTEXT.md) | What Career OS is and the rules for building it. **Start here.** |
 | [`docs/STRATEGY.md`](docs/STRATEGY.md) | Tiers, pricing, stack, architecture, roadmap |
+| [`docs/updated_current_guide.md`](docs/updated_current_guide.md) | **Where the project is right now:** branches, what's done, what's next, and a dated checkpoint log |
 | [`docs/frontend/PHASES.md`](docs/frontend/PHASES.md) | Frontend build guide, phase by phase |
-| [`docs/updated_current_guide.md`](docs/updated_current_guide.md) | Where the project is right now: what's done, what's in progress, what's next |
 
 ## Code Layout
 
