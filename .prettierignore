@@ -1,0 +1,13 @@
+# Generated or vendored
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+node_modules/
+package-lock.json
+next-env.d.ts
+
+# Prose is hand-written. MDX guides and docs keep their own line breaks.
+*.md
+*.mdx
