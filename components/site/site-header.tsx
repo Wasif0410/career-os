@@ -45,8 +45,7 @@ export function SiteHeader() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const isActive = (href: string) =>
-    !href.includes("#") && pathname.startsWith(href);
+  const isActive = (href: string) => !href.includes("#") && pathname.startsWith(href);
   const solid = scrolled || open || !deepTopPaths.includes(pathname);
 
   // The menu is a sibling of the header, not a child: the header's backdrop blur would
@@ -62,18 +61,11 @@ export function SiteHeader() {
         )}
       >
         <div className="relative mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
-          <Link
-            href="/"
-            aria-label="Career OS home"
-            className="-ml-1 rounded-md p-1"
-          >
+          <Link href="/" aria-label="Career OS home" className="-ml-1 rounded-md p-1">
             <Logo tone="dark" />
           </Link>
 
-          <nav
-            aria-label="Main"
-            className="absolute left-1/2 hidden -translate-x-1/2 md:block"
-          >
+          <nav aria-label="Main" className="absolute left-1/2 hidden -translate-x-1/2 md:block">
             <ul className="flex items-center gap-8">
               {nav.map((item) => {
                 const active = isActive(item.href);

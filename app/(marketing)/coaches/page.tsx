@@ -30,7 +30,9 @@ export default function CoachesPage() {
             >
               <div>
                 <CoachAvatar coach={coach} className="size-16 text-2xl" />
-                <h2 className="mt-6 font-display text-[2.5rem] leading-tight tracking-[-0.02em] text-ink">{coach.fullName}</h2>
+                <h2 className="mt-6 font-display text-[2.5rem] leading-tight tracking-[-0.02em] text-ink">
+                  {coach.fullName}
+                </h2>
                 <p className="mt-1 font-medium text-cobalt">{coach.focus}</p>
                 <CoachCompanies coach={coach} className="mt-6" />
               </div>

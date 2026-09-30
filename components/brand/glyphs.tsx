@@ -129,7 +129,13 @@ export function BookGlyph({ className }: GlyphProps) {
 export function ArrowGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={cn("size-4", className)} aria-hidden fill="none">
-      <path d="M3 8h9.5M8.5 4l4 4-4 4" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M3 8h9.5M8.5 4l4 4-4 4"
+        stroke="currentColor"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -137,7 +143,13 @@ export function ArrowGlyph({ className }: GlyphProps) {
 export function CheckGlyph({ className }: GlyphProps) {
   return (
     <svg viewBox="0 0 16 16" className={cn("size-4", className)} aria-hidden fill="none">
-      <path d="M3.2 8.4l3 2.9 6.6-7" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M3.2 8.4l3 2.9 6.6-7"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

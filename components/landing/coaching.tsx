@@ -55,9 +55,7 @@ function levelAt(col: number, row: number) {
 
 const LEVELS = Array.from({ length: DAYS }, (_, r) => Array.from({ length: WEEKS }, (_, c) => levelAt(c, r)));
 const PER_LEVEL = [0, 1, 3, 6, 9];
-const COLUMN_TOTALS = Array.from({ length: WEEKS }, (_, c) =>
-  LEVELS.reduce((sum, row) => sum + PER_LEVEL[row[c]], 0),
-);
+const COLUMN_TOTALS = Array.from({ length: WEEKS }, (_, c) => LEVELS.reduce((sum, row) => sum + PER_LEVEL[row[c]], 0));
 const shades = ["bg-paper-deep", "bg-cobalt/20", "bg-cobalt/40", "bg-cobalt/70", "bg-cobalt"];
 
 // What your coach is saying at each point along the way.
@@ -173,7 +171,9 @@ function Contributions() {
         <div>
           <div className="flex items-center justify-between gap-3">
             <p className="text-sm font-semibold text-ink">Commits</p>
-            <span className="rounded-full bg-paper px-2.5 py-0.5 font-mono text-xs text-slate ring-1 ring-rule">main</span>
+            <span className="rounded-full bg-paper px-2.5 py-0.5 font-mono text-xs text-slate ring-1 ring-rule">
+              main
+            </span>
           </div>
           <ol className="mt-5">
             {commits.map((c, i) => {
@@ -200,7 +200,9 @@ function Contributions() {
                     {reached && c.goal && <CheckGlyph className="size-2.5" />}
                   </span>
                   <div className={cn("transition-opacity duration-500", reached ? "opacity-100" : "opacity-35")}>
-                    <p className={cn("font-mono text-[0.8rem] leading-snug", c.goal && reached ? "text-go" : "text-ink")}>
+                    <p
+                      className={cn("font-mono text-[0.8rem] leading-snug", c.goal && reached ? "text-go" : "text-ink")}
+                    >
                       {c.message}
                     </p>
                     <p className="mt-0.5 text-xs text-slate">

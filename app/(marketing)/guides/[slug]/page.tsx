@@ -57,9 +57,7 @@ export default async function GuidePage({ params }: PageProps<"/guides/[slug]">)
           <ArrowGlyph className="size-3.5 rotate-180 transition-transform group-hover:-translate-x-0.5" />
           All guides
         </Link>
-        <h1 className="text-display-l mt-6">
-          {guide.title}
-        </h1>
+        <h1 className="text-display-l mt-6">{guide.title}</h1>
         <p className="mt-5 text-xl leading-relaxed text-ink-soft">{guide.description}</p>
         <p className="mt-6 flex flex-wrap gap-x-4 gap-y-1 border-t border-rule pt-5 font-mono text-xs tracking-wide text-slate uppercase">
           <span>{guide.topic}</span>
@@ -75,9 +73,7 @@ export default async function GuidePage({ params }: PageProps<"/guides/[slug]">)
       <aside className="mx-auto mb-24 max-w-[44rem] border-t border-rule pt-8">
         <p className="eyebrow">Next guide</p>
         <Link href={`/guides/${next.slug}`} className="group mt-3 flex items-center justify-between gap-6">
-          <span className="font-display text-2xl tracking-[-0.02em] group-hover:text-cobalt-deep">
-            {next.title}
-          </span>
+          <span className="font-display text-2xl tracking-[-0.02em] group-hover:text-cobalt-deep">{next.title}</span>
           <span className="grid size-11 shrink-0 place-items-center rounded-full ring-1 ring-rule-strong transition-colors group-hover:bg-ink group-hover:text-white">
             <ArrowGlyph />
           </span>

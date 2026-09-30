@@ -68,7 +68,12 @@ export function Dashboard({ className }: { className?: string }) {
   const jobs: { role: string; org: string; fit: number; status: Status }[] = [
     { role: "Software Engineer Intern", org: "Fintech · Toronto", fit: 91, status: "Applied" },
     { role: "Backend Intern", org: "Cloud startup · Remote", fit: 86, status: "Applied" },
-    { role: "Platform Intern", org: "Bank · Toronto", fit: 82, status: s === 0 ? "Approve" : s === 1 ? "Applying" : "Applied" },
+    {
+      role: "Platform Intern",
+      org: "Bank · Toronto",
+      fit: 82,
+      status: s === 0 ? "Approve" : s === 1 ? "Applying" : "Applied",
+    },
   ];
   const pipeline = [
     { label: "Applied", value: applied ? 24 : 23 },
@@ -106,7 +111,9 @@ export function Dashboard({ className }: { className?: string }) {
             <span className="hidden rounded-full bg-paper px-3 py-1 text-xs text-ink-soft ring-1 ring-rule sm:inline">
               Target · SWE intern, Summer 2027
             </span>
-            <span className="grid size-7 place-items-center rounded-full bg-cobalt text-xs font-semibold text-white">M</span>
+            <span className="grid size-7 place-items-center rounded-full bg-cobalt text-xs font-semibold text-white">
+              M
+            </span>
           </span>
         </div>
 
@@ -125,7 +132,9 @@ export function Dashboard({ className }: { className?: string }) {
                   <Glyph className="size-[18px]" />
                   <span className="flex-1">{label}</span>
                   {badge && (
-                    <span className="rounded-full bg-cobalt px-1.5 py-px text-[0.65rem] font-semibold text-white">{badge}</span>
+                    <span className="rounded-full bg-cobalt px-1.5 py-px text-[0.65rem] font-semibold text-white">
+                      {badge}
+                    </span>
                   )}
                 </li>
               ))}
@@ -147,9 +156,7 @@ export function Dashboard({ className }: { className?: string }) {
           <div className="min-w-0 p-4 sm:p-6">
             <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <p className="text-xl font-semibold tracking-[-0.025em] text-ink sm:text-2xl">
-                  Good evening, Maya
-                </p>
+                <p className="text-xl font-semibold tracking-[-0.025em] text-ink sm:text-2xl">Good evening, Maya</p>
                 <p className="mt-0.5 text-sm text-slate">Week 6 of your plan</p>
               </div>
               <span className="inline-flex items-center gap-2 rounded-full bg-paper px-3 py-1 text-xs text-ink-soft ring-1 ring-rule">
@@ -173,7 +180,9 @@ export function Dashboard({ className }: { className?: string }) {
                       <span className="block truncate text-xs text-white/60">Thu · 6:00 PM · 45 min</span>
                     </span>
                   </div>
-                  <span className="shrink-0 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-ink">Join</span>
+                  <span className="shrink-0 rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-ink">
+                    Join
+                  </span>
                 </div>
 
                 <p className="mt-5 text-xs font-medium text-sky">Agenda from your coach</p>
@@ -238,7 +247,12 @@ export function Dashboard({ className }: { className?: string }) {
                   {plan.map((p) => (
                     <li key={p.text} className="flex items-center gap-3 text-sm">
                       <CheckBox done={p.done} />
-                      <span className={cn("transition-colors duration-300", p.done ? "text-slate line-through" : "text-ink")}>
+                      <span
+                        className={cn(
+                          "transition-colors duration-300",
+                          p.done ? "text-slate line-through" : "text-ink",
+                        )}
+                      >
                         {p.text}
                       </span>
                     </li>
@@ -275,7 +289,10 @@ export function Dashboard({ className }: { className?: string }) {
                 <CardHeader title="Applications" meta="This season" />
                 <ul className="mt-4 space-y-3">
                   {pipeline.map((p, i) => (
-                    <li key={p.label} className="grid grid-cols-[5.25rem_minmax(0,1fr)_2rem] items-center gap-3 text-sm">
+                    <li
+                      key={p.label}
+                      className="grid grid-cols-[5.25rem_minmax(0,1fr)_2rem] items-center gap-3 text-sm"
+                    >
                       <span className="text-slate">{p.label}</span>
                       <span className="h-2 overflow-hidden rounded-full bg-paper-deep">
                         <motion.span
