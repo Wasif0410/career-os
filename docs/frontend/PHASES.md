@@ -1,6 +1,8 @@
 # Frontend Build Guide — Phases
 
 > **For agents:** This is Wasif's step-by-step guide for the Career OS frontend (branch: `frontend`). Read [`../PROJECT_CONTEXT.md`](../PROJECT_CONTEXT.md) and [`../STRATEGY.md`](../STRATEGY.md) first. Work one phase at a time. A phase is done only when every item in **Done when** is true. Don't pull features forward from later phases.
+>
+> **Order change (2026-09-30):** the Phase 3 student app is being built before Phase 2 auth, on the `dashboard` branch, using a demo user, with one PR per page. See [`../updated_current_guide.md`](../updated_current_guide.md) for current status.
 
 **Owner:** Wasif
 **Stack:** Next.js (App Router) · TypeScript · Tailwind · shadcn/ui · Supabase · Stripe · Vercel · Resend · PostHog · Sentry
