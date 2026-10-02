@@ -60,3 +60,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Use the protected-main PR workflow and retain commit history. Dashboard is already in main via PR #28.
 **Open:** Required CI and the actual merge / branch synchronization.
 **PR:** to be created into main.
+
+### 2026-10-02 15:29 · codex · agent-config
+**Did:** Delivered configuration in PR #29 into main. Both required CI jobs and Vercel preview passed for the prepared documentation. Recorded the PR link and Wasif's authorization to synchronize dashboard and all page branches after merge.
+**Decisions:** Documentation-only delivery; GitHub records the final merge status. The final coordination-record commit also goes through required CI before merging.
+**Open:** No unresolved product decisions for this delivery. Follow the PR for integration status.
+**PR:** https://github.com/Wasif0410/career-os/pull/29
