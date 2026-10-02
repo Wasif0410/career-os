@@ -9,7 +9,7 @@
 
 ## Where we are in one paragraph
 
-The marketing site (Phase 1) is live on Vercel from `main`. The engineering basics are on `main` too: formatting, unit and browser tests, CI on every PR, and branch protection. The **student app** (the dashboard and every logged-in page) lives on its own branch, `dashboard`, and **is not on `main` yet**. It's being built **before** auth, running as a demo student, one PR per page. Marketing work continues on `frontend`. Supabase in the app, separate dev and prod environments, and error tracking are deliberately left for later.
+The marketing site (Phase 1) is live on Vercel from `main`. The engineering basics are on `main` too: formatting, unit and browser tests, CI on every PR, and branch protection. The **student app** (the dashboard and every logged-in page) lives on its own branch, `dashboard`, and **is not on `main` yet**. It's being built **before** auth, running as a demo student, one PR per page. Marketing work continues on `marketing-site`. Supabase in the app, separate dev and prod environments, and error tracking are deliberately left for later.
 
 ---
 
@@ -17,7 +17,7 @@ The marketing site (Phase 1) is live on Vercel from `main`. The engineering basi
 
 ```
 main  ← production (Vercel). Protected: PR only, CI must pass
- ├─ frontend    marketing site work → PR into main
+ ├─ marketing-site    marketing site work → PR into main
  └─ dashboard   the student app, kept off main until it's ready
      └─ page/<name>   one branch + one PR per app page → PR into dashboard
 ```
@@ -25,7 +25,7 @@ main  ← production (Vercel). Protected: PR only, CI must pass
 | Branch | What it's for | Merges into |
 |---|---|---|
 | `main` | Production. Vercel deploys it | — |
-| `frontend` | Marketing site changes | `main` |
+| `marketing-site` | Marketing site changes | `main` |
 | `dashboard` | The student app as a whole | `main`, in one PR, when we decide it's ready |
 | `page/<name>` | Building one app page (`page/resume`, `page/jobs`, …) | `dashboard` |
 | `setup/<name>`, `docs/<name>` | Tooling or docs changes on their own | `main` |
@@ -141,7 +141,7 @@ Open http://localhost:3000/dashboard and use the Free / Pro / Elite switch in th
 4. **Auth** (the old Phase 2): Supabase Auth, `/login`, `/signup`, and swapping `getCurrentUser()` for the real session. This is also when we set up Supabase dev and prod, env var validation and Sentry.
 5. **Payments** (Phase 4, Stripe), then **paid features** (Phase 5).
 
-In parallel on `frontend`: marketing changes, plus the Phase 1 leftovers (PostHog, one or two more guides, a Lighthouse pass, buying the domain).
+In parallel on `marketing-site`: marketing changes, plus the Phase 1 leftovers (PostHog, one or two more guides, a Lighthouse pass, buying the domain).
 
 ---
 

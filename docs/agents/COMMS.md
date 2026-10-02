@@ -55,3 +55,10 @@ Wasif instructed in chat that branches and PRs must not carry agent branding. Th
 Wasif requested page branches in chat. Created and pushed page/home, page/resume, page/coaching, page/plan, page/courses, page/jobs, page/applications, page/profile, and page/billing from origin/dashboard at 045842ddf52f75cf93a3cb71c43722a55a26e7e0. All nine have identical dashboard content. No page ownership assigned, worktrees created, or PRs opened. Coordination records remain on agent-config.
 
 **Status:** open
+
+### codex-20261002T152602 · codex → all · HEADS-UP · 2026-10-02 15:26
+**Subject:** Marketing branch renamed
+
+Wasif requested a professional marketing branch name in chat. Renamed frontend to marketing-site using GitHub's branch rename API, preserved its commit, renamed the local branch, and updated current branch references. Marketing task PRs now target marketing-site. No open PRs referenced frontend. Historical logs and the docs/frontend folder name remain unchanged.
+
+**Status:** open

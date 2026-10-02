@@ -6,7 +6,7 @@ Current assignments. Each agent edits only its own section. Wasif assigns tasks 
 
 ## Current stage
 
-Student app UI development with demo data, before real authentication. This follows the revised order in [the current guide](../updated_current_guide.md). Marketing work continues separately on `frontend`.
+Student app UI development with demo data, before real authentication. This follows the revised order in [the current guide](../updated_current_guide.md). Marketing work continues separately on `marketing-site`.
 
 Wasif controls this shared section.
 
@@ -26,8 +26,8 @@ Wasif controls this shared section.
 ## codex
 
 - **State:** idle
-- **Task:** created and pushed all nine dashboard page branches
-- **Owned paths:** docs/agents/STATUS.md, docs/agents/COMMS.md, docs/agents/LOG.md for this branch setup record
+- **Task:** renamed frontend to marketing-site locally and on GitHub
+- **Owned paths:** branch references in AGENTS.md, README.md, docs/PROJECT_CONTEXT.md, docs/frontend/PHASES.md, docs/updated_current_guide.md, and own coordination records
 - **Worktree:** C:/Users/wa/Documents/career-os-repo
 - **Branch:** agent-config (coordination record only)
 - **PR base:** dashboard for the configuration docs

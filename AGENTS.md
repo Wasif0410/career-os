@@ -40,10 +40,10 @@ Each concurrently working agent must use a separate Git worktree and task branch
 | Work | Base branch | Task branch | PR target |
 |---|---|---|---|
 | Student app page | `dashboard` | `page/<task>` | `dashboard` |
-| Marketing | `frontend` | `marketing/<task>` | `frontend` |
+| Marketing | `marketing-site` | `marketing/<task>` | `marketing-site` |
 | Standalone tooling / docs | `main` unless Wasif specifies otherwise | `setup/<task>` or `docs/<task>` | Explicitly record the target |
 
-Existing `page/<name>` branches remain valid. Record the actual base and target for every assignment. Only Wasif merges task PRs or promotes `frontend` / `dashboard` into `main`. Never commit feature work directly to those integration branches, force-push shared branches, or merge your own PR.
+Existing `page/<name>` branches remain valid. Record the actual base and target for every assignment. Only Wasif merges task PRs or promotes `marketing-site` / `dashboard` into `main`. Never commit feature work directly to those integration branches, force-push shared branches, or merge your own PR.
 
 ## Session protocol
 
@@ -80,4 +80,3 @@ Existing `page/<name>` branches remain valid. Record the actual base and target 
 - Union merging COMMS and LOG preserves appended text, but does not guarantee ordering or resolve conflicting decisions. Use unique message IDs and inspect merged records.
 
 Use task-based branch names and PR titles. Do not add agent or model branding to branches or PRs. Commits use Wasif's configured Git identity without AI co-author trailers.
-

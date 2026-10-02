@@ -48,3 +48,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Included every current sidebar and account section. Left page content unchanged and kept the coordination record on agent-config.
 **Open:** Wasif assigns pages; separate worktrees needed before concurrent editing.
 **PR:** none.
+
+### 2026-10-02 15:26 · codex · agent-config
+**Did:** Renamed frontend to marketing-site on GitHub and locally, configured its upstream, and updated current documentation references.
+**Decisions:** Used marketing-site as the professional branch name requested by Wasif. Preserved branch content and historical entries.
+**Open:** Configuration docs remain on agent-config for Wasif's review.
+**PR:** none.
