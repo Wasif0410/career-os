@@ -1,6 +1,6 @@
 # Frontend Build Guide — Phases
 
-> **For agents:** This is Wasif's step-by-step guide for the Career OS frontend (branch: `frontend`). Read [`../PROJECT_CONTEXT.md`](../PROJECT_CONTEXT.md) and [`../STRATEGY.md`](../STRATEGY.md) first. Work one phase at a time. A phase is done only when every item in **Done when** is true. Don't pull features forward from later phases.
+> **For agents:** This is Wasif's step-by-step guide for the Career OS frontend (branch: `marketing-site`). Read [`../PROJECT_CONTEXT.md`](../PROJECT_CONTEXT.md) and [`../STRATEGY.md`](../STRATEGY.md) first. Work one phase at a time. A phase is done only when every item in **Done when** is true. Don't pull features forward from later phases.
 >
 > **Order change (2026-09-30):** the Phase 3 student app is being built before Phase 2 auth, on the `dashboard` branch, using a demo user, with one PR per page. See [`../updated_current_guide.md`](../updated_current_guide.md) for current status.
 
@@ -48,7 +48,7 @@ COACH (role = coach)
 - [ ] Next.js + TypeScript + Tailwind + shadcn/ui in this repo
 - [ ] ESLint + Prettier; strict TypeScript
 - [ ] Supabase projects: `dev` and `prod`. Env vars in Vercel, never committed
-- [ ] Vercel connected: every push to `frontend` gets a preview URL
+- [ ] Vercel connected: every push to `marketing-site` gets a preview URL
 - [ ] Buy the domain and point it at Vercel
 - [ ] **Design system:** colors, fonts, spacing, logo, dark mode decision
 - [ ] Core components: `Button`, `Card`, `Input`, `Badge`, `Dialog`, `Toast`, **`Locked`** (blur + "Unlock with Pro" + link to upgrade)
@@ -181,7 +181,7 @@ COACH (role = coach)
 - [ ] `/terms` and `/privacy` pages (you store resumes, so this is required)
 - [ ] Stripe **live mode**, tested with a real card
 - [ ] Final mobile pass on every page
-- [ ] Merge `frontend` into `main`, deploy to production
+- [ ] Merge `marketing-site` into `main`, deploy to production
 - [ ] **Launch:** email the waitlist, post everywhere, open the capped coaching spots
 
 **Done when:** a stranger can find the site, sign up, pay, book coaching and have applications submitted, without anyone on the team helping them by hand.

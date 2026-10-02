@@ -1,0 +1,3 @@
+# Keep both sides when agents append to these files on different branches
+docs/agents/COMMS.md merge=union
+docs/agents/LOG.md merge=union

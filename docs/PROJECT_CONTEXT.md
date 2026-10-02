@@ -97,4 +97,4 @@ Not just a resume builder, a job board, an auto-apply bot, or an AI chatbot. **T
 | `docs/STRATEGY.md` | Direction: tiers, pricing, stack, ownership, roadmap |
 | `docs/frontend/PHASES.md` | Wasif's phase-by-phase frontend build guide |
 
-**Branches:** `main` is shared and stable. `frontend` is Wasif's work.
+**Branches:** `main` is shared and stable. `marketing-site` is Wasif's work.
