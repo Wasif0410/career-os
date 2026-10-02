@@ -9,7 +9,7 @@
 
 ## Where we are in one paragraph
 
-The marketing site (Phase 1) is live on Vercel from `main`. The engineering basics are on `main` too: formatting, unit and browser tests, CI on every PR, and branch protection. The **student app** (the dashboard and every logged-in page) lives on its own branch, `dashboard`, and **is not on `main` yet**. It's being built **before** auth, running as a demo student, one PR per page. Marketing work continues on `marketing-site`. Supabase in the app, separate dev and prod environments, and error tracking are deliberately left for later.
+The marketing site (Phase 1) is live on Vercel from `main`. The engineering basics are on `main` too: formatting, unit and browser tests, CI on every PR, and branch protection. The **student app** (the dashboard and every logged-in page) lives on its own branch, `dashboard`, and **is now on `main` after PR #28**. It's being built **before** auth, running as a demo student, one PR per page. Marketing work continues on `marketing-site`. Supabase in the app, separate dev and prod environments, and error tracking are deliberately left for later.
 
 ---
 
@@ -175,13 +175,19 @@ In parallel on `marketing-site`: marketing changes, plus the Phase 1 leftovers (
 - Coach photos and Cal.com links
 - The resume score rubric (needed for real scoring)
 - **Dependabot PRs #19–#25** opened on 2026-09-30. Hold the major jumps: TypeScript 5 → 7 (#25), ESLint 9 → 10 (#24), and `@types/node` 24 → 26 (#23), which doesn't match the Node 24 runtime. The GitHub Actions bumps (#19–#21) and the minor/patch group (#22) still need a proper look before merging.
-- The agent coordination files (`AGENTS.md`, `CLAUDE.md`, `docs/agents/`, `.gitattributes`) are still uncommitted locally, waiting for Wasif's review
+- The agent coordination files (`AGENTS.md`, `CLAUDE.md`, `docs/agents/`, `.gitattributes`) are committed on `agent-config`; Wasif authorized integration into `main` and synchronization of `dashboard` and the nine page branches
 
 ---
 
 ## Checkpoint log
 
 Newest first. One entry per working session: what changed, and any decisions made.
+
+### 2026-10-02
+
+- **Current main:** PR #28 merged the student app into main; the existing password and demo protections remain in place.
+- **Branches:** frontend was renamed marketing-site. Nine page branches were created from dashboard with identical starting content.
+- **Authorized in chat:** merge agent-config into main after required CI, then bring dashboard and all nine page branches up to date with main. Agents still receive page assignments in chat.
 
 ### 2026-09-30
 

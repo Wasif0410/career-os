@@ -26,14 +26,14 @@ Wasif controls this shared section.
 ## codex
 
 - **State:** idle
-- **Task:** renamed frontend to marketing-site locally and on GitHub
+- **Task:** prepare configuration for main and synchronize dashboard page branches
 - **Owned paths:** branch references in AGENTS.md, README.md, docs/PROJECT_CONTEXT.md, docs/frontend/PHASES.md, docs/updated_current_guide.md, and own coordination records
 - **Worktree:** C:/Users/wa/Documents/career-os-repo
 - **Branch:** agent-config (coordination record only)
-- **PR base:** dashboard for the configuration docs
-- **PR:** none; branch creation requested
+- **PR base:** main for the configuration docs
+- **PR:** being prepared for main
 - **Blocked by:** nothing
-- **Next:** Wasif assigns pages in chat; use separate worktrees for parallel editing
+- **Next:** merge approved configuration after CI, then fast-forward dashboard and page branches
 - **Updated:** 2026-10-02
 ## Ownership policy
 

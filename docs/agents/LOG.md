@@ -54,3 +54,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Used marketing-site as the professional branch name requested by Wasif. Preserved branch content and historical entries.
 **Open:** Configuration docs remain on agent-config for Wasif's review.
 **PR:** none.
+
+### 2026-10-02 15:27 · codex · agent-config
+**Did:** Verified configuration is absent from main, prepared its PR documentation, and recorded Wasif's explicit merge / branch synchronization instruction.
+**Decisions:** Use the protected-main PR workflow and retain commit history. Dashboard is already in main via PR #28.
+**Open:** Required CI and the actual merge / branch synchronization.
+**PR:** to be created into main.
