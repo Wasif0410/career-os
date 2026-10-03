@@ -23,10 +23,7 @@ export function AppHeader({
           <Mark className="size-6" />
           <span className="sr-only sm:not-sr-only">Career OS</span>
         </Link>
-        <p className="hidden truncate rounded-full bg-paper px-3 py-1 text-xs text-ink-soft ring-1 ring-rule md:block">
-          Target · {user.target.role}, {user.target.season}
-        </p>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="ml-auto flex items-center gap-2 sm:gap-3">
           {demo && <DemoTierSwitcher tier={user.tier} />}
           <TierBadge tier={user.tier} className="hidden sm:inline-flex" />
           {user.tier === "free" && (
