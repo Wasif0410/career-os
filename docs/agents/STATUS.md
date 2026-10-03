@@ -25,15 +25,15 @@ Wasif controls this shared section.
 
 ## codex
 
-- **State:** working
+- **State:** in-review
 - **Task:** document the dashboard Vercel QA deployment in the GitHub README
 - **Owned paths:** README.md and own coordination entries
 - **Worktree:** C:/Users/wa/Documents/career-os-qa-docs
 - **Branch:** docs/qa-testing (base: main)
 - **PR base:** main
-- **PR:** none yet
+- **PR:** https://github.com/Wasif0410/career-os/pull/31
 - **Blocked by:** nothing
-- **Next:** verify docs and open a PR for Wasif; do not merge
+- **Next:** Wasif reviews PR #31 into main; no merge authorized
 - **Updated:** 2026-10-02
 
 ## Ownership policy
