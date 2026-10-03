@@ -13,6 +13,11 @@
   animation: grow 1s var(--ease-out-quint) both;
   animation-delay: var(--d, 0.3s);
 }
+.rise {
+  transform-origin: bottom;
+  animation: rise-y 0.9s var(--ease-out-quint) both;
+  animation-delay: var(--d, 0.3s);
+}
 .ring {
   stroke-dasharray: 119.38;
   animation: ring 1.4s var(--ease-out-quint) both 0.3s;
@@ -45,6 +50,11 @@
     width: 0;
   }
 }
+@keyframes rise-y {
+  from {
+    transform: scaleY(0);
+  }
+}
 @keyframes ring {
   from {
     stroke-dashoffset: 119.38;
@@ -63,6 +73,7 @@
   .drift,
   .nebula,
   .grow,
+  .rise,
   .ring,
   .draw {
     animation: none;

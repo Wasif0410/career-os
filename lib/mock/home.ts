@@ -28,6 +28,9 @@ export const demoReadiness: Readiness = { level: 3, progress: 68 };
 /** Overall score after each upload, oldest first. The last one is the current score. */
 export const demoResumeHistory = [41, 47, 52, 58, 64];
 
+/** When each of those uploads was scored. */
+export const demoResumeHistoryDates = ["Jun 4", "Jul 9", "Aug 13", "Sep 12", "Sep 29"];
+
 /* ---------- Courses ---------- */
 
 export type Course = {
@@ -132,6 +135,16 @@ export const demoNextSession: CoachingSession = {
 /** Auto-apply credits used this month. */
 export const demoApplicationsUsed = 4;
 
+/** Applications sent each week this season, oldest first. The last is this week. */
+export const demoApplicationsByWeek = [
+  { week: "Aug 24", sent: 1 },
+  { week: "Aug 31", sent: 2 },
+  { week: "Sep 7", sent: 2 },
+  { week: "Sep 14", sent: 3 },
+  { week: "Sep 21", sent: 2 },
+  { week: "Sep 28", sent: 4 },
+];
+
 export type ApplicationStage = "applied" | "in_review" | "oa" | "interview" | "offer";
 
 export type Application = { role: string; org: string; place: string; note: string; date: string };
@@ -178,12 +191,44 @@ export type Match = {
   org: string;
   place: string;
   status: "applied" | "approve";
+  /** Why it fits, from the matcher. */
+  reasons: string[];
+  /** Skills the posting asks for that the profile doesn't show yet. */
+  missing: string[];
+  closes: string;
 };
 
 export const demoTopMatches: Match[] = [
-  { fit: 91, role: "Software Engineer Intern", org: "Fintech", place: "Toronto", status: "applied" },
-  { fit: 86, role: "Backend Intern", org: "Cloud startup", place: "Remote", status: "approve" },
-  { fit: 82, role: "Platform Engineering Intern", org: "Bank", place: "Toronto", status: "approve" },
+  {
+    fit: 91,
+    role: "Software Engineer Intern",
+    org: "Fintech",
+    place: "Toronto",
+    status: "applied",
+    reasons: ["Python and SQL match your projects", "Summer 2027 term", "Toronto, where you want to work"],
+    missing: ["Unit testing"],
+    closes: "Oct 20",
+  },
+  {
+    fit: 86,
+    role: "Backend Intern",
+    org: "Cloud startup",
+    place: "Remote",
+    status: "approve",
+    reasons: ["Your API project uses their stack", "Remote friendly", "Hires second-year students"],
+    missing: ["Docker", "Postgres"],
+    closes: "Oct 12",
+  },
+  {
+    fit: 82,
+    role: "Platform Engineering Intern",
+    org: "Bank",
+    place: "Toronto",
+    status: "approve",
+    reasons: ["Linux and scripting experience", "Strong co-op program", "Toronto"],
+    missing: ["Kubernetes", "Terraform"],
+    closes: "Oct 16",
+  },
 ];
 
 export const demoNewMatchesThisWeek = 12;
