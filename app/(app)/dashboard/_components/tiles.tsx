@@ -6,11 +6,10 @@ import type { ResumeScore } from "@/lib/mock/student";
 import { cn } from "@/lib/utils";
 import { Cosmos } from "./cosmos";
 import styles from "./home.module.css";
-import { Moon, Planet, Sparkle, Starburst } from "./shapes";
 
 /*
- * The four stat tiles at the top of Home. Each has one colour, one small
- * chart or number set and one cosmic shape in the corner.
+ * The four stat tiles at the top of Home. Each is one solid colour with one
+ * small chart or number set.
  */
 
 function Tile({
@@ -120,7 +119,6 @@ export function ApplicationsTile({
   const max = Math.max(...weeks.map((w) => w.sent), 1);
   return (
     <Tile style={style} className="bg-[#dde4ff] text-ink">
-      <Sparkle className="-top-6 -right-6 size-32 text-[#c4d0ff]" />
       <TileHead title="Applications" action={locked ? <Pro /> : <TileLink href="/applications">Tracker</TileLink>} />
       <div className="mt-4 flex gap-6">
         <Stat value={locked ? "–" : applied} label="Applied" muted={locked} />
@@ -194,7 +192,6 @@ export function ResumeTile({
   const lowest = [...score.categories].sort((a, b) => a.score - b.score)[0];
   return (
     <Tile style={style} className="bg-[#ebe8ff] text-ink">
-      <Planet className="-top-4 -right-8 w-40 text-[#d9d3ff]" />
       <TileHead title="Resume score" action={<TileLink href="/resume">Full report</TileLink>} />
       <div className="mt-4 flex gap-6" role="img" aria-label={`Resume score: ${score.overall} out of 100`}>
         <Stat value={score.overall} unit="/100" label="Now" />
@@ -234,7 +231,6 @@ export function ReadinessTile({ readiness, style }: { readiness: Readiness; styl
   return (
     <Tile style={style} className="deep-blue text-white shadow-[0_30px_70px_-40px_rgb(36_71_245/0.7)]">
       <Cosmos />
-      <Moon className="-right-5 -bottom-6 size-32 text-white/[0.07]" />
       <TileHead title="Readiness" light />
       <div className="mt-4 flex items-center gap-4">
         <span className="relative size-16 shrink-0">
@@ -307,7 +303,6 @@ export function CoursesTile({
   const total = courses.reduce((n, c) => n + c.lessons, 0);
   return (
     <Tile style={style} className="bg-cobalt text-white shadow-[0_24px_60px_-34px_rgb(36_71_245/0.9)]">
-      <Starburst className="-right-10 -bottom-10 size-44 text-cobalt-bright" />
       <TileHead
         title="Courses"
         action={
