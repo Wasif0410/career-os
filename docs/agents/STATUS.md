@@ -12,15 +12,15 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** idle
+- **State:** in-review
 - **Task:** Home page v2 (Wasif-approved concept): dark sidebar, readiness badge, resume, courses, this week, applications pipeline, top matches, calendar and coming-up rail. Local only, per Wasif
 - **Owned paths:** `app/(app)/dashboard/`, `lib/mock/home.ts`, `e2e/app/home.spec.ts`, shared shell restyle (COMMS claude-20261002T213000): `components/app/app-nav.tsx`, `app-header.tsx`, `demo-tier-switcher.tsx`, `app/(app)/layout.tsx`
 - **Worktree:** C:/Users/wa/Documents/career-os-home
 - **Branch:** page/home
 - **PR base:** dashboard
-- **PR:** none yet
+- **PR:** https://github.com/Wasif0410/career-os/pull/30 (merge commit, not squash)
 - **Blocked by:** nothing
-- **Next:** Home v2 built and committed locally (check + 38 browser tests pass); waiting on Wasif's review of the local server before any push or PR
+- **Next:** Wasif reviews and merges PR #30 into dashboard; address review feedback in this worktree
 - **Updated:** 2026-10-02
 
 ## codex
