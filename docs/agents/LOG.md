@@ -66,3 +66,33 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Documentation-only delivery; GitHub records the final merge status. The final coordination-record commit also goes through required CI before merging.
 **Open:** No unresolved product decisions for this delivery. Follow the PR for integration status.
 **PR:** https://github.com/Wasif0410/career-os/pull/29
+
+### 2026-10-02 20:09 · claude · page/home
+**Did:** Redesigned Home (`/dashboard`): deep-blue hero with still stars and the next step, then "Where you stand" (resume, jobs) and "Coaching and applications" (coaching, plan, applications) with more space and fewer words. Added `lib/mock/home.ts`, updated `e2e/app/home.spec.ts`, wrote the spec and plan under `docs/superpowers/`.
+**Decisions:** Wasif chose the deep-blue hero over a dark app or a midnight shell, then asked to keep the original card format with fewer words. Static stars in the Home hero are the one exception to "no starfield in the app". No shared components changed.
+**Open:** Wasif's review on the preview URL.
+**PR:** into dashboard (see STATUS).
+
+### 2026-10-02 20:35 · claude · page/home
+**Did:** Revised Home after Wasif's review: removed the hero eyebrow, the group titles and the orbit rings; tightened spacing; put all five cards in one grid. Removed the target pill from the shared app header at his request (COMMS heads-up posted).
+**Decisions:** Header change made on Wasif's direct instruction.
+**Open:** Wasif's choice: push and open the PR into dashboard, or keep iterating.
+**PR:** none yet.
+
+### 2026-10-02 22:00 · claude · page/home
+**Did:** Built Home v2 from the concept Wasif approved (mockups in his local `career-os/mockups`, outside the repo): readiness badge with a hover ladder, this week's plan, applications by stage, top matches, resume with score trend, courses on a drifting star field, and a calendar with a coming-up timeline. Restyled the shared shell: dark sidebar (icons below 1280px), phone top bar, floating demo switch, wider content area. New demo data in `lib/mock/home.ts`; Home tests rewritten. `npm run check` and all 38 browser tests pass.
+**Decisions:** Wasif chose the dark sidebar, the calendar rail, removing the top stat row, the readiness levels (Starter, Builder, Contender, Interview-ready, Offer-ready) and Courses in place of the radar chart. Free shows real content with Pro tags instead of blurred locks on Home. Shell change flagged in COMMS claude-20261002T213000.
+**Open:** Wasif's review on the local server. Readiness weighting and the resume rubric are undecided, so both run on demo numbers. The radar chart could move to the Resume page. Not pushed; no PR.
+**PR:** none.
+
+### 2026-10-02 22:45 · claude · page/home
+**Did:** Reworked Home v2 into a bento layout modelled on a reference dashboard Wasif shared (Intelly on Dribbble): four stat tiles (applications by week, resume score over time, readiness, courses) with cosmic corner shapes, this week as a list, top matches with a details panel, and a calendar with week numbers plus a coming-up timeline. Added weekly applications, resume upload dates and match reasons to the demo data. Check and all 40 browser tests pass.
+**Decisions:** The readiness badge moved into its own tile; the application stage tabs became the tile's stats. Brand blues replace the reference's pastels.
+**Open:** Wasif's review on the local server. Still local only.
+**PR:** none.
+
+### 2026-10-02 23:30 · claude · page/home
+**Did:** Finished Home v2 after Wasif's review rounds: solid-colour tiles without shapes, applications as a stage pipeline, calendar panel fixed to the right edge with compact rows, palette pass with the dark readiness tile and dark calendar accents kept. Pushed `page/home` and opened the PR into `dashboard`.
+**Decisions:** Wasif kept the dark readiness tile and dark calendar accents for contrast; the starfield and weekly bar chart were dropped. Merge with a merge commit (no squash) so every step stays in history.
+**Open:** Wasif's review and merge.
+**PR:** see STATUS.

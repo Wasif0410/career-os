@@ -12,16 +12,16 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** idle
-- **Task:** none recorded; confirm the actual assignment in Claude's chat
-- **Owned paths:** none recorded
-- **Worktree:** not recorded
-- **Branch:** none recorded
-- **PR base:** not recorded
-- **PR:** none recorded
-- **Blocked by:** nothing recorded
-- **Next:** record the task assigned by Wasif in chat
-- **Updated:** 2026-09-23 (existing recorded status; no live session verified)
+- **State:** in-review
+- **Task:** Home page v2 (Wasif-approved concept): dark sidebar, readiness badge, resume, courses, this week, applications pipeline, top matches, calendar and coming-up rail. Local only, per Wasif
+- **Owned paths:** `app/(app)/dashboard/`, `lib/mock/home.ts`, `e2e/app/home.spec.ts`, shared shell restyle (COMMS claude-20261002T213000): `components/app/app-nav.tsx`, `app-header.tsx`, `demo-tier-switcher.tsx`, `app/(app)/layout.tsx`
+- **Worktree:** C:/Users/wa/Documents/career-os-home
+- **Branch:** page/home
+- **PR base:** dashboard
+- **PR:** https://github.com/Wasif0410/career-os/pull/30 (merge commit, not squash)
+- **Blocked by:** nothing
+- **Next:** Wasif reviews and merges PR #30 into dashboard; address review feedback in this worktree
+- **Updated:** 2026-10-02
 
 ## codex
 
