@@ -5,7 +5,7 @@ test.describe("home (/dashboard, demo mode)", () => {
     await page.goto("/dashboard");
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Good to see you");
     await expect(page.getByRole("link", { name: /read the guide/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Where you stand" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Your resume score" })).toBeVisible();
     await expect(page.getByRole("img", { name: /resume score: \d+ out of 100/i })).toBeVisible();
     // Resume breakdown, coaching, plan and applications.
     await expect(page.getByRole("link", { name: /unlock with pro/i })).toHaveCount(4);

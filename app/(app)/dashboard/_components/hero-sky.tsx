@@ -1,9 +1,9 @@
 import { cn } from "@/lib/utils";
 
 /*
- * A still night sky for the Home hero: seeded stars, a soft cobalt glow and a
- * faint orbit. Unlike the marketing Starfield it never moves on scroll, since
- * the app has no scroll effects. Some stars twinkle unless reduced motion is on.
+ * A still night sky for the Home hero: seeded stars and a soft cobalt glow.
+ * Unlike the marketing Starfield it never moves on scroll, since the app has no
+ * scroll effects. Some stars twinkle unless reduced motion is on.
  * Stars lean to the right so the greeting on the left stays clean.
  */
 
@@ -43,8 +43,6 @@ export function HeroSky({ className }: { className?: string }) {
   return (
     <div aria-hidden className={cn("pointer-events-none absolute inset-0 -z-10 overflow-hidden", className)}>
       <div className="absolute -top-32 -right-24 size-[26rem] rounded-full bg-cobalt/25 blur-3xl" />
-      <div className="absolute top-1/2 -right-40 size-[30rem] -translate-y-1/3 rounded-full ring-1 ring-white/[0.07]" />
-      <div className="absolute top-1/2 -right-20 size-[20rem] -translate-y-1/4 rounded-full ring-1 ring-white/[0.05]" />
       {stars.map((s, i) => (
         <span
           key={i}

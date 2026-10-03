@@ -34,7 +34,7 @@ function HomeCard({ className, children }: { className?: string; children: React
   return (
     <Card
       className={cn(
-        "flex flex-col p-6 shadow-[0_1px_2px_rgb(11_18_32/0.04),0_14px_36px_-20px_rgb(11_18_32/0.22)] sm:p-7",
+        "flex flex-col p-6 shadow-[0_1px_2px_rgb(11_18_32/0.04),0_14px_36px_-20px_rgb(11_18_32/0.22)]",
         className,
       )}
     >
@@ -48,7 +48,7 @@ function Heading({ eyebrow, title, action }: { eyebrow: string; title: string; a
     <header className="flex items-start justify-between gap-4">
       <div>
         <p className="eyebrow">{eyebrow}</p>
-        <h3 className="mt-1.5 text-[1.1rem] font-semibold text-ink">{title}</h3>
+        <h2 className="mt-1.5 text-[1.1rem] font-semibold text-ink">{title}</h2>
       </div>
       {action}
     </header>
@@ -80,18 +80,6 @@ function Meter({ value, className }: { value: number; className?: string }) {
   );
 }
 
-/** Names a group of cards, with a hairline running to the edge. */
-export function GroupTitle({ id, children }: { id: string; children: React.ReactNode }) {
-  return (
-    <div className="mb-5 flex items-center gap-4">
-      <h2 id={id} className="text-[0.95rem] font-semibold text-ink">
-        {children}
-      </h2>
-      <span aria-hidden className="h-px flex-1 bg-rule" />
-    </div>
-  );
-}
-
 export function ResumeCard({ user, score, className }: { user: User; score: ResumeScore; className?: string }) {
   const [topFix] = score.fixes;
   return (
@@ -105,14 +93,14 @@ export function ResumeCard({ user, score, className }: { user: User; score: Resu
           </TextLink>
         }
       />
-      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">
-        <ScoreRing value={score.overall} label="Resume score" size={124} />
+      <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-7">
+        <ScoreRing value={score.overall} label="Resume score" size={116} />
         <div className="min-w-0 flex-1">
           <p className="eyebrow">Start here</p>
           <p className="mt-2 text-[1.05rem] leading-relaxed text-ink">{topFix}</p>
         </div>
       </div>
-      <div className="mt-7 border-t border-rule pt-6">
+      <div className="mt-6 border-t border-rule pt-5">
         <Locked user={user} feature="resume.fullReport">
           <dl className="grid grid-cols-2 gap-x-10 gap-y-5">
             {score.categories.map((c) => (
@@ -138,13 +126,13 @@ export function JobsCard({ user, count }: { user: User; count: number }) {
   return (
     <HomeCard>
       <Heading eyebrow="Jobs" title="Your matches" />
-      <p className="mt-6 font-display text-[3.75rem] leading-none tracking-tight text-ink tabular-nums">{count}</p>
+      <p className="mt-5 font-display text-[3.75rem] leading-none tracking-tight text-ink tabular-nums">{count}</p>
       <p className="mt-3 text-slate">
         {Number.isFinite(visible)
           ? `jobs match your goal. Your top ${visible} are ready.`
           : "jobs match your goal, each with a fit score."}
       </p>
-      <TextLink href="/jobs" className="mt-auto pt-6">
+      <TextLink href="/jobs" className="mt-auto pt-5">
         View matches
       </TextLink>
     </HomeCard>
@@ -157,12 +145,12 @@ export function CoachingCard({ user, session }: { user: User; session: CoachingS
     <HomeCard>
       <Heading eyebrow="Coaching" title="Your next session" />
       <Locked user={user} feature="coaching.sessions" className="flex-1">
-        <div className="mt-5 flex flex-1 flex-col">
+        <div className="mt-4 flex flex-1 flex-col">
           <p className="font-display text-[2rem] leading-tight text-ink">{sessionDay.format(startsAt)}</p>
           <p className="mt-1 text-slate">
             {sessionTime.format(startsAt)} · {session.minutes} min with {session.coach}
           </p>
-          <TextLink href="/coaching" className="mt-auto pt-6">
+          <TextLink href="/coaching" className="mt-auto pt-5">
             View coaching
           </TextLink>
         </div>
@@ -177,7 +165,7 @@ export function PlanCard({ user, items }: { user: User; items: PlanItem[] }) {
     <HomeCard>
       <Heading eyebrow="Plan" title="This week" />
       <Locked user={user} feature="plan" className="flex-1">
-        <div className="mt-5 flex flex-1 flex-col">
+        <div className="mt-4 flex flex-1 flex-col">
           <ul className="space-y-3">
             {items.map((item) => (
               <li key={item.text} className="flex items-start gap-3 text-[0.95rem]">
@@ -203,7 +191,7 @@ export function PlanCard({ user, items }: { user: User; items: PlanItem[] }) {
               {done} of {items.length} done
             </span>
           </div>
-          <TextLink href="/plan" className="mt-auto pt-6">
+          <TextLink href="/plan" className="mt-auto pt-5">
             Open your plan
           </TextLink>
         </div>
@@ -221,13 +209,13 @@ export function ApplicationsCard({ user, used }: { user: User; used: number }) {
     <HomeCard>
       <Heading eyebrow="Applications" title="This month" />
       <Locked user={user} feature="applications.tracker" className="flex-1">
-        <div className="mt-5 flex flex-1 flex-col">
+        <div className="mt-4 flex flex-1 flex-col">
           <p className="flex items-baseline gap-2">
             <span className="font-display text-[2.5rem] leading-none text-ink tabular-nums">{used}</span>
             <span className="text-slate">of {limit} used</span>
           </p>
           <Meter value={used / limit} className="mt-5" />
-          <TextLink href="/applications" className="mt-auto pt-6">
+          <TextLink href="/applications" className="mt-auto pt-5">
             Open tracker
           </TextLink>
         </div>
