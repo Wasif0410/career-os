@@ -93,7 +93,7 @@ Pages, each merged into `dashboard` through its own PR:
 | Resume | `/resume` | #11 | Placeholder. Next: upload + score report |
 | Coaching | `/coaching` | #12 | Placeholder (Pro+) |
 | Plan | `/plan` | #13 | Placeholder (Pro+) |
-| Courses | `/courses` | #14 | Placeholder |
+| Courses | `/courses` | #14 (original placeholder) | 3D course library (six courses as books), overviews and 24 MDX lessons implemented locally on `page/courses`; awaiting Wasif's local review. Not committed or integrated. |
 | Jobs | `/jobs` | #15 | Placeholder. Next: teaser on Free, full list on Pro |
 | Applications | `/applications` | #16 | Placeholder (Pro+) |
 | Profile | `/profile` | #17 | Placeholder |
@@ -185,6 +185,8 @@ Newest first. One entry per working session: what changed, and any decisions mad
 
 ### 2026-10-02
 
+- **Courses, 3D library (local review):** the course catalog is now a stack of six hardcover "books" on the cosmic background, built in CSS 3D (no WebGL, no new dependencies). Each course has its own cloth colour and cover drawing; scrolling moves the camera along the stack and choosing a book swings it upright beside the course details (`/courses?course=<slug>`, so Back closes it). Reduced motion gets a still stack. Course overviews and lessons are unchanged. Still local and uncommitted on `page/courses` pending Wasif's review.
+- **Courses, local review:** `page/courses` in `C:/Users/wa/Documents/career-os-courses` now has six practical courses (direction, resume, LinkedIn, GitHub, projects and domain knowledge), each with four lessons and exercises. Added course overviews, source references, server-side Free/Pro lesson gating and reversible browser-local progress. Progress is visible per course and across the library, with completed syllabus indicators, continue-to-next-unfinished navigation, course completion and review states. Wasif requested the homepage's Newsreader/Inter typography and cosmic deep-blue treatment on this page, with restrained motion; the existing shell and shared tokens are reused. Research/design notes are in `docs/courses/`. Local preview: `http://localhost:3002/courses`. Wasif explicitly requested no commit, push, PR or merge before local review.
 - **Current main:** PR #28 merged the student app into main; the existing password and demo protections remain in place.
 - **Branches:** frontend was renamed marketing-site. Nine page branches were created from dashboard with identical starting content.
 - **Authorized in chat:** merge agent-config into main after required CI, then bring dashboard and all nine page branches up to date with main. Agents still receive page assignments in chat.

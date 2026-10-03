@@ -96,3 +96,36 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Wasif kept the dark readiness tile and dark calendar accents for contrast; the starfield and weekly bar chart were dropped. Merge with a merge commit (no squash) so every step stays in history.
 **Open:** Wasif's review and merge.
 **PR:** see STATUS.
+### 2026-10-02 20:36 · codex · page/courses
+**Did:** Built a local course library with six course overviews and 24 original MDX lessons covering direction, resume, LinkedIn, GitHub/contributions, projects and broader domain knowledge. Each lesson includes a worked example and exercise. Added source references, centralized tier gating on the server, fixed lesson imports and reversible browser-local progress. Audited the actual homepage, Guides page, app shell, fonts, colors and motion; used Resend and Mintlify from YC only as secondary layout references. Implemented compact cosmic course tiles with the existing Newsreader/Inter typography and palette. Fixed a reduced-motion starfield hydration warning through a course-local wrapper, without editing shared components.
+**Validation:** npm run check passed (lint, TypeScript, format and 27 unit tests); npm run build passed. Final targeted course suite passed 16/16 across 1536x1024 desktop and 375x812 phone viewports, including all 24 lessons, Free/Pro/Elite gating, content omission for locked responses, completion persistence/undo, blocked storage, sources/navigation, invalid routes and reduced-motion console health. The broader app/marketing run passed all 34 unaffected browser tests. Two initial course-test assertions were corrected to select aria-current and use the existing custom 404 wording; those flows passed on rerun. Final screenshot inspection found no overflow or app console errors in the checked views. Temporary Playwright config uses installed Edge because the Browser plugin and bundled Chromium are unavailable; QA artifacts remain outside the repo. Research and design notes are in docs/courses/.
+**Decisions:** Followed Wasif's instruction to keep changes local and uncommitted: no push, PR or merge. Reused the app shell and central courses.allLessons rule; no auth, database, payment, marketing page or shared design-system edits. Paid lessons can be previewed with the existing demo Pro/Elite switch. Progress is self-reported and local to this browser.
+**Open:** Wasif's local design/content review at http://localhost:3002/courses. Only Wasif decides the next delivery step. Research-backed teaching drafts have not been approved as final published course content.
+**PR:** none; eventual target remains dashboard if instructed.
+
+## 2026-10-02 · codex · page/courses · learning progress
+- Implemented per-course completion bars/percentages, overall lesson/course totals, continue-to-next-unfinished navigation, completed syllabus indicators, full-course completion and review states. Retained reversible self-reported browser-local storage and server tier gating.
+- Validation: npm run check passed (lint, types, formatting, 27 unit tests); 20 course browser tests passed across desktop and phone, including actual completion through all four lessons, reload, undo, resume and Free access boundary. Reviewed 1536px desktop and 375px phone screenshots after animations settled.
+- Updated design notes, current guide and own status. Local review only at http://localhost:3002/courses; no commit, push, PR or merge.
+
+### 2026-10-02 21:40 · claude · page/courses
+**Did:** Took over the courses design from Codex. Researched award-winning learning and editorial sites for Wasif, then rebuilt the course library as a 3D stack: six CSS 3D hardcover books on the deep blue sky, each with its own cloth colour, spine and cover drawing. A scroll-linked camera keeps the vanishing point mid-screen; hover/focus slides a book out; choosing one swings it upright beside its details (lessons, progress, start/continue, overview). The open course is in the URL (?course=slug) so Back/Forward and direct links work; scroll is locked, focus moves in and returns, Escape closes, Tab stays inside. Reduced motion gets a still stack and instant open. Removed the unused flat CourseCover; LearningProgress and CourseProgress gained dark styling.
+**Validation:** npm run check passed (lint, types, format, 27 unit tests); npm run build passed. Course browser suite rewritten for the library: 24/24 passed on desktop and Pixel 7, against both the dev server and a production build. Manually checked at 1440x900, 1024x768 and 375x812, reduced motion, deep links, resize while open and navigating away while open. Scroll frame times stayed within budget in dev.
+**Decisions:** CSS 3D instead of WebGL (crisp real text, accessible links, no dependency). The cosmic backdrop is fixed beside the app sidebar (w-60) and below the measured header; no shared shell edits.
+**Open:** Wasif's local review at http://localhost:3002/courses. Still uncommitted; no push or PR.
+**PR:** none.
+
+### 2026-10-02 21:55 · claude · page/courses
+**Did:** At Wasif's request, brought page/courses up to date with dashboard (PR #30: Home v2 and the shell restyle) while keeping the uncommitted course work: stashed it, fast-forwarded to dd6d7c7, restored it, and resolved the one conflict (Claude's STATUS section). Adapted the course library to the new shell: the cosmic backdrop now sits beside the 76px / w-60 sidebar and under the phone top bar, and the stage bleeds to the new main padding.
+**Validation:** npm run check passed; course and Home browser tests 34/34 on desktop and phone. Checked 1440, 1024 and 375 widths.
+**Open:** Wasif's review. Still uncommitted; nothing pushed.
+**PR:** none.
+
+## 2026-10-02 · codex · QA branch creation
+- Wasif requested a QA branch reflecting dashboard. Created qa-testing from latest origin/dashboard and pushed it to origin.
+- Verified local QA, remote QA and origin/dashboard all point to dd6d7c77af84cd45f2e7af90eb4805059bc35a5d. Existing checkout and local feature edits preserved. No merges or Vercel settings changed.
+
+
+## 2026-10-02 · codex · QA branch correction
+- At Wasif's explicit correction, deleted qa-testing locally and remotely. Verified origin/dashboard remains at dd6d7c77af84cd45f2e7af90eb4805059bc35a5d and remote qa-testing is absent. dashboard is the designated QA branch. No checkout switch, feature edits or Vercel configuration changes.
+

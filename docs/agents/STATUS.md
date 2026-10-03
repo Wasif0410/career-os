@@ -12,28 +12,28 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** in-review
-- **Task:** Home page v2 (Wasif-approved concept): dark sidebar, readiness badge, resume, courses, this week, applications pipeline, top matches, calendar and coming-up rail. Local only, per Wasif
-- **Owned paths:** `app/(app)/dashboard/`, `lib/mock/home.ts`, `e2e/app/home.spec.ts`, shared shell restyle (COMMS claude-20261002T213000): `components/app/app-nav.tsx`, `app-header.tsx`, `demo-tier-switcher.tsx`, `app/(app)/layout.tsx`
-- **Worktree:** C:/Users/wa/Documents/career-os-home
-- **Branch:** page/home
+- **State:** idle
+- **Task:** Courses visual design: a 3D course library on the cosmic background that opens each course in place (assigned by Wasif in Claude's chat, 2026-10-02). Codex finished the course content and progress work; Claude now owns the courses design. Earlier: Home page v2 and the shared shell restyle, merged into dashboard through PR #30.
+- **Owned paths:** app/(app)/courses/**, components/courses/**, e2e/app/courses.spec.ts, docs/courses/DESIGN.md (lib/courses.ts and content/courses/** only if a design change needs it)
+- **Worktree:** C:/Users/wa/Documents/career-os-courses (taken over from Codex, who is idle)
+- **Branch:** page/courses (fast-forwarded to dashboard at dd6d7c7, including PR #30)
 - **PR base:** dashboard
-- **PR:** https://github.com/Wasif0410/career-os/pull/30 (merge commit, not squash)
+- **PR:** none; local and uncommitted until Wasif reviews
 - **Blocked by:** nothing
-- **Next:** Wasif reviews and merges PR #30 into dashboard; address review feedback in this worktree
+- **Next:** Wasif reviews the 3D library at http://localhost:3002/courses; changes stay local and uncommitted until he decides
 - **Updated:** 2026-10-02
 
 ## codex
 
 - **State:** idle
-- **Task:** delivered configuration guidelines in PR #29; branch synchronization authorized
-- **Owned paths:** branch references in AGENTS.md, README.md, docs/PROJECT_CONTEXT.md, docs/frontend/PHASES.md, docs/updated_current_guide.md, and own coordination records
-- **Worktree:** C:/Users/wa/Documents/career-os-repo
-- **Branch:** agent-config (coordination record only)
-- **PR base:** main
-- **PR:** https://github.com/Wasif0410/career-os/pull/29
+- **Task:** completed courses with visible persistent progress, completed syllabus indicators and continue-learning flows; 20 desktop/phone browser checks passed; awaiting Wasif's local review
+- **Owned paths:** app/(app)/courses/**, components/courses/**, lib/courses.ts, content/courses/**, e2e/app/courses.spec.ts, docs/courses/**, own coordination records; courses row/checkpoint in docs/updated_current_guide.md
+- **Worktree:** C:/Users/wa/Documents/career-os-courses
+- **Branch:** page/courses (base: dashboard at 4eff326)
+- **PR base:** dashboard
+- **PR:** none; Wasif requested no commit, push, PR or merge before local review
 - **Blocked by:** nothing
-- **Next:** Wasif assigns pages in chat; use separate worktrees for parallel editing
+- **Next:** Wasif reviews http://localhost:3002/courses and gives the next instruction. Changes remain local and uncommitted; no PR is open.
 - **Updated:** 2026-10-02
 ## Ownership policy
 
