@@ -38,12 +38,12 @@ function monthWeeks(today: string) {
 
 const eventStyle: Record<
   CalendarEvent["kind"],
-  { Glyph: (p: { className?: string }) => React.ReactElement; tint: string }
+  { Glyph: (p: { className?: string }) => React.ReactElement; tint: string; row: string }
 > = {
-  oa: { Glyph: DiagnoseGlyph, tint: "bg-[#ebe8ff] text-[#4b3fd1]" },
-  session: { Glyph: ChatGlyph, tint: "bg-cobalt text-white" },
-  interview: { Glyph: TrackGlyph, tint: "bg-ink text-white" },
-  deadline: { Glyph: ApplyGlyph, tint: "bg-[#dde4ff] text-cobalt-deep" },
+  oa: { Glyph: DiagnoseGlyph, tint: "bg-surface text-[#4b3fd1]", row: "bg-[#ebe8ff]" },
+  session: { Glyph: ChatGlyph, tint: "bg-white/15 text-white", row: "bg-cobalt text-white" },
+  interview: { Glyph: TrackGlyph, tint: "bg-surface text-cobalt-deep", row: "bg-[#dde4ff]" },
+  deadline: { Glyph: ApplyGlyph, tint: "bg-surface text-cobalt-deep", row: "bg-[#e3e8ff]" },
 };
 
 function Calendar({ today, events }: { today: string; events: CalendarEvent[] }) {
@@ -52,7 +52,7 @@ function Calendar({ today, events }: { today: string; events: CalendarEvent[] })
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <span className="rounded-full bg-[#ebe8ff] px-4 py-1.5 text-[0.95rem] font-semibold text-[#3a2fb8]">
+        <span className="rounded-full bg-[#dde4ff] px-4 py-1.5 text-[0.95rem] font-semibold text-cobalt-deep">
           {monthTitle.format(new Date(`${today}T12:00:00Z`))}
         </span>
       </div>
@@ -79,7 +79,7 @@ function Calendar({ today, events }: { today: string; events: CalendarEvent[] })
                       className={cn(
                         "mx-auto grid size-10 place-items-center rounded-full text-[0.92rem] tabular-nums",
                         !d.inMonth && "text-rule-strong",
-                        isToday && "bg-ink font-semibold text-white",
+                        isToday && "bg-cobalt font-semibold text-white shadow-[0_8px_18px_-8px_rgb(36_71_245/0.8)]",
                         isSession && !isToday && "bg-[#ebe8ff] font-semibold text-[#3a2fb8] ring-2 ring-[#4b3fd1]/30",
                       )}
                     >
@@ -111,7 +111,7 @@ function Timeline({ events, coached }: { events: CalendarEvent[]; coached: boole
       <ol className="grid gap-3">
         {events.map((e) => {
           const date = new Date(`${e.day}T12:00:00Z`);
-          const { Glyph, tint } = eventStyle[e.kind];
+          const { Glyph, tint, row } = eventStyle[e.kind];
           const isSession = e.kind === "session";
           return (
             <li key={`${e.day}-${e.title}`} className="grid grid-cols-[40px_minmax(0,1fr)] gap-3">
@@ -122,17 +122,22 @@ function Timeline({ events, coached }: { events: CalendarEvent[]; coached: boole
                 </span>
               </span>
               {isSession ? (
-                <div className="deep-blue flex items-center gap-3 rounded-2xl p-3">
+                <div
+                  className={cn(
+                    "flex items-center gap-3 rounded-2xl p-3 shadow-[0_14px_30px_-18px_rgb(36_71_245/0.9)]",
+                    row,
+                  )}
+                >
                   <span className={cn("grid size-10 shrink-0 place-items-center rounded-xl", tint)}>
                     <Glyph className="size-[18px]" />
                   </span>
                   <span className="min-w-0">
                     <span className="block truncate text-[0.9rem] font-medium text-white">{e.title}</span>
-                    <span className="block truncate text-[0.76rem] text-sky">{e.label}</span>
+                    <span className="block truncate text-[0.76rem] text-white/75">{e.label}</span>
                   </span>
                 </div>
               ) : (
-                <div className="flex items-center gap-2.5 rounded-2xl bg-paper/80 p-2.5">
+                <div className={cn("flex items-center gap-3 rounded-2xl p-3", row)}>
                   <span className={cn("grid size-10 shrink-0 place-items-center rounded-xl", tint)}>
                     <Glyph className="size-[18px]" />
                   </span>
@@ -182,7 +187,7 @@ export function CalendarRail({
         <Calendar today={today} events={events} />
         <Link
           href={coached ? "/coaching" : "/pricing"}
-          className="mt-5 flex h-12 items-center justify-center rounded-full bg-ink text-[0.9rem] font-medium text-white hover:bg-ink-soft"
+          className="mt-5 flex h-12 items-center justify-center rounded-full bg-cobalt text-[0.9rem] font-medium text-white shadow-[0_14px_30px_-16px_rgb(36_71_245/0.9)] hover:bg-cobalt-deep"
         >
           {coached ? "Book a session" : "Book a session with Pro"}
         </Link>

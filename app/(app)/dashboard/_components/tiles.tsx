@@ -222,18 +222,18 @@ export function ReadinessTile({ readiness, style }: { readiness: Readiness; styl
   const current = readinessLevels[readiness.level - 1];
   const next = readinessLevels[readiness.level];
   return (
-    <Tile style={style} className="bg-navy text-white">
-      <TileHead title="Readiness" light />
+    <Tile style={style} className="bg-[#e3e8ff] text-ink">
+      <TileHead title="Readiness" />
       <div className="mt-4 flex items-center gap-4">
         <span className="relative size-16 shrink-0">
           <svg viewBox="0 0 64 64" className="size-16 -rotate-90" aria-hidden>
-            <circle cx="32" cy="32" r="26" fill="none" stroke="rgb(255 255 255 / 0.12)" strokeWidth="5" />
+            <circle cx="32" cy="32" r="26" fill="none" stroke="rgb(255 255 255 / 0.75)" strokeWidth="5" />
             <circle
               cx="32"
               cy="32"
               r="26"
               fill="none"
-              stroke="var(--color-sky)"
+              stroke="var(--color-cobalt)"
               strokeWidth="5"
               strokeLinecap="round"
               strokeDasharray={RING}
@@ -245,8 +245,8 @@ export function ReadinessTile({ readiness, style }: { readiness: Readiness; styl
         <div>
           <p className="text-[1.35rem] leading-tight font-semibold tracking-[-0.02em]">{current}</p>
           {next && (
-            <p className="mt-0.5 text-[0.8rem] text-white/65">
-              <b className="font-mono font-semibold text-sky">{readiness.progress}%</b> to {next}
+            <p className="mt-0.5 text-[0.8rem] text-ink/60">
+              <b className="font-mono font-semibold text-cobalt">{readiness.progress}%</b> to {next}
             </p>
           )}
         </div>
@@ -257,13 +257,13 @@ export function ReadinessTile({ readiness, style }: { readiness: Readiness; styl
             <span
               className={cn(
                 "block h-1.5 rounded-full",
-                i + 1 < readiness.level ? "bg-sky" : i + 1 === readiness.level ? "bg-white" : "bg-white/15",
+                i + 1 < readiness.level ? "bg-cobalt" : i + 1 === readiness.level ? "bg-ink" : "bg-white/70",
               )}
             />
             <span
               className={cn(
                 "mt-1.5 block truncate text-[0.65rem]",
-                i + 1 === readiness.level ? "font-semibold text-white" : "text-white/50",
+                i + 1 === readiness.level ? "font-semibold text-ink" : "text-ink/50",
               )}
             >
               {name}
