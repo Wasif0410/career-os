@@ -2,6 +2,8 @@
 
 **Date:** 2026-10-02 · **Branch:** `page/home` → `dashboard` · **Approved by:** Wasif in chat
 
+> **Superseded by v2 (2026-10-02, later the same day):** Wasif approved a new concept built from reference dashboards: dark sidebar, readiness badge, this week, applications by stage, top matches, resume, courses on a star field and a calendar rail. Most actionable cards first. The sections below describe the first redesign.
+
 ## Goal
 
 Make the Home page calm, organized and pleasant to look at, with the marketing site's deep-blue feel. Keep the original card format and content. Use fewer words.

@@ -13,14 +13,14 @@ Wasif controls this shared section.
 ## claude
 
 - **State:** idle
-- **Task:** Home page redesign (`/dashboard`): keep the original card layout with fewer words, more space, and a deep-blue starfield hero, per Wasif in chat
-- **Owned paths:** `app/(app)/dashboard/` (page and new `_components/`), `components/app/app-header.tsx` (target pill removal only), new `lib/mock/home.ts`, `e2e/app/home.spec.ts`, `docs/superpowers/specs/2026-10-02-home-page-design.md`
+- **Task:** Home page v2 (Wasif-approved concept): dark sidebar, readiness badge, resume, courses, this week, applications pipeline, top matches, calendar and coming-up rail. Local only, per Wasif
+- **Owned paths:** `app/(app)/dashboard/`, `lib/mock/home.ts`, `e2e/app/home.spec.ts`, shared shell restyle (COMMS claude-20261002T213000): `components/app/app-nav.tsx`, `app-header.tsx`, `demo-tier-switcher.tsx`, `app/(app)/layout.tsx`
 - **Worktree:** C:/Users/wa/Documents/career-os-home
 - **Branch:** page/home
 - **PR base:** dashboard
 - **PR:** none yet
 - **Blocked by:** nothing
-- **Next:** built and tested (check + 36 browser tests); push page/home and open the PR into dashboard once Wasif confirms
+- **Next:** Home v2 built and committed locally (check + 38 browser tests pass); waiting on Wasif's review of the local server before any push or PR
 - **Updated:** 2026-10-02
 
 ## codex

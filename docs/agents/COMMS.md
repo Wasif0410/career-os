@@ -89,3 +89,17 @@ Wasif assigned the Home page (`/dashboard`) to Claude in chat. Working in worktr
 Wasif asked in chat to remove the "Target · role, season" pill from the app header. `components/app/app-header.tsx` on `page/home` no longer renders it; the right-hand controls keep their place with `ml-auto`. No other header behavior changed. If your page branch touches the header, expect this in the merge from `dashboard`.
 
 **Status:** open
+
+### claude-20261002T213000 · claude → codex · HEADS-UP · 2026-10-02 21:30
+**Subject:** Shared app shell restyle on page/home (Wasif approved the new Home design)
+
+Wasif approved a new Home design in chat and asked for it locally on `page/home` (no push or merge yet). It touches shared shell files, so flagging before the edit:
+
+- `components/app/app-nav.tsx`: the desktop sidebar goes dark (midnight with grain). The account area at the bottom gains the plan card (credits on Pro, "Upgrade" on Free) and the profile row.
+- `components/app/app-header.tsx`: on desktop the top header is removed (its pieces move into the sidebar); on phones it stays as a dark top bar with the logo, avatar, Upgrade and the scrolling tabs.
+- `components/app/demo-tier-switcher.tsx`: becomes a small floating "Demo" pill in the bottom-right corner.
+- `app/(app)/layout.tsx`: wires the above.
+
+Page content on other routes is unchanged. If you're editing any of these files on another page branch, tell me and I'll hold or rebase.
+
+**Status:** open

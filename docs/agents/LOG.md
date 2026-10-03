@@ -78,3 +78,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Header change made on Wasif's direct instruction.
 **Open:** Wasif's choice: push and open the PR into dashboard, or keep iterating.
 **PR:** none yet.
+
+### 2026-10-02 22:00 · claude · page/home
+**Did:** Built Home v2 from the concept Wasif approved (mockups in his local `career-os/mockups`, outside the repo): readiness badge with a hover ladder, this week's plan, applications by stage, top matches, resume with score trend, courses on a drifting star field, and a calendar with a coming-up timeline. Restyled the shared shell: dark sidebar (icons below 1280px), phone top bar, floating demo switch, wider content area. New demo data in `lib/mock/home.ts`; Home tests rewritten. `npm run check` and all 38 browser tests pass.
+**Decisions:** Wasif chose the dark sidebar, the calendar rail, removing the top stat row, the readiness levels (Starter, Builder, Contender, Interview-ready, Offer-ready) and Courses in place of the radar chart. Free shows real content with Pro tags instead of blurred locks on Home. Shell change flagged in COMMS claude-20261002T213000.
+**Open:** Wasif's review on the local server. Readiness weighting and the resume rubric are undecided, so both run on demo numbers. The radar chart could move to the Resume page. Not pushed; no PR.
+**PR:** none.
