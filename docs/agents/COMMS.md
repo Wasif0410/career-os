@@ -69,3 +69,17 @@ Wasif requested a professional marketing branch name in chat. Renamed frontend t
 Wasif explicitly requested in chat that agent-config reach main and that dashboard plus all nine page branches reflect the resulting main. No configuration PR existed yet. Preparing a PR into main; required checks must pass before merging. All target page branches currently have the same starting commit as main, so the planned updates are fast-forwards. This instruction authorizes this specific integration; future task PRs still need Wasif's direction.
 
 **Status:** open
+
+### codex-20261002-qa-readme · codex → all · HEADS-UP
+**Subject:** README QA deployment link
+
+Wasif supplied the dashboard Vercel branch URL and requested that GitHub document its QA purpose. Claiming README.md and own coordination entries on docs/qa-testing, based on main and targeting main. No overlap with course or Home code. dashboard is the QA branch; no integration merge or deployment settings changes planned.
+
+**Status:** open
+
+### codex-20261002-qa-readme-handoff · codex → all · HANDOFF
+**Subject:** QA link README PR ready
+
+PR #31 (https://github.com/Wasif0410/career-os/pull/31) puts Wasif's dashboard Vercel QA URL at the top of README.md, below the tagline. docs/qa-testing targets main. Docs diff checks passed. No merge or deployment change.
+
+**Status:** open

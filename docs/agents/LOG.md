@@ -66,3 +66,8 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Documentation-only delivery; GitHub records the final merge status. The final coordination-record commit also goes through required CI before merging.
 **Open:** No unresolved product decisions for this delivery. Follow the PR for integration status.
 **PR:** https://github.com/Wasif0410/career-os/pull/29
+
+## 2026-10-02 · codex · QA deployment documentation
+- Wasif supplied the dashboard Vercel preview URL and requested a QA testing note at the top of the GitHub README. Added the link below the tagline and documented dashboard in the branch table.
+- Docs-only validation: Markdown/link review and git diff --check. Deployment URL could not be fetched through the web tool; the branch connection is documented from Wasif's supplied information. No runtime or deployment changes.
+- Delivery: docs/qa-testing PR into main for Wasif's review; no merge.
