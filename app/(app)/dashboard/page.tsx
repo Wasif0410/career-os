@@ -8,7 +8,6 @@ import {
   demoCourses,
   demoEvents,
   demoFreeEvents,
-  demoNextSession,
   demoPlanWeek,
   demoReadiness,
   demoResumeHistory,
@@ -42,7 +41,7 @@ export default async function DashboardPage() {
   const tracked = canAccess(user, "applications.tracker");
 
   return (
-    <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_340px]">
+    <div className="grid gap-8 xl:mr-[max(0px,calc(340px_-_(100vw_-_1720px)_/_2))]">
       <div className="@container min-w-0 space-y-6">
         <Greeting firstName={user.firstName} today={demoToday} week={coached ? demoPlanWeek : undefined} />
 
@@ -86,7 +85,6 @@ export default async function DashboardPage() {
       <CalendarRail
         today={demoToday}
         events={tracked ? demoEvents : demoFreeEvents}
-        session={demoNextSession}
         coached={canAccess(user, "coaching.sessions")}
         style={delay(0.12)}
       />

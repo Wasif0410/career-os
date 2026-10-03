@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { ApplyGlyph, ChatGlyph, DiagnoseGlyph, TrackGlyph } from "@/components/brand/glyphs";
-import type { CalendarEvent, CoachingSession } from "@/lib/mock/home";
+import type { CalendarEvent } from "@/lib/mock/home";
 import { cn } from "@/lib/utils";
 
 /*
- * The right-hand column, after the reference dashboard: the month with week
+ * The right-hand panel, fixed to the edge of wide screens like the reference
+ * dashboard: the month with week
  * numbers, a booking button, then a timeline of what's coming up. Dates are
  * calendar days (YYYY-MM-DD), handled in UTC so nothing shifts.
  */
@@ -100,15 +101,7 @@ function Calendar({ today, events }: { today: string; events: CalendarEvent[] })
   );
 }
 
-function Timeline({
-  events,
-  session,
-  coached,
-}: {
-  events: CalendarEvent[];
-  session: CoachingSession;
-  coached: boolean;
-}) {
+function Timeline({ events, coached }: { events: CalendarEvent[]; coached: boolean }) {
   return (
     <div>
       <div className="mb-3 flex items-baseline justify-between">
@@ -129,30 +122,14 @@ function Timeline({
                 </span>
               </span>
               {isSession ? (
-                <div className="deep-blue relative isolate overflow-hidden rounded-2xl p-3">
-                  <div className="flex items-center gap-2.5">
-                    <span className={cn("grid size-8 shrink-0 place-items-center rounded-xl", tint)}>
-                      <Glyph className="size-4" />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-[0.85rem] font-medium text-white">{e.title}</span>
-                      <span className="block text-[0.72rem] text-sky">{e.label}</span>
-                    </span>
-                  </div>
-                  <ol className="mt-2.5 grid gap-1 border-t border-white/[0.12] pt-2.5 text-[0.75rem] text-white/85">
-                    {session.agenda.map((item, i) => (
-                      <li key={item} className="flex gap-2">
-                        <b className="font-mono text-[0.66rem] font-medium text-white/45">{i + 1}</b>
-                        {item}
-                      </li>
-                    ))}
-                  </ol>
-                  <Link
-                    href="/coaching"
-                    className="mt-2.5 inline-flex h-7 items-center rounded-full bg-white px-3 text-[0.72rem] font-medium text-ink hover:bg-[#eef1ff]"
-                  >
-                    View session
-                  </Link>
+                <div className="deep-blue flex items-center gap-2.5 rounded-2xl p-2.5">
+                  <span className={cn("grid size-8 shrink-0 place-items-center rounded-xl", tint)}>
+                    <Glyph className="size-4" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="block truncate text-[0.82rem] font-medium text-white">{e.title}</span>
+                    <span className="block truncate text-[0.7rem] text-sky">{e.label}</span>
+                  </span>
                 </div>
               ) : (
                 <div className="flex items-center gap-2.5 rounded-2xl bg-paper/80 p-2.5">
@@ -187,13 +164,11 @@ function Timeline({
 export function CalendarRail({
   today,
   events,
-  session,
   coached,
   style,
 }: {
   today: string;
   events: CalendarEvent[];
-  session: CoachingSession;
   /** From canAccess(user, "coaching.sessions"). */
   coached: boolean;
   style?: React.CSSProperties;
@@ -201,7 +176,7 @@ export function CalendarRail({
   return (
     <aside
       style={style}
-      className="anim-fade-up grid min-w-0 gap-6 self-start rounded-[22px] bg-surface p-5 shadow-[0_1px_2px_rgb(11_18_32/0.04),0_12px_32px_-18px_rgb(11_18_32/0.28)] ring-1 ring-rule sm:p-6 md:grid-cols-2 xl:sticky xl:top-6 xl:grid-cols-1"
+      className="anim-fade-up grid min-w-0 content-start gap-6 rounded-[22px] bg-surface p-5 shadow-[0_1px_2px_rgb(11_18_32/0.04),0_12px_32px_-18px_rgb(11_18_32/0.28)] ring-1 ring-rule sm:p-6 md:grid-cols-2 xl:fixed xl:inset-y-0 xl:right-0 xl:z-20 xl:w-[340px] xl:grid-cols-1 xl:overflow-y-auto xl:rounded-none xl:border-l xl:border-rule xl:px-6 xl:py-8 xl:shadow-none xl:ring-0"
     >
       <div>
         <Calendar today={today} events={events} />
@@ -213,7 +188,7 @@ export function CalendarRail({
         </Link>
       </div>
       <div className="border-rule md:border-l md:pl-6 xl:border-t xl:border-l-0 xl:pt-6 xl:pl-0">
-        <Timeline events={events} session={session} coached={coached} />
+        <Timeline events={events} coached={coached} />
       </div>
     </aside>
   );

@@ -9,7 +9,7 @@ export function DemoTierSwitcher({ tier }: { tier: TierId }) {
     <form
       action={setDemoTier}
       aria-label="Demo tier"
-      className="fixed right-4 bottom-4 z-40 flex items-center gap-2 rounded-full bg-ink/90 py-1 pr-1 pl-3 text-xs text-white/65 shadow-[0_12px_30px_-10px_rgb(5_11_36/0.55)] backdrop-blur"
+      className="fixed bottom-4 left-4 z-40 flex items-center gap-2 rounded-full bg-ink/90 py-1 pr-1 pl-3 text-xs text-white/65 shadow-[0_12px_30px_-10px_rgb(5_11_36/0.55)] backdrop-blur md:left-[92px] xl:left-[256px]"
     >
       Demo
       <div className="flex rounded-full bg-white/[0.08] p-0.5">
