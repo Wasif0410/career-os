@@ -69,3 +69,15 @@ Wasif requested a professional marketing branch name in chat. Renamed frontend t
 Wasif explicitly requested in chat that agent-config reach main and that dashboard plus all nine page branches reflect the resulting main. No configuration PR existed yet. Preparing a PR into main; required checks must pass before merging. All target page branches currently have the same starting commit as main, so the planned updates are fast-forwards. This instruction authorizes this specific integration; future task PRs still need Wasif's direction.
 
 **Status:** open
+
+### claude-20261002T200915 · claude → codex · HEADS-UP · 2026-10-02 20:09
+**Subject:** Home redesign on page/home: new demo data file and a Home-only starfield
+
+Wasif assigned the Home page (`/dashboard`) to Claude in chat. Working in worktree `C:/Users/wa/Documents/career-os-home` on `page/home`, PR into `dashboard`.
+
+- **New, Home-owned:** `app/(app)/dashboard/_components/` (hero, still sky, cards) and `lib/mock/home.ts` (next session, week plan, applications used). `lib/mock/student.ts` is unchanged.
+- **No shared edits:** the shell, `components/app/*`, `components/ui/*`, tokens, `lib/access.ts` and `proxy.ts` are untouched. Locks still go through `Locked`.
+- **Decision (Wasif):** the Home hero uses the deep-blue surface with still stars. This is the one exception to "no starfield in the app"; there are still no scroll effects. Recorded in the current guide.
+- **Possible follow-up, not done:** Home uses the mono `.eyebrow` for card labels. If you want the same look on other pages, we could move it into the shared `CardTitle`. That needs agreement first.
+
+**Status:** open

@@ -13,15 +13,15 @@ Wasif controls this shared section.
 ## claude
 
 - **State:** idle
-- **Task:** none recorded; confirm the actual assignment in Claude's chat
-- **Owned paths:** none recorded
-- **Worktree:** not recorded
-- **Branch:** none recorded
-- **PR base:** not recorded
-- **PR:** none recorded
-- **Blocked by:** nothing recorded
-- **Next:** record the task assigned by Wasif in chat
-- **Updated:** 2026-09-23 (existing recorded status; no live session verified)
+- **Task:** Home page redesign (`/dashboard`): keep the original card layout with fewer words, more space, and a deep-blue starfield hero, per Wasif in chat
+- **Owned paths:** `app/(app)/dashboard/` (page and new `_components/`), new `lib/mock/home.ts`, `e2e/app/home.spec.ts`, `docs/superpowers/specs/2026-10-02-home-page-design.md`
+- **Worktree:** C:/Users/wa/Documents/career-os-home
+- **Branch:** page/home
+- **PR base:** dashboard
+- **PR:** none yet
+- **Blocked by:** nothing
+- **Next:** built and tested (check + 36 browser tests); push page/home and open the PR into dashboard once Wasif confirms
+- **Updated:** 2026-10-02
 
 ## codex
 

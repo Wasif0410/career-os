@@ -1,6 +1,6 @@
 # Career OS: Current Guide
 
-> **Last updated:** 2026-09-30
+> **Last updated:** 2026-10-02
 > **Read this first** when you pick the project back up, whether you're a person or an agent. It covers what's done, what's in progress, how the branches fit together, and what comes next. The full phase plan is in [`frontend/PHASES.md`](frontend/PHASES.md). This file tracks where we actually are against it, including where we changed the order. The [checkpoint log](#checkpoint-log) at the bottom records what happened and when.
 >
 > **Keep it current:** update this file in the same PR as any change that moves a phase forward, changes the branch model, or settles an open question.
@@ -89,7 +89,7 @@ Pages, each merged into `dashboard` through its own PR:
 
 | Page | Route | PR | Status |
 |---|---|---|---|
-| Home | `/dashboard` | #10 | ✅ First version: resume score ring, top fix, next step, job matches, locked coaching / plan / tracker cards. **Under review** |
+| Home | `/dashboard` | #10, redesign on `page/home` | ✅ First version in #10. Redesign: deep-blue hero with the next step, then resume, jobs, coaching, plan and tracker cards with fewer words. **In review** |
 | Resume | `/resume` | #11 | Placeholder. Next: upload + score report |
 | Coaching | `/coaching` | #12 | Placeholder (Pro+) |
 | Plan | `/plan` | #13 | Placeholder (Pro+) |
@@ -107,7 +107,7 @@ Building a page for real means a new `page/<name>` branch off `dashboard` and a 
 
 ### Kept separate from the marketing site
 
-- It lives in its own route group, `app/(app)/`, with its own layout. No marketing header, footer, starfield or scroll effects.
+- It lives in its own route group, `app/(app)/`, with its own layout. No marketing header, footer, starfield or scroll effects. One exception: the Home hero uses the deep-blue surface with still stars (Wasif, 2026-10-02).
 - **Nothing on the marketing site links to it.** A browser test checks this.
 - It's `noindex`, and `robots.txt` blocks crawlers from it.
 - Its components live in `components/app/`. It reuses only the basics (`Button`, glyphs, logo, color tokens).
@@ -188,6 +188,8 @@ Newest first. One entry per working session: what changed, and any decisions mad
 - **Current main:** PR #28 merged the student app into main; the existing password and demo protections remain in place.
 - **Branches:** frontend was renamed marketing-site. Nine page branches were created from dashboard with identical starting content.
 - **Authorized in chat:** merge agent-config into main after required CI, then bring dashboard and all nine page branches up to date with main. Agents still receive page assignments in chat.
+- **Home redesign (`page/home` → `dashboard`):** deep-blue hero with the next step, then "Where you stand" and "Coaching and applications" cards with fewer words and more space. Design in `docs/superpowers/specs/2026-10-02-home-page-design.md`.
+- **Decided:** keep the original Home card format; use the deep-blue hero rather than a dark app or a midnight shell. Still stars in the Home hero are the one exception to "no starfield in the app"; there are still no scroll effects.
 
 ### 2026-09-30
 

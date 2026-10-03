@@ -66,3 +66,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Documentation-only delivery; GitHub records the final merge status. The final coordination-record commit also goes through required CI before merging.
 **Open:** No unresolved product decisions for this delivery. Follow the PR for integration status.
 **PR:** https://github.com/Wasif0410/career-os/pull/29
+
+### 2026-10-02 20:09 · claude · page/home
+**Did:** Redesigned Home (`/dashboard`): deep-blue hero with still stars and the next step, then "Where you stand" (resume, jobs) and "Coaching and applications" (coaching, plan, applications) with more space and fewer words. Added `lib/mock/home.ts`, updated `e2e/app/home.spec.ts`, wrote the spec and plan under `docs/superpowers/`.
+**Decisions:** Wasif chose the deep-blue hero over a dark app or a midnight shell, then asked to keep the original card format with fewer words. Static stars in the Home hero are the one exception to "no starfield in the app". No shared components changed.
+**Open:** Wasif's review on the preview URL.
+**PR:** into dashboard (see STATUS).
