@@ -84,3 +84,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Wasif chose the dark sidebar, the calendar rail, removing the top stat row, the readiness levels (Starter, Builder, Contender, Interview-ready, Offer-ready) and Courses in place of the radar chart. Free shows real content with Pro tags instead of blurred locks on Home. Shell change flagged in COMMS claude-20261002T213000.
 **Open:** Wasif's review on the local server. Readiness weighting and the resume rubric are undecided, so both run on demo numbers. The radar chart could move to the Resume page. Not pushed; no PR.
 **PR:** none.
+
+### 2026-10-02 22:45 · claude · page/home
+**Did:** Reworked Home v2 into a bento layout modelled on a reference dashboard Wasif shared (Intelly on Dribbble): four stat tiles (applications by week, resume score over time, readiness, courses) with cosmic corner shapes, this week as a list, top matches with a details panel, and a calendar with week numbers plus a coming-up timeline. Added weekly applications, resume upload dates and match reasons to the demo data. Check and all 40 browser tests pass.
+**Decisions:** The readiness badge moved into its own tile; the application stage tabs became the tile's stats. Brand blues replace the reference's pastels.
+**Open:** Wasif's review on the local server. Still local only.
+**PR:** none.
