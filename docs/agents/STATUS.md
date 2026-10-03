@@ -14,7 +14,7 @@ Wasif controls this shared section.
 
 - **State:** idle
 - **Task:** Home page redesign (`/dashboard`): keep the original card layout with fewer words, more space, and a deep-blue starfield hero, per Wasif in chat
-- **Owned paths:** `app/(app)/dashboard/` (page and new `_components/`), new `lib/mock/home.ts`, `e2e/app/home.spec.ts`, `docs/superpowers/specs/2026-10-02-home-page-design.md`
+- **Owned paths:** `app/(app)/dashboard/` (page and new `_components/`), `components/app/app-header.tsx` (target pill removal only), new `lib/mock/home.ts`, `e2e/app/home.spec.ts`, `docs/superpowers/specs/2026-10-02-home-page-design.md`
 - **Worktree:** C:/Users/wa/Documents/career-os-home
 - **Branch:** page/home
 - **PR base:** dashboard

@@ -72,3 +72,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** Wasif chose the deep-blue hero over a dark app or a midnight shell, then asked to keep the original card format with fewer words. Static stars in the Home hero are the one exception to "no starfield in the app". No shared components changed.
 **Open:** Wasif's review on the preview URL.
 **PR:** into dashboard (see STATUS).
+
+### 2026-10-02 20:35 · claude · page/home
+**Did:** Revised Home after Wasif's review: removed the hero eyebrow, the group titles and the orbit rings; tightened spacing; put all five cards in one grid. Removed the target pill from the shared app header at his request (COMMS heads-up posted).
+**Decisions:** Header change made on Wasif's direct instruction.
+**Open:** Wasif's choice: push and open the PR into dashboard, or keep iterating.
+**PR:** none yet.

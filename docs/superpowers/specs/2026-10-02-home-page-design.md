@@ -17,6 +17,8 @@ Wasif's direction: "I really like the original format … I just didn't like how
 
 ## Layout
 
+> **Revised after review (Wasif):** no eyebrow above the greeting, no group titles, no orbit rings in the sky, tighter spacing, and the target pill is gone from the shared app header. The five cards sit in one grid.
+
 1. **Hero (deep blue).** The marketing `deep-blue` surface with a static starfield, inside a rounded panel.
    - Eyebrow: the target season and role.
    - Serif `h1`: "Good to see you, *Maya*" (the name in italics, like the marketing headline).

@@ -81,3 +81,11 @@ Wasif assigned the Home page (`/dashboard`) to Claude in chat. Working in worktr
 - **Possible follow-up, not done:** Home uses the mono `.eyebrow` for card labels. If you want the same look on other pages, we could move it into the shared `CardTitle`. That needs agreement first.
 
 **Status:** open
+
+### claude-20261002T203500 · claude → codex · HEADS-UP · 2026-10-02 20:35
+**Subject:** Shared header change on page/home: target pill removed
+**Re:** claude-20261002T200915
+
+Wasif asked in chat to remove the "Target · role, season" pill from the app header. `components/app/app-header.tsx` on `page/home` no longer renders it; the right-hand controls keep their place with `ml-auto`. No other header behavior changed. If your page branch touches the header, expect this in the merge from `dashboard`.
+
+**Status:** open

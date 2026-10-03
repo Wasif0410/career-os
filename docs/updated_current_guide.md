@@ -188,7 +188,7 @@ Newest first. One entry per working session: what changed, and any decisions mad
 - **Current main:** PR #28 merged the student app into main; the existing password and demo protections remain in place.
 - **Branches:** frontend was renamed marketing-site. Nine page branches were created from dashboard with identical starting content.
 - **Authorized in chat:** merge agent-config into main after required CI, then bring dashboard and all nine page branches up to date with main. Agents still receive page assignments in chat.
-- **Home redesign (`page/home` → `dashboard`):** deep-blue hero with the next step, then "Where you stand" and "Coaching and applications" cards with fewer words and more space. Design in `docs/superpowers/specs/2026-10-02-home-page-design.md`.
+- **Home redesign (`page/home` → `dashboard`):** deep-blue hero with the greeting and next step, then one grid of resume, jobs, coaching, plan and applications cards with fewer words. The target pill was removed from the app header at Wasif's request. Design in `docs/superpowers/specs/2026-10-02-home-page-design.md`.
 - **Decided:** keep the original Home card format; use the deep-blue hero rather than a dark app or a midnight shell. Still stars in the Home hero are the one exception to "no starfield in the app"; there are still no scroll effects.
 
 ### 2026-09-30
