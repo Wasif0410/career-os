@@ -90,3 +90,9 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** The readiness badge moved into its own tile; the application stage tabs became the tile's stats. Brand blues replace the reference's pastels.
 **Open:** Wasif's review on the local server. Still local only.
 **PR:** none.
+
+### 2026-10-02 23:30 · claude · page/home
+**Did:** Finished Home v2 after Wasif's review rounds: solid-colour tiles without shapes, applications as a stage pipeline, calendar panel fixed to the right edge with compact rows, palette pass with the dark readiness tile and dark calendar accents kept. Pushed `page/home` and opened the PR into `dashboard`.
+**Decisions:** Wasif kept the dark readiness tile and dark calendar accents for contrast; the starfield and weekly bar chart were dropped. Merge with a merge commit (no squash) so every step stays in history.
+**Open:** Wasif's review and merge.
+**PR:** see STATUS.

@@ -89,7 +89,7 @@ Pages, each merged into `dashboard` through its own PR:
 
 | Page | Route | PR | Status |
 |---|---|---|---|
-| Home | `/dashboard` | #10, redesign on `page/home` | ✅ First version in #10. v2 on `page/home` (local, not pushed): readiness badge, this week, applications by stage, top matches, resume, courses and a calendar rail. **In review** |
+| Home | `/dashboard` | #10, redesign on `page/home` | ✅ First version in #10. v2 on `page/home`: bento layout with applications, resume, readiness and courses tiles, this week, top matches with details, and a calendar panel. **PR into `dashboard`** |
 | Resume | `/resume` | #11 | Placeholder. Next: upload + score report |
 | Coaching | `/coaching` | #12 | Placeholder (Pro+) |
 | Plan | `/plan` | #13 | Placeholder (Pro+) |
@@ -107,7 +107,7 @@ Building a page for real means a new `page/<name>` branch off `dashboard` and a 
 
 ### Kept separate from the marketing site
 
-- It lives in its own route group, `app/(app)/`, with its own layout. No marketing header, footer, starfield or scroll effects. Exceptions (Wasif, 2026-10-02): the sidebar uses the deep-blue surface, and the Home courses card has a slowly drifting star field. Still no scroll effects.
+- It lives in its own route group, `app/(app)/`, with its own layout. No marketing header, footer, starfield or scroll effects. Exception (Wasif, 2026-10-02): the sidebar uses the deep-blue surface. No starfield or scroll effects on app pages.
 - **Nothing on the marketing site links to it.** A browser test checks this.
 - It's `noindex`, and `robots.txt` blocks crawlers from it.
 - Its components live in `components/app/`. It reuses only the basics (`Button`, glyphs, logo, color tokens).
@@ -189,7 +189,7 @@ Newest first. One entry per working session: what changed, and any decisions mad
 - **Branches:** frontend was renamed marketing-site. Nine page branches were created from dashboard with identical starting content.
 - **Authorized in chat:** merge agent-config into main after required CI, then bring dashboard and all nine page branches up to date with main. Agents still receive page assignments in chat.
 - **Home redesign (`page/home` → `dashboard`):** deep-blue hero with the greeting and next step, then one grid of resume, jobs, coaching, plan and applications cards with fewer words. The target pill was removed from the app header at Wasif's request. Design in `docs/superpowers/specs/2026-10-02-home-page-design.md`.
-- **Home v2 (local on `page/home`):** Wasif approved a new concept and asked for it locally. Dark sidebar, readiness levels (Starter → Builder → Contender → Interview-ready → Offer-ready), calendar and coming-up rail, applications by stage, Courses instead of the radar chart, no blurred locks on Home. Readiness weighting and the resume rubric are still open, so both use demo numbers.
+- **Home v2 (`page/home` → `dashboard`):** final layout is a bento board modelled on a reference dashboard Wasif picked: solid-colour tiles (applications pipeline, resume trend, dark readiness, cobalt courses), this week, top matches with a details panel, and a calendar panel fixed to the right edge. Before that: Wasif approved a new concept and asked for it locally. Dark sidebar, readiness levels (Starter → Builder → Contender → Interview-ready → Offer-ready), calendar and coming-up rail, applications by stage, Courses instead of the radar chart, no blurred locks on Home. Readiness weighting and the resume rubric are still open, so both use demo numbers.
 - **Decided (earlier the same day, superseded by v2):** keep the original Home card format; use the deep-blue hero rather than a dark app or a midnight shell. Still stars in the Home hero are the one exception to "no starfield in the app"; there are still no scroll effects.
 
 ### 2026-09-30
