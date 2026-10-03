@@ -1,0 +1,70 @@
+/*
+ * Motion for Home only. Same easing as the marketing site; everything stops
+ * when the visitor prefers reduced motion.
+ */
+
+.drift {
+  animation: drift var(--speed, 80s) linear infinite;
+}
+.nebula {
+  animation: nebula 14s ease-in-out infinite alternate;
+}
+.grow {
+  animation: grow 1s var(--ease-out-quint) both;
+  animation-delay: var(--d, 0.3s);
+}
+.ring {
+  stroke-dasharray: 119.38;
+  animation: ring 1.4s var(--ease-out-quint) both 0.3s;
+}
+.draw {
+  stroke-dasharray: 600;
+  animation: draw 1.4s var(--ease-out-quint) both 0.5s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+@keyframes nebula {
+  from {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(1.15) translate(4%, -3%);
+    opacity: 1;
+  }
+}
+@keyframes grow {
+  from {
+    width: 0;
+  }
+}
+@keyframes ring {
+  from {
+    stroke-dashoffset: 119.38;
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 600;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drift,
+  .nebula,
+  .grow,
+  .ring,
+  .draw {
+    animation: none;
+  }
+}

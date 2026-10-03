@@ -1,25 +1,35 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("home (/dashboard, demo mode)", () => {
-  test("a Free student sees their score, next step and locked paid features", async ({ page }) => {
+  test("a Free student sees their plan, score, matches and upgrade prompts", async ({ page }) => {
     await page.goto("/dashboard");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Good to see you");
-    await expect(page.getByRole("link", { name: /read the guide/i })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Your resume score" })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(/Good (morning|afternoon|evening), Maya/);
+    await expect(page.getByRole("heading", { name: "This week" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Open guide" })).toBeVisible();
     await expect(page.getByRole("img", { name: /resume score: \d+ out of 100/i })).toBeVisible();
-    // Resume breakdown, coaching, plan and applications.
-    await expect(page.getByRole("link", { name: /unlock with pro/i })).toHaveCount(4);
+    await expect(page.getByRole("heading", { name: "Courses" })).toBeVisible();
+    await expect(page.getByText(/more matches with Pro/)).toBeVisible();
     await expect(page.getByRole("link", { name: "Upgrade" })).toBeVisible();
+    // Free has no tracker, so the stages aren't clickable.
+    await expect(page.getByRole("tab")).toHaveCount(0);
   });
 
-  test("switching the demo to Pro unlocks the paid features", async ({ page }) => {
+  test("switching the demo to Pro shows the coach's plan and the application stages", async ({ page }) => {
     await page.goto("/dashboard");
     await page.getByRole("button", { name: "Pro" }).click();
     await expect(page.getByRole("button", { name: "Pro" })).toHaveAttribute("aria-pressed", "true");
-    await expect(page.getByRole("link", { name: /unlock with/i })).toHaveCount(0);
     await expect(page.getByRole("link", { name: "Upgrade" })).toHaveCount(0);
-    await expect(page.getByText("2 of 3 done")).toBeVisible();
-    await expect(page.getByRole("link", { name: "Open tracker" })).toBeVisible();
+    await expect(page.getByText("2 of 4 done")).toBeVisible();
+    await expect(page.getByRole("link", { name: "Tracker" })).toBeVisible();
+
+    await page.getByRole("tab", { name: /Interview/ }).click();
+    await expect(page.getByRole("tab", { name: /Interview/ })).toHaveAttribute("aria-selected", "true");
+    await expect(page.getByRole("tabpanel")).toContainText("Platform Engineering Intern");
+  });
+
+  test("the readiness badge carries the full ladder", async ({ page }) => {
+    await page.goto("/dashboard");
+    await expect(page.getByRole("tooltip")).toContainText("You're here");
   });
 
   test("the app is kept out of search engines", async ({ page }) => {
