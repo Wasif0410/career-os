@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
-import { ComingSoon } from "@/components/app/coming-soon";
-import { PageTitle } from "@/components/app/page-title";
+import { CourseLibrary } from "@/components/courses/course-library";
+import { canAccess } from "@/lib/access";
+import { getCurrentUser } from "@/lib/auth/current-user";
 
 export const metadata: Metadata = { title: "Courses" };
 
-export default function CoursesPage() {
-  return (
-    <>
-      <PageTitle title="Courses" description="Short lessons on targeting, resumes and interviews." />
-      <ComingSoon phase="Phase 3">The first lesson of every course is free. The rest unlock with Pro.</ComingSoon>
-    </>
-  );
+export default async function CoursesPage({ searchParams }: PageProps<"/courses">) {
+  const [user, { course }] = await Promise.all([getCurrentUser(), searchParams]);
+  const allLessons = !!user && canAccess(user, "courses.allLessons");
+  return <CourseLibrary allLessons={allLessons} initialCourse={typeof course === "string" ? course : null} />;
 }

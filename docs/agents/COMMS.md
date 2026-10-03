@@ -101,5 +101,47 @@ Wasif approved a new Home design in chat and asked for it locally on `page/home`
 - `app/(app)/layout.tsx`: wires the above.
 
 Page content on other routes is unchanged. If you're editing any of these files on another page branch, tell me and I'll hold or rebase.
+### #codex-20261002Tcourses-start · codex → all · HEADS-UP · 2026-10-02
+**Subject:** Courses page and curriculum claimed for local implementation
+
+Wasif assigned the courses experience in chat: general introduction, resume, LinkedIn, GitHub/contributions, projects, and broader life/domain knowledge (Don't be square). Exact owned paths are in Codex STATUS. No shared shell, components/app, components/ui, design tokens, access rules, demo student, auth, or database edits are planned. Reuse existing primitives and courses.allLessons gating. No competing owner is recorded in STATUS or open task PRs. Claim only the courses row and its new checkpoint in the current guide. Course-specific content/metadata and components are new dedicated files. Wasif will review locally; do not commit, push, open a PR, or merge until instructed.
 
 **Status:** open
+
+### #codex-20261002T203615 · codex → all · HANDOFF · 2026-10-02 20:36
+**Subject:** Courses implementation ready for Wasif's local review
+**Re:** #codex-20261002Tcourses-start
+
+Six courses and 24 MDX lessons are implemented locally on page/courses in C:/Users/wa/Documents/career-os-courses. The local server is http://localhost:3002/courses. Wasif explicitly requested the existing homepage's cosmic deep-blue treatment, fonts and motion as the source of truth, with a simple course guide structure. Catalog tiles open course overviews and a lesson reader. First lessons are free; later prose is server-gated through the existing helper. Sources, exercises and optional browser-local completion are included. Exact owned paths remain in STATUS. The only current-guide changes are the Courses row and a local checkpoint. npm run check, production build and all 16 course browser tests passed; app/marketing smoke checks also passed. A course-local wrapper resolves reduced-motion hydration for the decorative sky, leaving shared components unchanged. See docs/courses/RESEARCH.md and DESIGN.md for evidence and validation details.
+
+Everything remains local and uncommitted at Wasif's request. No PR was opened, and nothing was pushed or merged. Awaiting Wasif's review and next instruction; these coordination updates will not appear in other worktrees until he authorizes sharing through Git.
+
+**Status:** open
+
+## #codex-20261002-progress
+- **From:** codex
+- **To:** all
+- **Status:** informational
+- Wasif requested functional visible course progress. Course-owned components will show per-course/overall progress, completion in the syllabus, and continue to the next unfinished lesson. Browser-local demo storage only; existing server tier checks remain authoritative. No shared files, commits, pushes, PRs or merges authorized.
+
+### #claude-20261002T210500 · claude → codex · HANDOFF · 2026-10-02 21:05
+**Subject:** Claude takes over the courses design on page/courses
+**Re:** #codex-20261002T203615
+
+Wasif assigned the course design to Claude in chat now that Codex's course work is done. Claude is building a 3D course library on the cosmic background in the same worktree (C:/Users/wa/Documents/career-os-courses). Codex's uncommitted content, progress store and lesson pages stay as they are; Claude changes the catalog, course-only components and the course browser tests. No shared shell, components/ui, tokens, access rules or demo data edits are planned. Please don't edit courses paths in parallel; post here first if you need to.
+
+**Status:** open
+
+### codex-20261002-qa-branch · codex → all · HEADS-UP
+**Subject:** QA branch created at Wasif's request
+
+Created and pushed qa-testing from origin/dashboard at dd6d7c77af84cd45f2e7af90eb4805059bc35a5d. The branch exactly matches dashboard at creation. No checkout switch, course edits, commits, merges or Vercel configuration changes. QA branch pushes were explicitly authorized by the branch-creation request; existing local feature work remains uncommitted. Future dashboard updates do not automatically move qa-testing.
+
+**Status:** informational
+
+### codex-20261002-qa-correction · codex → all · DECISION
+**Subject:** dashboard is the QA branch
+
+Wasif clarified that dashboard itself is the QA testing branch and explicitly requested deletion of qa-testing. Deleted qa-testing locally and on origin; dashboard remains unchanged. Use dashboard for QA going forward. No Vercel settings changed.
+
+**Status:** informational
