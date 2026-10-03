@@ -1,0 +1,22 @@
+## Build one path all the way through
+
+Choose a stack you can reasonably use and explain. The purpose of this project is to complete and evaluate a workflow, not collect the largest number of technologies. Start with the smallest path from input to useful output.
+
+Write acceptance criteria before adding features. Include the normal case and important failure cases. For a catalog, these might be finding an existing item, finding no result and recovering from unavailable data. For a data project, they might be loading a sample, handling missing values and producing a reproducible result.
+
+Keep a decision log. Record why you chose an approach, an alternative you considered and a consequence of the choice. If you use a library, tutorial or code assistant, keep appropriate attribution and verify behavior. Your project story should explain decisions you understand.
+
+## A worked example
+
+Maya builds item lookup with synthetic records before adding accounts. She chooses a simple database because it supports the queries she needs. Her decision log notes that this keeps setup small, while multi-user deployment would require more work.
+
+She checks malformed queries and empty results. She does not hide the absence of authentication; the demo contains no real club information. The first version lets her test whether people understand the search and status labels.
+
+## Your turn · several focused sessions
+
+1. Write three acceptance criteria and one deliberate exclusion.
+2. Implement the end-to-end path using sample inputs.
+3. Add clear empty and error behavior where it matters.
+4. Document setup, one architecture decision and the biggest current limitation.
+
+**Leave with:** a runnable first version. If a feature does not support the evaluation question, park it. For an ML project, establish a simple baseline and separate training from evaluation data before reaching for a more complex model. The next lesson focuses on checking whether your version works and helps.
