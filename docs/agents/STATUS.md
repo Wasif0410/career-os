@@ -25,16 +25,17 @@ Wasif controls this shared section.
 
 ## codex
 
-- **State:** idle
-- **Task:** delivered configuration guidelines in PR #29; branch synchronization authorized
-- **Owned paths:** branch references in AGENTS.md, README.md, docs/PROJECT_CONTEXT.md, docs/frontend/PHASES.md, docs/updated_current_guide.md, and own coordination records
-- **Worktree:** C:/Users/wa/Documents/career-os-repo
-- **Branch:** agent-config (coordination record only)
+- **State:** working
+- **Task:** document the dashboard Vercel QA deployment in the GitHub README
+- **Owned paths:** README.md and own coordination entries
+- **Worktree:** C:/Users/wa/Documents/career-os-qa-docs
+- **Branch:** docs/qa-testing (base: main)
 - **PR base:** main
-- **PR:** https://github.com/Wasif0410/career-os/pull/29
+- **PR:** none yet
 - **Blocked by:** nothing
-- **Next:** Wasif assigns pages in chat; use separate worktrees for parallel editing
+- **Next:** verify docs and open a PR for Wasif; do not merge
 - **Updated:** 2026-10-02
+
 ## Ownership policy
 
 Wasif controls this policy. Tasks own individual pages and page-specific components. There is no confirmed permanent folder ownership split.
