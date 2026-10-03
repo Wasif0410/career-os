@@ -4,7 +4,6 @@ import { canAccess, limitFor } from "@/lib/access";
 import { getCurrentUser } from "@/lib/auth/current-user";
 import {
   demoApplications,
-  demoApplicationsByWeek,
   demoCourses,
   demoEvents,
   demoFreeEvents,
@@ -41,17 +40,20 @@ export default async function DashboardPage() {
   const tracked = canAccess(user, "applications.tracker");
 
   return (
-    <div className="grid gap-8 xl:mr-[max(0px,calc(340px_-_(100vw_-_1720px)_/_2))]">
+    <div className="grid gap-8 xl:mr-[max(0px,calc(400px_-_(100vw_-_1720px)_/_2))]">
       <div className="@container min-w-0 space-y-6">
         <Greeting firstName={user.firstName} today={demoToday} week={coached ? demoPlanWeek : undefined} />
 
         <div className="grid gap-5 @xl:grid-cols-2 @4xl:grid-cols-5">
           <div className="@4xl:col-span-2">
             <ApplicationsTile
-              weeks={demoApplicationsByWeek}
-              applied={demoApplications.applied.count + demoApplications.in_review.count}
-              oas={demoApplications.oa.count}
-              interviews={demoApplications.interview.count}
+              stages={[
+                { label: "Applied", count: demoApplications.applied.count },
+                { label: "In review", count: demoApplications.in_review.count },
+                { label: "OA", count: demoApplications.oa.count },
+                { label: "Interview", count: demoApplications.interview.count },
+                { label: "Offer", count: demoApplications.offer.count },
+              ]}
               locked={!tracked}
               style={delay(0.06)}
             />

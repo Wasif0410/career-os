@@ -135,16 +135,6 @@ export const demoNextSession: CoachingSession = {
 /** Auto-apply credits used this month. */
 export const demoApplicationsUsed = 4;
 
-/** Applications sent each week this season, oldest first. The last is this week. */
-export const demoApplicationsByWeek = [
-  { week: "Aug 24", sent: 1 },
-  { week: "Aug 31", sent: 2 },
-  { week: "Sep 7", sent: 2 },
-  { week: "Sep 14", sent: 3 },
-  { week: "Sep 21", sent: 2 },
-  { week: "Sep 28", sent: 4 },
-];
-
 export type ApplicationStage = "applied" | "in_review" | "oa" | "interview" | "offer";
 
 export type Application = { role: string; org: string; place: string; note: string; date: string };

@@ -52,7 +52,7 @@ function Calendar({ today, events }: { today: string; events: CalendarEvent[] })
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <span className="rounded-full bg-[#ebe8ff] px-3 py-1 text-[0.82rem] font-medium text-[#3a2fb8]">
+        <span className="rounded-full bg-[#ebe8ff] px-4 py-1.5 text-[0.95rem] font-semibold text-[#3a2fb8]">
           {monthTitle.format(new Date(`${today}T12:00:00Z`))}
         </span>
       </div>
@@ -60,7 +60,7 @@ function Calendar({ today, events }: { today: string; events: CalendarEvent[] })
         <thead>
           <tr>
             {["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su", ""].map((d, i) => (
-              <th key={i} className="pb-2 font-mono text-[0.62rem] font-normal tracking-[0.06em] text-slate uppercase">
+              <th key={i} className="pb-3 font-mono text-[0.7rem] font-normal tracking-[0.06em] text-slate uppercase">
                 {d}
               </th>
             ))}
@@ -74,10 +74,10 @@ function Calendar({ today, events }: { today: string; events: CalendarEvent[] })
                 const isToday = d.iso === today;
                 const isSession = event?.kind === "session";
                 return (
-                  <td key={d.iso} className="relative h-9 p-0">
+                  <td key={d.iso} className="relative h-12 p-0">
                     <span
                       className={cn(
-                        "mx-auto grid size-8 place-items-center rounded-full text-[0.8rem] tabular-nums",
+                        "mx-auto grid size-10 place-items-center rounded-full text-[0.92rem] tabular-nums",
                         !d.inMonth && "text-rule-strong",
                         isToday && "bg-ink font-semibold text-white",
                         isSession && !isToday && "bg-[#ebe8ff] font-semibold text-[#3a2fb8] ring-2 ring-[#4b3fd1]/30",
@@ -92,7 +92,7 @@ function Calendar({ today, events }: { today: string; events: CalendarEvent[] })
                   </td>
                 );
               })}
-              <td className="font-mono text-[0.6rem] text-rule-strong">W{isoWeek(week[0].date)}</td>
+              <td className="font-mono text-[0.66rem] text-rule-strong">W{isoWeek(week[0].date)}</td>
             </tr>
           ))}
         </tbody>
@@ -105,40 +105,40 @@ function Timeline({ events, coached }: { events: CalendarEvent[]; coached: boole
   return (
     <div>
       <div className="mb-3 flex items-baseline justify-between">
-        <h3 className="text-[1.05rem] font-semibold tracking-[-0.015em]">Coming up</h3>
+        <h3 className="text-[1.2rem] font-semibold tracking-[-0.015em]">Coming up</h3>
         <span className="text-[0.72rem] text-slate">Next two weeks</span>
       </div>
-      <ol className="grid gap-2.5">
+      <ol className="grid gap-3">
         {events.map((e) => {
           const date = new Date(`${e.day}T12:00:00Z`);
           const { Glyph, tint } = eventStyle[e.kind];
           const isSession = e.kind === "session";
           return (
-            <li key={`${e.day}-${e.title}`} className="grid grid-cols-[36px_minmax(0,1fr)] gap-3">
+            <li key={`${e.day}-${e.title}`} className="grid grid-cols-[40px_minmax(0,1fr)] gap-3">
               <span className="pt-2 text-center">
-                <b className="block font-mono text-[0.95rem] leading-none font-semibold">{date.getUTCDate()}</b>
+                <b className="block font-mono text-[1.05rem] leading-none font-semibold">{date.getUTCDate()}</b>
                 <span className="font-mono text-[0.58rem] tracking-[0.06em] text-slate uppercase">
                   {weekday.format(date)}
                 </span>
               </span>
               {isSession ? (
-                <div className="deep-blue flex items-center gap-2.5 rounded-2xl p-2.5">
-                  <span className={cn("grid size-8 shrink-0 place-items-center rounded-xl", tint)}>
-                    <Glyph className="size-4" />
+                <div className="deep-blue flex items-center gap-3 rounded-2xl p-3">
+                  <span className={cn("grid size-10 shrink-0 place-items-center rounded-xl", tint)}>
+                    <Glyph className="size-[18px]" />
                   </span>
                   <span className="min-w-0">
-                    <span className="block truncate text-[0.82rem] font-medium text-white">{e.title}</span>
-                    <span className="block truncate text-[0.7rem] text-sky">{e.label}</span>
+                    <span className="block truncate text-[0.9rem] font-medium text-white">{e.title}</span>
+                    <span className="block truncate text-[0.76rem] text-sky">{e.label}</span>
                   </span>
                 </div>
               ) : (
                 <div className="flex items-center gap-2.5 rounded-2xl bg-paper/80 p-2.5">
-                  <span className={cn("grid size-8 shrink-0 place-items-center rounded-xl", tint)}>
-                    <Glyph className="size-4" />
+                  <span className={cn("grid size-10 shrink-0 place-items-center rounded-xl", tint)}>
+                    <Glyph className="size-[18px]" />
                   </span>
                   <span className="min-w-0">
-                    <span className="block truncate text-[0.82rem] font-medium">{e.title}</span>
-                    <span className="block truncate text-[0.7rem] text-slate">
+                    <span className="block truncate text-[0.9rem] font-medium">{e.title}</span>
+                    <span className="block truncate text-[0.76rem] text-slate">
                       {e.label}
                       {e.detail ? ` · ${e.detail}` : ""}
                     </span>
@@ -149,7 +149,7 @@ function Timeline({ events, coached }: { events: CalendarEvent[]; coached: boole
           );
         })}
         {!coached && (
-          <li className="grid grid-cols-[36px_minmax(0,1fr)] gap-3">
+          <li className="grid grid-cols-[40px_minmax(0,1fr)] gap-3">
             <span />
             <p className="rounded-2xl border border-dashed border-rule-strong p-2.5 text-[0.78rem] text-slate">
               Coaching sessions, OAs and interviews show up here with Pro
@@ -176,13 +176,13 @@ export function CalendarRail({
   return (
     <aside
       style={style}
-      className="anim-fade-up grid min-w-0 content-start gap-6 rounded-[22px] bg-surface p-5 shadow-[0_1px_2px_rgb(11_18_32/0.04),0_12px_32px_-18px_rgb(11_18_32/0.28)] ring-1 ring-rule sm:p-6 md:grid-cols-2 xl:fixed xl:inset-y-0 xl:right-0 xl:z-20 xl:w-[340px] xl:grid-cols-1 xl:overflow-y-auto xl:rounded-none xl:border-l xl:border-rule xl:px-6 xl:py-8 xl:shadow-none xl:ring-0"
+      className="anim-fade-up grid min-w-0 content-start gap-6 rounded-[22px] bg-surface p-5 shadow-[0_1px_2px_rgb(11_18_32/0.04),0_12px_32px_-18px_rgb(11_18_32/0.28)] ring-1 ring-rule sm:p-6 md:grid-cols-2 xl:fixed xl:inset-y-0 xl:right-0 xl:z-20 xl:w-[400px] xl:grid-cols-1 xl:overflow-y-auto xl:rounded-none xl:border-l xl:border-rule xl:px-7 xl:py-9 xl:shadow-none xl:ring-0"
     >
       <div>
         <Calendar today={today} events={events} />
         <Link
           href={coached ? "/coaching" : "/pricing"}
-          className="mt-4 flex h-10 items-center justify-center rounded-full bg-ink text-[0.82rem] font-medium text-white hover:bg-ink-soft"
+          className="mt-5 flex h-12 items-center justify-center rounded-full bg-ink text-[0.9rem] font-medium text-white hover:bg-ink-soft"
         >
           {coached ? "Book a session" : "Book a session with Pro"}
         </Link>

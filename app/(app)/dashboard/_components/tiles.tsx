@@ -4,7 +4,6 @@ import type { Course, Readiness } from "@/lib/mock/home";
 import { readinessLevels } from "@/lib/mock/home";
 import type { ResumeScore } from "@/lib/mock/student";
 import { cn } from "@/lib/utils";
-import { Cosmos } from "./cosmos";
 import styles from "./home.module.css";
 
 /*
@@ -98,58 +97,52 @@ const Pro = ({ light }: { light?: boolean }) => (
   </span>
 );
 
-/* ---------- Applications: weekly bars ---------- */
+/* ---------- Applications: where each one stands ---------- */
 
 export function ApplicationsTile({
-  weeks,
-  applied,
-  oas,
-  interviews,
+  stages,
   locked,
   style,
 }: {
-  weeks: { week: string; sent: number }[];
-  applied: number;
-  oas: number;
-  interviews: number;
+  /** Stage label and how many applications are at it now, in pipeline order. */
+  stages: { label: string; count: number }[];
   /** From lib/access.ts: no tracker on this plan. */
   locked: boolean;
   style?: React.CSSProperties;
 }) {
-  const max = Math.max(...weeks.map((w) => w.sent), 1);
+  const total = stages.reduce((n, st) => n + st.count, 0);
+  const max = Math.max(...stages.map((st) => st.count), 1);
   return (
     <Tile style={style} className="bg-[#dde4ff] text-ink">
       <TileHead title="Applications" action={locked ? <Pro /> : <TileLink href="/applications">Tracker</TileLink>} />
-      <div className="mt-4 flex gap-6">
-        <Stat value={locked ? "–" : applied} label="Applied" muted={locked} />
-        <Stat value={locked ? "–" : oas} label="OAs" muted={locked} />
-        <Stat value={locked ? "–" : interviews} label="Interviews" muted={locked} />
-      </div>
-      <div className="mt-auto pt-5">
-        <div className="flex h-20 items-end gap-2.5" aria-hidden>
-          {weeks.map((w, i) => (
-            <span key={w.week} className="flex h-full flex-1 items-end justify-center">
+      <p className="mt-1 text-[0.8rem] text-ink/60">
+        {locked ? "We apply to roles you approve and track each one" : `${total} this season, by where they stand`}
+      </p>
+      <ul className="mt-auto grid gap-2 pt-4">
+        {stages.map((st, i) => (
+          <li key={st.label} className="grid grid-cols-[5.5rem_minmax(0,1fr)_1.5rem] items-center gap-3 text-[0.8rem]">
+            <span className="text-ink/70">{st.label}</span>
+            <span aria-hidden className="h-2.5 overflow-hidden rounded-full bg-white/60">
               <span
                 className={cn(
-                  "block w-2.5 rounded-full",
-                  locked ? "bg-ink/15" : i === weeks.length - 1 ? "bg-ink" : "bg-cobalt",
-                  styles.rise,
+                  "block h-full rounded-full",
+                  locked ? "bg-ink/10" : i === stages.length - 1 ? "bg-go" : "bg-cobalt",
+                  styles.grow,
                 )}
                 style={
                   {
-                    height: `${Math.max(14, (w.sent / max) * 100)}%`,
+                    width: locked ? `${70 - i * 12}%` : `${Math.max(st.count ? 6 : 0, (st.count / max) * 100)}%`,
                     "--d": `${0.3 + i * 0.06}s`,
                   } as React.CSSProperties
                 }
               />
             </span>
-          ))}
-        </div>
-        <p className="mt-2 flex justify-between text-[0.68rem] text-ink/50">
-          <span>{weeks[0].week}</span>
-          <span>{locked ? "We apply to roles you approve" : "This week"}</span>
-        </p>
-      </div>
+            <b className={cn("text-right font-mono font-semibold", (locked || st.count === 0) && "text-ink/30")}>
+              {locked ? "–" : st.count}
+            </b>
+          </li>
+        ))}
+      </ul>
     </Tile>
   );
 }
@@ -229,8 +222,7 @@ export function ReadinessTile({ readiness, style }: { readiness: Readiness; styl
   const current = readinessLevels[readiness.level - 1];
   const next = readinessLevels[readiness.level];
   return (
-    <Tile style={style} className="deep-blue text-white shadow-[0_30px_70px_-40px_rgb(36_71_245/0.7)]">
-      <Cosmos />
+    <Tile style={style} className="bg-navy text-white">
       <TileHead title="Readiness" light />
       <div className="mt-4 flex items-center gap-4">
         <span className="relative size-16 shrink-0">
