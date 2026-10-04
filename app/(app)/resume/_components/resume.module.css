@@ -1,0 +1,53 @@
+/*
+ * Motion for the Resume page, matching Home: bars fill on load and highlights
+ * ease in. Everything stops when the visitor prefers reduced motion.
+ */
+
+.grow {
+  animation: grow 1s var(--ease-out-quint) both;
+  animation-delay: var(--d, 0.3s);
+}
+/* Columns in the progress chart. */
+.rise {
+  animation: rise-up 1s var(--ease-out-quint) both;
+  animation-delay: var(--d, 0.3s);
+}
+/* A highlighted line on the resume when its fix is open. */
+.mark {
+  animation: mark 0.5s var(--ease-out-quint) both;
+}
+/* The skim view's light, coming up behind the page. */
+.fade {
+  animation: fade 0.6s ease-out both;
+}
+
+@keyframes grow {
+  from {
+    width: 0;
+  }
+}
+@keyframes rise-up {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes mark {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grow,
+  .rise,
+  .mark,
+  .fade {
+    animation: none;
+  }
+}
