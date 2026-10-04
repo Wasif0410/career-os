@@ -13,10 +13,10 @@ Wasif controls this shared section.
 ## claude
 
 - **State:** in-review
-- **Task:** Coaching page (`/coaching`) as a booking page (assigned by Wasif in Claude's chat, 2026-10-03; booking design approved from an HTML mockup on 2026-10-04): booked calls with reschedule and cancel, then one card that books a call in three steps (call and coach, day, time), a confirm step with a note, and a confirmation with undo. Earlier: Home v2 (#30) and the courses library (#32). Other Claude chats have Resume (page/resume) and Plan (page/plan).
+- **Task:** Coaching page (`/coaching`) as a booking page (assigned by Wasif in Claude’s chat, 2026-10-03; design approved from an HTML mockup on 2026-10-04): booked calls with reschedule and cancel, then one card that books a call in three steps (call and coach, day, time), a confirm step with a note, and a confirmation with undo. Another Claude chat built the Plan page (`/plan`), merged into dashboard through #33. Earlier: Home v2 (#30) and the courses library (#32). Resume is on page/resume.
 - **Owned paths:** app/(app)/coaching/**, lib/mock/coaching.ts (coaching-only demo data), e2e/app/coaching.spec.ts, docs/coaching/DESIGN.md
 - **Worktree:** C:/Users/wa/Documents/career-os-coaching
-- **Branch:** page/coaching (based on dashboard at 24df8c1, including #30 and #32)
+- **Branch:** page/coaching (dashboard merged in, including #33)
 - **PR base:** dashboard
 - **PR:** https://github.com/Wasif0410/career-os/pull/34
 - **Blocked by:** nothing

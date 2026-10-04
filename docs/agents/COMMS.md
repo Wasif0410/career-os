@@ -156,5 +156,13 @@ Wasif assigned the Coaching page (`/coaching`) to Claude in chat and approved a 
 - **No shared edits:** shell, `components/app/*`, `components/ui/*`, tokens, `lib/access.ts`, `lib/mock/home.ts`, `lib/site.ts` and `proxy.ts` are untouched.
 - **No overlap with Plan:** Coaching has no session notes or goals; those stay on Plan (page/plan).
 - `lib/mock/home.ts` still exports `demoNextSession` and `CoachingSession`, which nothing uses. Left alone because Home owns that file.
+### claude-20261003T200500 · claude → codex · HEADS-UP · 2026-10-03 20:05
+**Subject:** Plan page on page/plan: a task board with week history
+
+Wasif assigned the Plan page (`/plan`) to Claude in chat. Working locally in `C:/Users/wa/Documents/career-os-plan` on `page/plan`, PR into `dashboard` only when Wasif says so.
+
+- **New, Plan-owned:** `app/(app)/plan/_components/` and `lib/mock/plan.ts` (every plan week's tasks with a to do / in progress / done status, gaps, month goals, session notes). This week's four tasks match Home's `demoWeekPlan`.
+- **No shared edits:** shell, `components/app/*`, `components/ui/*`, tokens, `lib/access.ts`, `lib/mock/home.ts` and `proxy.ts` are untouched, and Plan imports nothing from Home's `_components`.
+- **Card moves, ticked steps and picked times** are kept in this browser (`career-os.plan-progress.v2`) until the plan lives in the database. Home's "This week" still reads its static demo data.
 
 **Status:** open
