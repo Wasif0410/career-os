@@ -12,16 +12,16 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** idle
-- **Task:** Courses visual design: a 3D course library on the cosmic background that opens each course in place (assigned by Wasif in Claude's chat, 2026-10-02). Codex finished the course content and progress work; Claude now owns the courses design. Earlier: Home page v2 and the shared shell restyle, merged into dashboard through PR #30.
-- **Owned paths:** app/(app)/courses/**, components/courses/**, e2e/app/courses.spec.ts, docs/courses/DESIGN.md (lib/courses.ts and content/courses/** only if a design change needs it)
-- **Worktree:** C:/Users/wa/Documents/career-os-courses (taken over from Codex, who is idle)
-- **Branch:** page/courses (fast-forwarded to dashboard at dd6d7c7, including PR #30)
+- **State:** working
+- **Task:** Resume page (`/resume`): score and categories tiles, ranked fixes beside an annotated copy of the resume, skills in demand, coach review, and a right-hand panel with the file, upload and versions, in the Home layout (assigned by Wasif in Claude's chat, 2026-10-03). Earlier: Home v2 (#30) and the courses library (#32), both merged into dashboard.
+- **Owned paths:** app/(app)/resume/**, lib/mock/resume.ts (new, resume-only demo data), e2e/app/resume.spec.ts
+- **Worktree:** C:/Users/wa/Documents/career-os-resume
+- **Branch:** page/resume (fast-forwarded locally to dashboard at 24df8c1, including #30 and #32; not pushed)
 - **PR base:** dashboard
 - **PR:** none; local and uncommitted until Wasif reviews
 - **Blocked by:** nothing
-- **Next:** Wasif reviews the 3D library at http://localhost:3002/courses; changes stay local and uncommitted until he decides
-- **Updated:** 2026-10-02
+- **Next:** Wasif reviews http://localhost:3003/resume (Free, Pro and Elite) and decides what to change, commit or push
+- **Updated:** 2026-10-03
 
 ## codex
 

@@ -129,3 +129,10 @@ History of finished work. **Append one entry at the end of every session.** Neve
 ## 2026-10-02 · codex · QA branch correction
 - At Wasif's explicit correction, deleted qa-testing locally and remotely. Verified origin/dashboard remains at dd6d7c77af84cd45f2e7af90eb4805059bc35a5d and remote qa-testing is absent. dashboard is the designated QA branch. No checkout switch, feature edits or Vercel configuration changes.
 
+
+### 2026-10-03 · claude · page/resume
+**Did:** Fast-forwarded page/resume to dashboard (24df8c1, local only) in a new worktree and built the Resume page. First pass reused Home's layout; Wasif asked for an original design and no calendar-style side panel, so it was rebuilt after researching how resume review tools present results (score plus named categories plus feedback tied to the exact lines works best; recruiters skim about 7 seconds in an F-pattern). Final page: a navy score band (score, change, four categories, the score with every fix); the resume on a desk with the open fix's lines highlighted and a suggestion under each ("[number]" blanks for the student's own figures) beside a list of fixes that can be marked done (browser-local); a "7-second skim" view; skills in demand; progress across versions; coach review. Upload lives in the header, checked in the browser only. New demo data in lib/mock/resume.ts reuses the score and history from student.ts and home.ts.
+**Validation:** npm run check passed (lint, types, format, 32 unit tests incl. 5 new for the file check); resume browser tests 14/14 on desktop and Pixel 7; checked 1440, 1920 and 390 widths in Free, Pro and Elite.
+**Decisions:** No shared files changed. Free: score, categories and the top fix; other fixes are left out on the server (Pro), skills in demand is Pro, coach review is Elite.
+**Open:** Wasif's review at http://localhost:3003/resume. Category scores show on Free (Home already shows the lowest one); flip if the full report should hide them. Still uncommitted; nothing pushed.
+**PR:** none.

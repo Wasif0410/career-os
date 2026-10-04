@@ -1,6 +1,6 @@
 # Career OS: Current Guide
 
-> **Last updated:** 2026-10-02
+> **Last updated:** 2026-10-03
 > **Read this first** when you pick the project back up, whether you're a person or an agent. It covers what's done, what's in progress, how the branches fit together, and what comes next. The full phase plan is in [`frontend/PHASES.md`](frontend/PHASES.md). This file tracks where we actually are against it, including where we changed the order. The [checkpoint log](#checkpoint-log) at the bottom records what happened and when.
 >
 > **Keep it current:** update this file in the same PR as any change that moves a phase forward, changes the branch model, or settles an open question.
@@ -90,7 +90,7 @@ Pages, each merged into `dashboard` through its own PR:
 | Page | Route | PR | Status |
 |---|---|---|---|
 | Home | `/dashboard` | #10, redesign on `page/home` | ✅ First version in #10. v2 on `page/home`: bento layout with applications, resume, readiness and courses tiles, this week, top matches with details, and a calendar panel. **PR into `dashboard`** |
-| Resume | `/resume` | #11 | Placeholder. Next: upload + score report |
+| Resume | `/resume` | #11 (placeholder) | Report built locally on `page/resume`: score band, the resume with each fix marked on its lines (plus a 7-second recruiter skim view), fixes to tick off, skills in demand (Pro), progress across versions and coach review (Elite). Demo data; awaiting Wasif's local review |
 | Coaching | `/coaching` | #12 | Placeholder (Pro+) |
 | Plan | `/plan` | #13 | Placeholder (Pro+) |
 | Courses | `/courses` | #14 (original placeholder) | 3D course library (six courses as books), overviews and 24 MDX lessons implemented locally on `page/courses`; awaiting Wasif's local review. Not committed or integrated. |
@@ -182,6 +182,10 @@ In parallel on `marketing-site`: marketing changes, plus the Phase 1 leftovers (
 ## Checkpoint log
 
 Newest first. One entry per working session: what changed, and any decisions made.
+
+### 2026-10-03
+
+- **Resume (local review):** `page/resume` was fast-forwarded to `dashboard` (includes Home v2 #30 and courses #32; not pushed) and the Resume page was built in a new worktree, `C:/Users/wa/Documents/career-os-resume`, previewed at http://localhost:3003/resume. Wasif asked for its own design rather than a copy of Home and for no calendar-style side panel, so the page centres on the resume: a navy score band, then the resume with the open fix's lines highlighted and a suggestion under each, beside a list of fixes the student can mark done (kept in the browser). A "7-second skim" view fades everything but what a recruiter reads on a first pass. Free gets the score, categories and top fix; the other fixes stay on the server and come with Pro, as does "skills in demand"; the coach review is Elite. Uploads are checked in the browser only (PDF, up to 2 MB) and never sent while the app is a demo. Uncommitted pending review.
 
 ### 2026-10-02
 
