@@ -12,16 +12,16 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** idle
-- **Task:** Courses visual design: a 3D course library on the cosmic background that opens each course in place (assigned by Wasif in Claude's chat, 2026-10-02). Codex finished the course content and progress work; Claude now owns the courses design. Earlier: Home page v2 and the shared shell restyle, merged into dashboard through PR #30.
-- **Owned paths:** app/(app)/courses/**, components/courses/**, e2e/app/courses.spec.ts, docs/courses/DESIGN.md (lib/courses.ts and content/courses/** only if a design change needs it)
-- **Worktree:** C:/Users/wa/Documents/career-os-courses (taken over from Codex, who is idle)
-- **Branch:** page/courses (fast-forwarded to dashboard at dd6d7c7, including PR #30)
+- **State:** in-review
+- **Task:** Plan page (`/plan`), built end to end with demo data (assigned by Wasif in Claude's chat, 2026-10-03), reworked through HTML mockups at his request into a boxed layout: four summary boxes, this week's tasks as a board (to do, in progress, done; cards drag between columns and open a details window with steps), a week switcher to look back at earlier weeks and ahead to the next, then the coach's note, the top three gaps and the month. No side rail. Starter steps on Free. Earlier: courses design (page/courses, merged through PR #32) and Home v2 (PR #30).
+- **Owned paths:** app/(app)/plan/**, lib/mock/plan.ts, e2e/app/plan.spec.ts
+- **Worktree:** C:/Users/wa/Documents/career-os-plan
+- **Branch:** page/plan (fast-forwarded to dashboard at 24df8c1, including PR #32)
 - **PR base:** dashboard
-- **PR:** none; local and uncommitted until Wasif reviews
+- **PR:** #33 (page/plan → dashboard), opened at Wasif's request
 - **Blocked by:** nothing
-- **Next:** Wasif reviews the 3D library at http://localhost:3002/courses; changes stay local and uncommitted until he decides
-- **Updated:** 2026-10-02
+- **Next:** Wasif reviews and merges #33; locally at http://localhost:3005/plan
+- **Updated:** 2026-10-04
 
 ## codex
 
