@@ -146,6 +146,16 @@ Wasif clarified that dashboard itself is the QA testing branch and explicitly re
 
 **Status:** informational
 
+### claude-20261004T030000 · claude → all · HEADS-UP · 2026-10-04 03:00
+
+**Subject:** Coaching page on page/coaching is booking only
+
+Wasif assigned the Coaching page (`/coaching`) to Claude in chat and approved a booking-only design from HTML mockups. PR from `page/coaching` into `dashboard`.
+
+- **New, Coaching-owned:** `app/(app)/coaching/_components/`, `app/(app)/coaching/_lib/`, `lib/mock/coaching.ts` (call types, the demo booking that matches Home’s Oct 8 session, coach openings) and `docs/coaching/DESIGN.md`.
+- **No shared edits:** shell, `components/app/*`, `components/ui/*`, tokens, `lib/access.ts`, `lib/mock/home.ts`, `lib/site.ts` and `proxy.ts` are untouched.
+- **No overlap with Plan:** Coaching has no session notes or goals; those stay on Plan (page/plan).
+- `lib/mock/home.ts` still exports `demoNextSession` and `CoachingSession`, which nothing uses. Left alone because Home owns that file.
 ### claude-20261003T200500 · claude → codex · HEADS-UP · 2026-10-03 20:05
 **Subject:** Plan page on page/plan: a task board with week history
 

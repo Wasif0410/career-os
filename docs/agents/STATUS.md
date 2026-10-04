@@ -13,14 +13,14 @@ Wasif controls this shared section.
 ## claude
 
 - **State:** in-review
-- **Task:** Plan page (`/plan`), built end to end with demo data (assigned by Wasif in Claude's chat, 2026-10-03), reworked through HTML mockups at his request into a boxed layout: four summary boxes, this week's tasks as a board (to do, in progress, done; cards drag between columns and open a details window with steps), a week switcher to look back at earlier weeks and ahead to the next, then the coach's note, the top three gaps and the month. No side rail. Starter steps on Free. Earlier: courses design (page/courses, merged through PR #32) and Home v2 (PR #30).
-- **Owned paths:** app/(app)/plan/**, lib/mock/plan.ts, e2e/app/plan.spec.ts
-- **Worktree:** C:/Users/wa/Documents/career-os-plan
-- **Branch:** page/plan (fast-forwarded to dashboard at 24df8c1, including PR #32)
+- **Task:** Coaching page (`/coaching`) as a booking page (assigned by Wasif in Claude’s chat, 2026-10-03; design approved from an HTML mockup on 2026-10-04): booked calls with reschedule and cancel, then one card that books a call in three steps (call and coach, day, time), a confirm step with a note, and a confirmation with undo. Another Claude chat built the Plan page (`/plan`), merged into dashboard through #33. Earlier: Home v2 (#30) and the courses library (#32). Resume is on page/resume.
+- **Owned paths:** app/(app)/coaching/**, lib/mock/coaching.ts (coaching-only demo data), e2e/app/coaching.spec.ts, docs/coaching/DESIGN.md
+- **Worktree:** C:/Users/wa/Documents/career-os-coaching
+- **Branch:** page/coaching (dashboard merged in, including #33)
 - **PR base:** dashboard
-- **PR:** #33 (page/plan → dashboard), opened at Wasif's request
+- **PR:** https://github.com/Wasif0410/career-os/pull/34
 - **Blocked by:** nothing
-- **Next:** Wasif reviews and merges #33; locally at http://localhost:3005/plan
+- **Next:** Wasif reviews PR #34 into dashboard and confirms the call types and lengths
 - **Updated:** 2026-10-04
 
 ## codex

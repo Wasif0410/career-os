@@ -130,6 +130,21 @@ History of finished work. **Append one entry at the end of every session.** Neve
 - At Wasif's explicit correction, deleted qa-testing locally and remotely. Verified origin/dashboard remains at dd6d7c77af84cd45f2e7af90eb4805059bc35a5d and remote qa-testing is absent. dashboard is the designated QA branch. No checkout switch, feature edits or Vercel configuration changes.
 
 
+### 2026-10-03 20:30 · claude · page/coaching
+
+**Did:** Fast-forwarded page/coaching to dashboard (24df8c1; it was 25 commits behind) in a new worktree and built the Coaching page with demo data. The first version followed Home's layout with a fixed booking rail; Wasif asked for research and no rail, so it was redesigned: the next session with an agenda the student adds to and the coaches' open tasks; goals rated on a five-step scale, mock interview scorecards (communication, problem solving, coding, testing) and sessions by month; session recaps (summary, decided, next steps); Elite's thread; booking and rescheduling in a dialog (topic suggests the coach, next openings pre-picked, ET on every time, Add to calendar, Undo). Free gets the coaches, how a session works and locked notes. Research and decisions in docs/coaching/DESIGN.md.
+**Validation:** npm run check passed; 12 schedule unit tests; coaching browser suite 16/16 and the full suite 76/76 on desktop and Pixel 7 against the local server. Screenshots at 1440, 1600, 1920 and phone width; no console errors and no overflow at phone width.
+**Decisions:** Demo booking only (Cal.com replaces it). Per-month limits come from coachingSessionsPerMonth; a full month moves booking to the next one. No shared files changed.
+**Open:** Wasif's review at http://localhost:3004/coaching. Whether goals and session notes belong on Coaching, Plan or both. Uncommitted; nothing pushed.
+**PR:** none.
+
+### 2026-10-04 03:00 · claude · page/coaching
+
+**Did:** Wasif reviewed several HTML mockups (outside the repo) and approved a booking-only design. Rebuilt /coaching to match: the calls left this month, booked calls with Add to calendar, Reschedule and Cancel (with a second ask), and one card that books in three steps (call and coach, day, time), then a confirm step with an optional note and a confirmation with undo. Free can browse openings and is sent to Pro at the end; Pro's used-up October opens on November. Removed the earlier notes, goals, scorecards and thread. Keyed the booking by plan so the demo switcher starts it over.
+**Validation:** npm run check passed; 13 schedule unit tests; coaching browser tests 12/12 and the full suite on desktop and Pixel 7 against the local server. Screenshots at 1440, 1024 and phone width; no console errors or overflow.
+**Decisions:** Call types and lengths are placeholders until the coaches confirm them. Demo booking only; Cal.com replaces it. No shared files changed.
+**Open:** Wasif's review at http://localhost:3004/coaching. Uncommitted; nothing pushed.
+**PR:** none.
 ### 2026-10-03 20:05 · claude · page/plan
 **Did:** Fast-forwarded page/plan to dashboard (24df8c1, includes Home v2 and courses) in a new worktree, then built `/plan` end to end in the Home layout: serif title with the week and the session it came from; three solid tiles (cobalt "This week" with a Monday–Sunday strip of due tasks, lavender "Top three gaps" with progress to each target, navy "Your weeks" chart of tasks done per week); a tasks list with tick-off and a details panel (why, how, link, mark done); and a right rail like Home's calendar with this month's goals, the next 1-1 and shared session notes. Free gets starter steps from the score, a locked gaps tile and Pro placeholders. Ticks persist in the browser and update the tiles live.
 **Validation:** npm run check passed (lint, types, format, 27 unit tests). New plan browser tests 8/8 on desktop and Pixel 7; whole app suite 54/54 (one courses test needed a re-run after a dev compile timeout). Reviewed screenshots at 1920, 1440, 1280 and phone, Free and Pro.
