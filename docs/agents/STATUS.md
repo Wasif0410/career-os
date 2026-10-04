@@ -12,15 +12,15 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** idle
+- **State:** in-review
 - **Task:** Coaching page (`/coaching`) as a booking page (assigned by Wasif in Claude's chat, 2026-10-03; booking design approved from an HTML mockup on 2026-10-04): booked calls with reschedule and cancel, then one card that books a call in three steps (call and coach, day, time), a confirm step with a note, and a confirmation with undo. Earlier: Home v2 (#30) and the courses library (#32). Other Claude chats have Resume (page/resume) and Plan (page/plan).
 - **Owned paths:** app/(app)/coaching/**, lib/mock/coaching.ts (coaching-only demo data), e2e/app/coaching.spec.ts, docs/coaching/DESIGN.md
 - **Worktree:** C:/Users/wa/Documents/career-os-coaching
-- **Branch:** page/coaching (fast-forwarded locally to dashboard at 24df8c1, including #30 and #32; not pushed)
+- **Branch:** page/coaching (based on dashboard at 24df8c1, including #30 and #32)
 - **PR base:** dashboard
-- **PR:** none; local and uncommitted until Wasif reviews
+- **PR:** https://github.com/Wasif0410/career-os/pull/34
 - **Blocked by:** nothing
-- **Next:** Wasif reviews http://localhost:3004/coaching (Free, Pro and Elite) and confirms the call types and lengths
+- **Next:** Wasif reviews PR #34 into dashboard and confirms the call types and lengths
 - **Updated:** 2026-10-04
 
 ## codex
