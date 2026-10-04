@@ -136,3 +136,36 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Decisions:** No shared files changed. Free: score, categories and the top fix; other fixes are left out on the server (Pro), skills in demand is Pro, coach review is Elite.
 **Open:** Wasif's review at http://localhost:3003/resume. Category scores show on Free (Home already shows the lowest one); flip if the full report should hide them. Still uncommitted; nothing pushed.
 **PR:** none.
+### 2026-10-03 20:30 · claude · page/coaching
+
+**Did:** Fast-forwarded page/coaching to dashboard (24df8c1; it was 25 commits behind) in a new worktree and built the Coaching page with demo data. The first version followed Home's layout with a fixed booking rail; Wasif asked for research and no rail, so it was redesigned: the next session with an agenda the student adds to and the coaches' open tasks; goals rated on a five-step scale, mock interview scorecards (communication, problem solving, coding, testing) and sessions by month; session recaps (summary, decided, next steps); Elite's thread; booking and rescheduling in a dialog (topic suggests the coach, next openings pre-picked, ET on every time, Add to calendar, Undo). Free gets the coaches, how a session works and locked notes. Research and decisions in docs/coaching/DESIGN.md.
+**Validation:** npm run check passed; 12 schedule unit tests; coaching browser suite 16/16 and the full suite 76/76 on desktop and Pixel 7 against the local server. Screenshots at 1440, 1600, 1920 and phone width; no console errors and no overflow at phone width.
+**Decisions:** Demo booking only (Cal.com replaces it). Per-month limits come from coachingSessionsPerMonth; a full month moves booking to the next one. No shared files changed.
+**Open:** Wasif's review at http://localhost:3004/coaching. Whether goals and session notes belong on Coaching, Plan or both. Uncommitted; nothing pushed.
+**PR:** none.
+
+### 2026-10-04 03:00 · claude · page/coaching
+
+**Did:** Wasif reviewed several HTML mockups (outside the repo) and approved a booking-only design. Rebuilt /coaching to match: the calls left this month, booked calls with Add to calendar, Reschedule and Cancel (with a second ask), and one card that books in three steps (call and coach, day, time), then a confirm step with an optional note and a confirmation with undo. Free can browse openings and is sent to Pro at the end; Pro's used-up October opens on November. Removed the earlier notes, goals, scorecards and thread. Keyed the booking by plan so the demo switcher starts it over.
+**Validation:** npm run check passed; 13 schedule unit tests; coaching browser tests 12/12 and the full suite on desktop and Pixel 7 against the local server. Screenshots at 1440, 1024 and phone width; no console errors or overflow.
+**Decisions:** Call types and lengths are placeholders until the coaches confirm them. Demo booking only; Cal.com replaces it. No shared files changed.
+**Open:** Wasif's review at http://localhost:3004/coaching. Uncommitted; nothing pushed.
+**PR:** none.
+### 2026-10-03 20:05 · claude · page/plan
+**Did:** Fast-forwarded page/plan to dashboard (24df8c1, includes Home v2 and courses) in a new worktree, then built `/plan` end to end in the Home layout: serif title with the week and the session it came from; three solid tiles (cobalt "This week" with a Monday–Sunday strip of due tasks, lavender "Top three gaps" with progress to each target, navy "Your weeks" chart of tasks done per week); a tasks list with tick-off and a details panel (why, how, link, mark done); and a right rail like Home's calendar with this month's goals, the next 1-1 and shared session notes. Free gets starter steps from the score, a locked gaps tile and Pro placeholders. Ticks persist in the browser and update the tiles live.
+**Validation:** npm run check passed (lint, types, format, 27 unit tests). New plan browser tests 8/8 on desktop and Pixel 7; whole app suite 54/54 (one courses test needed a re-run after a dev compile timeout). Reviewed screenshots at 1920, 1440, 1280 and phone, Free and Pro.
+**Decisions:** Plan's rail margin uses a corrected formula (Home's grows below 1720px and squeezes the main column at 1280–1440); Home is unchanged.
+**Open:** Wasif's local review at http://localhost:3005/plan. Uncommitted; no push or PR.
+**PR:** none.
+
+### 2026-10-03 21:10 · claude · page/plan
+**Did:** Redesigned `/plan` at Wasif's request: less like Home, no side rail, built from research into training-plan apps (phases and weeks leading to race day), daily planners (one task in focus, time estimates, steps on the task), if-then planning research (a set time makes a task far more likely to happen) and goal-gradient studies (visible progress speeds people up). The page now reads top to bottom: a deep-blue road to the offer (phases, a stop per week filled in once done, "You're here", the goal at the end); "Up next" (the next task with its minutes, the agreed time, tickable steps, mark done; it moves on by itself and shows a recap when the week is done) beside the coach's note (Wasif's words from the last 1-1, the next 1-1 and its agenda, earlier notes); the week by day beside the top three gaps (choose one to filter the week); then October's goals. Free gets starter steps, can pick its own time for each, and sees what a coach adds.
+**Validation:** npm run check passed. Plan browser tests rewritten (5 tests, desktop and Pixel 7); whole app suite 56/56. Reviewed 1920, 1440, 1280 and phone in Free and Pro, plus the week-done state; fixed a phone overflow in the week list.
+**Open:** Wasif's local review at http://localhost:3005/plan. Uncommitted; no push or PR.
+**PR:** none.
+
+### 2026-10-04 · claude · page/plan
+**Did:** Wasif found the research-based version too busy and wanted no side rail, so the design went through HTML mockups outside the repo (narrow column, wide column, kanban, then a boxed layout) until he approved one. Built that into `/plan`: four summary boxes (plan week and phase with a clickable 16-week bar, this week's progress, time left, goal); this week's tasks as a board with To do, In progress and Done columns, where cards drag between columns and open a details window (why, when, steps to tick, the next move, a link); a week switcher (arrows, the week bar, the left and right keys) that shows earlier weeks as they ended, read-only, and next week as not planned yet; then the coach's note from the 1-1 behind the week shown, with the next 1-1, the top three gaps, and October's goals. Free gets the starter steps on the board, the coaches, and locked boxes.
+**Validation:** npm run check passed. Plan browser tests rewritten (5 tests; dragging runs on desktop only), 27/27 passing over three repeats; whole app suite 55 passed, 1 skipped. Reviewed 1440 and phone in Free and Pro, plus a past week, next week and the details window.
+**Open:** Wasif reviews and merges #33.
+**PR:** #33, page/plan into dashboard, opened at Wasif's request with incremental commits.

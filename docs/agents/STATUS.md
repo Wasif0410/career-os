@@ -12,16 +12,16 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** working
-- **Task:** Resume page (`/resume`): score and categories tiles, ranked fixes beside an annotated copy of the resume, skills in demand, coach review, and a right-hand panel with the file, upload and versions, in the Home layout (assigned by Wasif in Claude's chat, 2026-10-03). Earlier: Home v2 (#30) and the courses library (#32), both merged into dashboard.
-- **Owned paths:** app/(app)/resume/**, lib/mock/resume.ts (new, resume-only demo data), e2e/app/resume.spec.ts
-- **Worktree:** C:/Users/wa/Documents/career-os-resume
-- **Branch:** page/resume (fast-forwarded locally to dashboard at 24df8c1, including #30 and #32; not pushed)
+- **State:** in-review
+- **Task:** Coaching page (`/coaching`) as a booking page (assigned by Wasif in Claude’s chat, 2026-10-03; design approved from an HTML mockup on 2026-10-04): booked calls with reschedule and cancel, then one card that books a call in three steps (call and coach, day, time), a confirm step with a note, and a confirmation with undo. Another Claude chat built the Plan page (`/plan`), merged into dashboard through #33. Earlier: Home v2 (#30) and the courses library (#32). Resume (`/resume`) is a separate PR from page/resume (worktree C:/Users/wa/Documents/career-os-resume).
+- **Owned paths:** app/(app)/coaching/**, lib/mock/coaching.ts (coaching-only demo data), e2e/app/coaching.spec.ts, docs/coaching/DESIGN.md
+- **Worktree:** C:/Users/wa/Documents/career-os-coaching
+- **Branch:** page/coaching (dashboard merged in, including #33)
 - **PR base:** dashboard
-- **PR:** none; local and uncommitted until Wasif reviews
+- **PR:** https://github.com/Wasif0410/career-os/pull/34
 - **Blocked by:** nothing
-- **Next:** Wasif reviews http://localhost:3003/resume (Free, Pro and Elite) and decides what to change, commit or push
-- **Updated:** 2026-10-03
+- **Next:** Wasif reviews PR #34 into dashboard and confirms the call types and lengths; then the resume PR into dashboard
+- **Updated:** 2026-10-04
 
 ## codex
 
