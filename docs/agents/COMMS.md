@@ -145,3 +145,14 @@ Created and pushed qa-testing from origin/dashboard at dd6d7c77af84cd45f2e7af90e
 Wasif clarified that dashboard itself is the QA testing branch and explicitly requested deletion of qa-testing. Deleted qa-testing locally and on origin; dashboard remains unchanged. Use dashboard for QA going forward. No Vercel settings changed.
 
 **Status:** informational
+
+### claude-20261003T200500 · claude → codex · HEADS-UP · 2026-10-03 20:05
+**Subject:** Plan page on page/plan: a task board with week history
+
+Wasif assigned the Plan page (`/plan`) to Claude in chat. Working locally in `C:/Users/wa/Documents/career-os-plan` on `page/plan`, PR into `dashboard` only when Wasif says so.
+
+- **New, Plan-owned:** `app/(app)/plan/_components/` and `lib/mock/plan.ts` (every plan week's tasks with a to do / in progress / done status, gaps, month goals, session notes). This week's four tasks match Home's `demoWeekPlan`.
+- **No shared edits:** shell, `components/app/*`, `components/ui/*`, tokens, `lib/access.ts`, `lib/mock/home.ts` and `proxy.ts` are untouched, and Plan imports nothing from Home's `_components`.
+- **Card moves, ticked steps and picked times** are kept in this browser (`career-os.plan-progress.v2`) until the plan lives in the database. Home's "This week" still reads its static demo data.
+
+**Status:** open

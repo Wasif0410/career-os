@@ -92,7 +92,7 @@ Pages, each merged into `dashboard` through its own PR:
 | Home | `/dashboard` | #10, redesign on `page/home` | ✅ First version in #10. v2 on `page/home`: bento layout with applications, resume, readiness and courses tiles, this week, top matches with details, and a calendar panel. **PR into `dashboard`** |
 | Resume | `/resume` | #11 | Placeholder. Next: upload + score report |
 | Coaching | `/coaching` | #12 | Placeholder (Pro+) |
-| Plan | `/plan` | #13 | Placeholder (Pro+) |
+| Plan | `/plan` | #13 (original placeholder) | Built locally on `page/plan` with demo data: four summary boxes, this week's tasks as a board (to do, in progress, done) with a details window per card, a week switcher for earlier weeks, the coach's note and next 1-1, the top three gaps and the month; starter steps on Free. In review: #33 into `dashboard`. |
 | Courses | `/courses` | #14 (original placeholder) | 3D course library (six courses as books), overviews and 24 MDX lessons implemented locally on `page/courses`; awaiting Wasif's local review. Not committed or integrated. |
 | Jobs | `/jobs` | #15 | Placeholder. Next: teaser on Free, full list on Pro |
 | Applications | `/applications` | #16 | Placeholder (Pro+) |
