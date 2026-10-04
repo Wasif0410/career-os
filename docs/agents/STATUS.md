@@ -13,15 +13,15 @@ Wasif controls this shared section.
 ## claude
 
 - **State:** idle
-- **Task:** Courses visual design: a 3D course library on the cosmic background that opens each course in place (assigned by Wasif in Claude's chat, 2026-10-02). Codex finished the course content and progress work; Claude now owns the courses design. Earlier: Home page v2 and the shared shell restyle, merged into dashboard through PR #30.
-- **Owned paths:** app/(app)/courses/**, components/courses/**, e2e/app/courses.spec.ts, docs/courses/DESIGN.md (lib/courses.ts and content/courses/** only if a design change needs it)
-- **Worktree:** C:/Users/wa/Documents/career-os-courses (taken over from Codex, who is idle)
-- **Branch:** page/courses (fast-forwarded to dashboard at dd6d7c7, including PR #30)
+- **Task:** Coaching page (`/coaching`) as a booking page (assigned by Wasif in Claude's chat, 2026-10-03; booking design approved from an HTML mockup on 2026-10-04): booked calls with reschedule and cancel, then one card that books a call in three steps (call and coach, day, time), a confirm step with a note, and a confirmation with undo. Earlier: Home v2 (#30) and the courses library (#32). Other Claude chats have Resume (page/resume) and Plan (page/plan).
+- **Owned paths:** app/(app)/coaching/**, lib/mock/coaching.ts (coaching-only demo data), e2e/app/coaching.spec.ts, docs/coaching/DESIGN.md
+- **Worktree:** C:/Users/wa/Documents/career-os-coaching
+- **Branch:** page/coaching (fast-forwarded locally to dashboard at 24df8c1, including #30 and #32; not pushed)
 - **PR base:** dashboard
 - **PR:** none; local and uncommitted until Wasif reviews
 - **Blocked by:** nothing
-- **Next:** Wasif reviews the 3D library at http://localhost:3002/courses; changes stay local and uncommitted until he decides
-- **Updated:** 2026-10-02
+- **Next:** Wasif reviews http://localhost:3004/coaching (Free, Pro and Elite) and confirms the call types and lengths
+- **Updated:** 2026-10-04
 
 ## codex
 
