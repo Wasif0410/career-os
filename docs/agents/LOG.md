@@ -169,3 +169,7 @@ History of finished work. **Append one entry at the end of every session.** Neve
 **Validation:** npm run check passed. Plan browser tests rewritten (5 tests; dragging runs on desktop only), 27/27 passing over three repeats; whole app suite 55 passed, 1 skipped. Reviewed 1440 and phone in Free and Pro, plus a past week, next week and the details window.
 **Open:** Wasif reviews and merges #33.
 **PR:** #33, page/plan into dashboard, opened at Wasif's request with incremental commits.
+## 2026-10-02 · codex · QA deployment documentation
+- Wasif supplied the dashboard Vercel preview URL and requested a QA testing note at the top of the GitHub README. Added the link below the tagline and documented dashboard in the branch table.
+- Docs-only validation: Markdown/link review and git diff --check. Deployment URL could not be fetched through the web tool; the branch connection is documented from Wasif's supplied information. No runtime or deployment changes.
+- Delivery: docs/qa-testing PR into main for Wasif's review; no merge.

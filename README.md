@@ -2,6 +2,8 @@
 
 **Career coaching and job applying for CS students and early-career tech candidates, in one place.**
 
+**QA testing:** Use the [Vercel QA deployment](https://career-os-git-dashboard-wasifsaeed0410-2447s-projects.vercel.app/) to test the student app. It is connected to the `dashboard` branch and updates after Vercel successfully deploys changes pushed to that branch.
+
 Career OS combines **1-1 coaching from real people** with software that scores your resume, teaches you what you're missing, finds jobs that fit, and applies for you.
 
 ```
@@ -107,6 +109,7 @@ What the code handles:
 | Branch | Purpose |
 |---|---|
 | `main` | Shared, stable |
+| `dashboard` | Student app integration and QA testing on Vercel |
 | `marketing-site` | Marketing site work |
 | `setup/*` | Tooling and repo setup |
 | `app/structure` | The student app shell (layout, navigation, shared pieces) |

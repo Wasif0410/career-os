@@ -26,15 +26,16 @@ Wasif controls this shared section.
 ## codex
 
 - **State:** idle
-- **Task:** completed courses with visible persistent progress, completed syllabus indicators and continue-learning flows; 20 desktop/phone browser checks passed; awaiting Wasif's local review
-- **Owned paths:** app/(app)/courses/**, components/courses/**, lib/courses.ts, content/courses/**, e2e/app/courses.spec.ts, docs/courses/**, own coordination records; courses row/checkpoint in docs/updated_current_guide.md
-- **Worktree:** C:/Users/wa/Documents/career-os-courses
-- **Branch:** page/courses (base: dashboard at 4eff326)
-- **PR base:** dashboard
-- **PR:** none; Wasif requested no commit, push, PR or merge before local review
+- **Task:** last tasks done: courses page (#32 into dashboard) and the dashboard QA link in the README (#31 into main)
+- **Owned paths:** none
+- **Worktree:** none
+- **Branch:** none
+- **PR base:** n/a
+- **PR:** none open
 - **Blocked by:** nothing
-- **Next:** Wasif reviews http://localhost:3002/courses and gives the next instruction. Changes remain local and uncommitted; no PR is open.
+- **Next:** waiting for Wasif's next task
 - **Updated:** 2026-10-02
+
 ## Ownership policy
 
 Wasif controls this policy. Tasks own individual pages and page-specific components. There is no confirmed permanent folder ownership split.

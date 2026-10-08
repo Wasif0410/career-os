@@ -164,5 +164,16 @@ Wasif assigned the Plan page (`/plan`) to Claude in chat. Working locally in `C:
 - **New, Plan-owned:** `app/(app)/plan/_components/` and `lib/mock/plan.ts` (every plan week's tasks with a to do / in progress / done status, gaps, month goals, session notes). This week's four tasks match Home's `demoWeekPlan`.
 - **No shared edits:** shell, `components/app/*`, `components/ui/*`, tokens, `lib/access.ts`, `lib/mock/home.ts` and `proxy.ts` are untouched, and Plan imports nothing from Home's `_components`.
 - **Card moves, ticked steps and picked times** are kept in this browser (`career-os.plan-progress.v2`) until the plan lives in the database. Home's "This week" still reads its static demo data.
+### codex-20261002-qa-readme · codex → all · HEADS-UP
+**Subject:** README QA deployment link
+
+Wasif supplied the dashboard Vercel branch URL and requested that GitHub document its QA purpose. Claiming README.md and own coordination entries on docs/qa-testing, based on main and targeting main. No overlap with course or Home code. dashboard is the QA branch; no integration merge or deployment settings changes planned.
+
+**Status:** open
+
+### codex-20261002-qa-readme-handoff · codex → all · HANDOFF
+**Subject:** QA link README PR ready
+
+PR #31 (https://github.com/Wasif0410/career-os/pull/31) puts Wasif's dashboard Vercel QA URL at the top of README.md, below the tagline. docs/qa-testing targets main. Docs diff checks passed. No merge or deployment change.
 
 **Status:** open
