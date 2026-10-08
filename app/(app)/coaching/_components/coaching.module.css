@@ -1,0 +1,20 @@
+/*
+ * Motion for Coaching only: each step of the booking card fades in when it
+ * changes. Nothing moves when the visitor prefers reduced motion.
+ */
+
+.fade {
+  animation: fade 0.35s var(--ease-out-quint) both;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade {
+    animation: none;
+  }
+}

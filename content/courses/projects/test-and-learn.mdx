@@ -1,0 +1,22 @@
+## Check behavior and usefulness separately
+
+Software can run correctly and still be confusing or unnecessary. Check two questions: does the implementation behave as intended, and can a person use it to accomplish the task? Use tests for the first and observation or structured evaluation for the second.
+
+Choose failure cases that would matter to your user. Reproduce bugs before fixing them, then retain a check for the corrected behavior. Record your environment and test data so someone can understand the result. A small study is useful feedback, not proof of universal usability.
+
+For an ML or data project, define the evaluation split and a baseline. Check for leakage and examine errors, not just an aggregate score. For an app, inspect empty states, errors, keyboard access and a phone-width layout when relevant. Match the evaluation to the project rather than adding checks solely for a screenshot.
+
+## A worked example
+
+Maya asks three willing classmates to find an available sample item without coaching them. Two mistake “recorded available” for a real-time guarantee. She changes the wording and displays when the status was last updated.
+
+Her finding is about these sessions on her prototype. It is not “increased efficiency by 80%.” She also adds a test for invalid search input and keeps notes about the setup used.
+
+## Your turn · 60–90 minutes
+
+1. Test a normal path, an important failure and a boundary case.
+2. Ask a willing person to try a defined task, or compare output against a defensible baseline.
+3. Record observations separately from your interpretations.
+4. Fix one issue and repeat the same check.
+
+**Leave with:** a short evaluation report: question, method, result, limitation and next change. If no participants are available, do a structured self-review and label it as such. An honest limitation makes the result more useful than an unsupported success claim.

@@ -1,0 +1,476 @@
+/*
+ * The course library: a stack of hardcover books floating in the deep blue sky.
+ *
+ * Each book is a real CSS 3D box. Faces are laid out in "upright book" space
+ * (cover facing you, spine on the left, head at the top) and the whole book is
+ * then turned to lie flat with its spine towards you. Opening a course turns it
+ * back upright. One camera (the stack's perspective) follows the middle of the
+ * screen as you scroll, so books above it show their underside and books below
+ * show their cover, the way a real stack looks at eye level.
+ *
+ * Sizes come from the shelf's width: --L is the book's height (the spine's
+ * length), --W its width and --T its thickness.
+ */
+
+.backdrop {
+  position: fixed;
+  z-index: -1;
+  inset: var(--header-h, 0px) 0 0 0;
+  pointer-events: none;
+}
+
+/* Beside the app sidebar: 76px wide from md, w-60 from xl. Phones have a top bar instead. */
+@media (min-width: 48rem) {
+  .backdrop {
+    left: 76px;
+  }
+}
+
+@media (min-width: 80rem) {
+  .backdrop {
+    left: 15rem;
+  }
+}
+
+.shelf {
+  container-type: inline-size;
+}
+
+.stack {
+  --L: min(640px, 82cqw);
+  --W: calc(var(--L) * 0.68);
+  --gap: calc(var(--L) * 0.16);
+  --board: max(2px, calc(var(--L) * 0.005));
+  --page: #f1ead9;
+  --page-line: #d6cbb1;
+
+  position: relative;
+  width: var(--L);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+  perspective: calc(var(--L) * 1.9);
+  /* Until the script measures the screen, assume the first book sits a little below its middle. */
+  perspective-origin: 50% var(--cam-y, calc(50svh - 15rem));
+  transform-style: preserve-3d;
+}
+
+@container (max-width: 560px) {
+  .stack {
+    --L: 90cqw;
+  }
+}
+
+.slot {
+  --T: calc(var(--L) * var(--t));
+  position: relative;
+  height: calc(var(--T) + var(--gap));
+  transform-style: preserve-3d;
+}
+
+.hit {
+  position: absolute;
+  inset: 0;
+  display: block;
+  cursor: pointer;
+  outline: none;
+  transform-style: preserve-3d;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hit:focus-visible {
+  outline: none;
+}
+
+/* Entrance: each book rises out of the distance, one after another. */
+.enter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  animation: enter 1.3s var(--ease-out-quint) backwards;
+  animation-delay: calc(var(--i) * 85ms + 100ms);
+}
+
+@keyframes enter {
+  from {
+    transform: translate3d(0, calc(var(--L) * 0.22), calc(var(--L) * -0.6));
+  }
+}
+
+/*
+ * Transform order (read right to left): scale, tilt it back, turn it, roll it,
+ * an optional whole-shelf tilt, then move it. Lying flat is roll -90deg and turn
+ * 90deg; upright is roll 0. The same list in every state lets each angle
+ * interpolate on its own, so opening a book swings it up rather than flipping.
+ */
+.book {
+  --z: calc(var(--W) / -2);
+  --rz: -90deg;
+  --ry: 90deg;
+  --rx: 0deg;
+  --s: 1;
+  --fo: 1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  transform: translate3d(var(--x, 0px), var(--y, 0px), var(--z)) rotateX(var(--tilt, 0deg)) rotateZ(var(--rz))
+    rotateY(var(--ry)) rotateX(var(--rx)) scale(var(--s));
+  transition: transform 0.75s var(--ease-out-quint);
+}
+
+/* Hover and keyboard focus slide the book out of the stack towards you. */
+@media (hover: hover) {
+  .stack:not([data-open]) .hit:hover .book {
+    --z: calc(var(--W) / -2 + var(--L) * 0.07);
+  }
+}
+
+.stack:not([data-open]) .hit:focus-visible .book {
+  --z: calc(var(--W) / -2 + var(--L) * 0.07);
+}
+
+.hit:focus-visible .spine {
+  outline: 2px solid var(--color-sky);
+  outline-offset: 5px;
+}
+
+/* While a course is open, the rest of the stack recedes and fades. */
+.stack[data-open] .slot:not([data-state="open"]) .book {
+  --z: calc(var(--W) / -2 - var(--L) * 0.4);
+  --fo: 0;
+}
+
+.stack[data-phase="opening"] .book,
+.stack[data-phase="closing"] .book {
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0.6, 0, 0.25, 1);
+}
+
+.stack[data-instant] .book,
+.stack[data-instant] .face {
+  transition: none;
+}
+
+/* Faces */
+
+.face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  transform-origin: 0 0;
+  backface-visibility: hidden;
+  opacity: var(--fo);
+  transition: opacity 0.5s ease;
+  animation: face-in 0.9s ease-out backwards;
+  animation-delay: calc(var(--i) * 85ms + 100ms);
+}
+
+@keyframes face-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.stack[data-open] .slot:not([data-state="open"]) .face {
+  transition-duration: 0.35s;
+}
+
+/* Cloth with a little light falling across it, plus the site's film grain. */
+.cloth {
+  background-color: var(--cloth);
+  background-image: var(--grain);
+  background-size: 180px 180px;
+  color: var(--ink);
+}
+
+.cover,
+.back {
+  width: var(--W);
+  height: var(--L);
+}
+
+.cover {
+  transform: translateZ(calc(var(--T) / 2)) translate(-50%, -50%);
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(calc(var(--T) / 2)) translate(-50%, -50%);
+}
+
+/* The hinge groove that runs beside the spine on a hardcover. */
+.cover::before,
+.back::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgb(0 0 0 / 0.22),
+    rgb(0 0 0 / 0) 3.5%,
+    rgb(255 255 255 / 0.07) 5%,
+    rgb(0 0 0 / 0.1) 6.2%,
+    rgb(0 0 0 / 0) 8.5%,
+    rgb(0 0 0 / 0) 80%,
+    rgb(0 0 0 / 0.12)
+  );
+  pointer-events: none;
+}
+
+.back::before {
+  transform: scaleX(-1);
+}
+
+.spine {
+  width: var(--T);
+  height: var(--L);
+  transform: rotateY(-90deg) translateZ(calc(var(--W) / 2)) translate(-50%, -50%);
+}
+
+/* A rounded spine: darker where it turns away, lighter where it catches the light. */
+.spine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgb(0 0 0 / 0.32),
+    rgb(0 0 0 / 0.06) 24%,
+    rgb(255 255 255 / 0.06) 66%,
+    rgb(255 255 255 / 0.18)
+  );
+  pointer-events: none;
+}
+
+/* Spine type runs head to foot, so it reads left to right when the book lies flat. */
+.spineText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  width: var(--L);
+  height: var(--T);
+  align-items: center;
+  gap: calc(var(--L) * 0.03);
+  padding: 0 calc(var(--L) * 0.045);
+  transform: translate(-50%, -50%) rotate(90deg);
+  white-space: nowrap;
+}
+
+.spineSubject,
+.spineEnd {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  min-width: 0;
+}
+
+.spineSubject {
+  gap: 0.9em;
+  font-family: var(--font-mono);
+  font-size: max(8px, calc(var(--L) * 0.0165));
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.spineTitle {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: max(11px, calc(var(--L) * 0.032));
+  letter-spacing: -0.012em;
+}
+
+.spineEnd {
+  justify-content: flex-end;
+  gap: calc(var(--L) * 0.022);
+}
+
+.spineMark {
+  width: max(14px, calc(var(--T) * 0.36));
+  height: max(14px, calc(var(--T) * 0.36));
+}
+
+/* On a binding the mark is stamped in one colour, like a publisher's device. */
+.spineMark circle,
+.coverMark circle {
+  fill: currentColor;
+}
+
+/* Lessons finished, as small dots on the spine. */
+.dots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: max(4px, calc(var(--L) * 0.008));
+  aspect-ratio: 1;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+.dot[data-done] {
+  background: currentColor;
+  opacity: 1;
+}
+
+@container (max-width: 560px) {
+  .spineSubject span:last-child {
+    display: none;
+  }
+}
+
+/* Page block: the fore edge and the top and bottom of the book. */
+.pages {
+  background-color: var(--page);
+}
+
+.fore {
+  width: var(--T);
+  height: var(--L);
+  transform: rotateY(90deg) translateZ(calc(var(--W) / 2)) translate(-50%, -50%);
+  background-image: repeating-linear-gradient(to right, var(--page) 0 1.6px, var(--page-line) 1.6px 2.3px);
+  box-shadow:
+    inset var(--board) 0 0 var(--cloth),
+    inset calc(var(--board) * -1) 0 0 var(--cloth);
+}
+
+.head,
+.tail {
+  width: var(--W);
+  height: var(--T);
+  background-image: repeating-linear-gradient(to bottom, var(--page) 0 1.6px, var(--page-line) 1.6px 2.3px);
+  box-shadow:
+    inset 0 var(--board) 0 var(--cloth),
+    inset 0 calc(var(--board) * -1) 0 var(--cloth),
+    inset calc(var(--board) * 2.5) 0 0 var(--cloth);
+}
+
+.head {
+  transform: rotateX(90deg) translateZ(calc(var(--L) / 2)) translate(-50%, -50%);
+}
+
+.tail {
+  transform: rotateX(-90deg) translateZ(calc(var(--L) / 2)) translate(-50%, -50%);
+}
+
+/* Cover layout (upright) */
+
+.coverInner {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: calc(var(--W) * 0.085);
+}
+
+.coverTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: calc(var(--W) * 0.028);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.coverBrand {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.coverMark {
+  width: 1.9em;
+  height: 1.9em;
+}
+
+.coverSubject {
+  margin-top: calc(var(--W) * 0.2);
+  font-family: var(--font-display);
+  font-size: calc(var(--W) * 0.14);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.coverTitle {
+  margin-top: calc(var(--W) * 0.035);
+  font-family: var(--font-display);
+  font-size: calc(var(--W) * 0.052);
+  font-style: italic;
+  line-height: 1.2;
+  opacity: 0.85;
+}
+
+.coverArt {
+  width: 100%;
+  margin-top: auto;
+}
+
+.coverFoot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: calc(var(--W) * 0.06);
+  border-top: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  padding-top: calc(var(--W) * 0.03);
+  font-family: var(--font-mono);
+  font-size: calc(var(--W) * 0.026);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.backInner {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--W) * 0.08);
+  padding: calc(var(--W) * 0.16);
+  text-align: center;
+}
+
+.backText {
+  font-family: var(--font-display);
+  font-size: calc(var(--W) * 0.06);
+  line-height: 1.35;
+}
+
+/* Reduced motion: a still stack, tilted just enough to show each cover's edge. No entrance, no swing, no camera. */
+@media (prefers-reduced-motion: reduce) {
+  .stack {
+    perspective: none;
+  }
+
+  .book {
+    --tilt: -5deg;
+    transition: none;
+  }
+
+  .stack[data-open] .slot[data-state="open"] .book {
+    --tilt: 0deg;
+  }
+
+  .enter,
+  .face {
+    animation: none;
+  }
+
+  .face {
+    transition: none;
+  }
+}
+
+/* The details heading takes focus when a course opens so screen readers start there; it needs no ring. */
+.detailTitle:focus-visible {
+  outline: none;
+}

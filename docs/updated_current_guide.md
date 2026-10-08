@@ -1,6 +1,6 @@
 # Career OS: Current Guide
 
-> **Last updated:** 2026-09-30
+> **Last updated:** 2026-10-03
 > **Read this first** when you pick the project back up, whether you're a person or an agent. It covers what's done, what's in progress, how the branches fit together, and what comes next. The full phase plan is in [`frontend/PHASES.md`](frontend/PHASES.md). This file tracks where we actually are against it, including where we changed the order. The [checkpoint log](#checkpoint-log) at the bottom records what happened and when.
 >
 > **Keep it current:** update this file in the same PR as any change that moves a phase forward, changes the branch model, or settles an open question.
@@ -89,11 +89,11 @@ Pages, each merged into `dashboard` through its own PR:
 
 | Page | Route | PR | Status |
 |---|---|---|---|
-| Home | `/dashboard` | #10 | ✅ First version: resume score ring, top fix, next step, job matches, locked coaching / plan / tracker cards. **Under review** |
-| Resume | `/resume` | #11 | Placeholder. Next: upload + score report |
-| Coaching | `/coaching` | #12 | Placeholder (Pro+) |
-| Plan | `/plan` | #13 | Placeholder (Pro+) |
-| Courses | `/courses` | #14 | Placeholder |
+| Home | `/dashboard` | #10, redesign on `page/home` | ✅ First version in #10. v2 on `page/home`: bento layout with applications, resume, readiness and courses tiles, this week, top matches with details, and a calendar panel. **PR into `dashboard`** |
+| Resume | `/resume` | #11 (placeholder) | Report built locally on `page/resume`: score band, the resume with each fix marked on its lines (plus a 7-second recruiter skim view), fixes to tick off, skills in demand (Pro), progress across versions and coach review (Elite). Demo data. **PR into `dashboard`** |
+| Coaching | `/coaching` | #12, booking in #34 | Booking page: calls left this month, booked calls with reschedule and cancel, and one card that books a call in three steps (call and coach, day, time) with a confirm step. Free can browse openings. Demo data; Cal.com later. **PR into `dashboard`** |
+| Plan | `/plan` | #13 (original placeholder) | ✅ Merged in #33, with demo data: four summary boxes, this week's tasks as a board (to do, in progress, done) with a details window per card, a week switcher for earlier weeks, the coach's note and next 1-1, the top three gaps and the month; starter steps on Free. |
+| Courses | `/courses` | #14 (original placeholder) | 3D course library (six courses as books), overviews and 24 MDX lessons implemented locally on `page/courses`; awaiting Wasif's local review. Not committed or integrated. |
 | Jobs | `/jobs` | #15 | Placeholder. Next: teaser on Free, full list on Pro |
 | Applications | `/applications` | #16 | Placeholder (Pro+) |
 | Profile | `/profile` | #17 | Placeholder |
@@ -107,7 +107,7 @@ Building a page for real means a new `page/<name>` branch off `dashboard` and a 
 
 ### Kept separate from the marketing site
 
-- It lives in its own route group, `app/(app)/`, with its own layout. No marketing header, footer, starfield or scroll effects.
+- It lives in its own route group, `app/(app)/`, with its own layout. No marketing header, footer, starfield or scroll effects. Exception (Wasif, 2026-10-02): the sidebar uses the deep-blue surface. No starfield or scroll effects on app pages.
 - **Nothing on the marketing site links to it.** A browser test checks this.
 - It's `noindex`, and `robots.txt` blocks crawlers from it.
 - Its components live in `components/app/`. It reuses only the basics (`Button`, glyphs, logo, color tokens).
@@ -183,11 +183,25 @@ In parallel on `marketing-site`: marketing changes, plus the Phase 1 leftovers (
 
 Newest first. One entry per working session: what changed, and any decisions made.
 
+### 2026-10-04
+
+- **Coaching (`page/coaching` → `dashboard`):** `/coaching` is a booking page. Wasif reviewed several HTML mockups and picked a single booking card: choose the call (check-in, mock interview, resume review or strategy) and the coach or either, pick a day, pick a time, confirm with an optional note. Booked calls sit above the card with Add to calendar, Reschedule and Cancel. Calls per month come from `coachingSessionsPerMonth` (Pro 1, Elite 4); a used-up month opens the next one. Free can browse openings and is sent to Pro. Design in `docs/coaching/DESIGN.md`.
+- **Decided:** Coaching is booking only. Session notes and goals belong on Plan. Call types and lengths are placeholders until the coaches confirm them.
+
+### 2026-10-03
+
+- **Resume (local review):** `page/resume` was fast-forwarded to `dashboard` (includes Home v2 #30 and courses #32; not pushed) and the Resume page was built in a new worktree, `C:/Users/wa/Documents/career-os-resume`, previewed at http://localhost:3003/resume. Wasif asked for its own design rather than a copy of Home and for no calendar-style side panel, so the page centres on the resume: a navy score band, then the resume with the open fix's lines highlighted and a suggestion under each, beside a list of fixes the student can mark done (kept in the browser). A "7-second skim" view fades everything but what a recruiter reads on a first pass. Free gets the score, categories and top fix; the other fixes stay on the server and come with Pro, as does "skills in demand"; the coach review is Elite. Uploads are checked in the browser only (PDF, up to 2 MB) and never sent while the app is a demo. **PR into `dashboard`**.
+
 ### 2026-10-02
 
+- **Courses, 3D library (local review):** the course catalog is now a stack of six hardcover "books" on the cosmic background, built in CSS 3D (no WebGL, no new dependencies). Each course has its own cloth colour and cover drawing; scrolling moves the camera along the stack and choosing a book swings it upright beside the course details (`/courses?course=<slug>`, so Back closes it). Reduced motion gets a still stack. Course overviews and lessons are unchanged. Still local and uncommitted on `page/courses` pending Wasif's review.
+- **Courses, local review:** `page/courses` in `C:/Users/wa/Documents/career-os-courses` now has six practical courses (direction, resume, LinkedIn, GitHub, projects and domain knowledge), each with four lessons and exercises. Added course overviews, source references, server-side Free/Pro lesson gating and reversible browser-local progress. Progress is visible per course and across the library, with completed syllabus indicators, continue-to-next-unfinished navigation, course completion and review states. Wasif requested the homepage's Newsreader/Inter typography and cosmic deep-blue treatment on this page, with restrained motion; the existing shell and shared tokens are reused. Research/design notes are in `docs/courses/`. Local preview: `http://localhost:3002/courses`. Wasif explicitly requested no commit, push, PR or merge before local review.
 - **Current main:** PR #28 merged the student app into main; the existing password and demo protections remain in place.
 - **Branches:** frontend was renamed marketing-site. Nine page branches were created from dashboard with identical starting content.
 - **Authorized in chat:** merge agent-config into main after required CI, then bring dashboard and all nine page branches up to date with main. Agents still receive page assignments in chat.
+- **Home redesign (`page/home` → `dashboard`):** deep-blue hero with the greeting and next step, then one grid of resume, jobs, coaching, plan and applications cards with fewer words. The target pill was removed from the app header at Wasif's request. Design in `docs/superpowers/specs/2026-10-02-home-page-design.md`.
+- **Home v2 (`page/home` → `dashboard`):** final layout is a bento board modelled on a reference dashboard Wasif picked: solid-colour tiles (applications pipeline, resume trend, dark readiness, cobalt courses), this week, top matches with a details panel, and a calendar panel fixed to the right edge. Before that: Wasif approved a new concept and asked for it locally. Dark sidebar, readiness levels (Starter → Builder → Contender → Interview-ready → Offer-ready), calendar and coming-up rail, applications by stage, Courses instead of the radar chart, no blurred locks on Home. Readiness weighting and the resume rubric are still open, so both use demo numbers.
+- **Decided (earlier the same day, superseded by v2):** keep the original Home card format; use the deep-blue hero rather than a dark app or a midnight shell. Still stars in the Home hero are the one exception to "no starfield in the app"; there are still no scroll effects.
 
 ### 2026-09-30
 

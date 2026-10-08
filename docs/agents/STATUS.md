@@ -12,28 +12,28 @@ Wasif controls this shared section.
 
 ## claude
 
-- **State:** idle
-- **Task:** none recorded; confirm the actual assignment in Claude's chat
-- **Owned paths:** none recorded
-- **Worktree:** not recorded
-- **Branch:** none recorded
-- **PR base:** not recorded
-- **PR:** none recorded
-- **Blocked by:** nothing recorded
-- **Next:** record the task assigned by Wasif in chat
-- **Updated:** 2026-09-23 (existing recorded status; no live session verified)
+- **State:** in-review
+- **Task:** Coaching page (`/coaching`) as a booking page (assigned by Wasif in Claude’s chat, 2026-10-03; design approved from an HTML mockup on 2026-10-04): booked calls with reschedule and cancel, then one card that books a call in three steps (call and coach, day, time), a confirm step with a note, and a confirmation with undo. Another Claude chat built the Plan page (`/plan`), merged into dashboard through #33. Earlier: Home v2 (#30) and the courses library (#32). Resume (`/resume`) is a separate PR from page/resume (worktree C:/Users/wa/Documents/career-os-resume).
+- **Owned paths:** app/(app)/coaching/**, lib/mock/coaching.ts (coaching-only demo data), e2e/app/coaching.spec.ts, docs/coaching/DESIGN.md
+- **Worktree:** C:/Users/wa/Documents/career-os-coaching
+- **Branch:** page/coaching (dashboard merged in, including #33)
+- **PR base:** dashboard
+- **PR:** https://github.com/Wasif0410/career-os/pull/34
+- **Blocked by:** nothing
+- **Next:** Wasif reviews PR #34 into dashboard and confirms the call types and lengths; then the resume PR into dashboard
+- **Updated:** 2026-10-04
 
 ## codex
 
-- **State:** in-review
-- **Task:** document the dashboard Vercel QA deployment in the GitHub README
-- **Owned paths:** README.md and own coordination entries
-- **Worktree:** C:/Users/wa/Documents/career-os-qa-docs
-- **Branch:** docs/qa-testing (base: main)
-- **PR base:** main
-- **PR:** https://github.com/Wasif0410/career-os/pull/31
+- **State:** idle
+- **Task:** last tasks done: courses page (#32 into dashboard) and the dashboard QA link in the README (#31 into main)
+- **Owned paths:** none
+- **Worktree:** none
+- **Branch:** none
+- **PR base:** n/a
+- **PR:** none open
 - **Blocked by:** nothing
-- **Next:** Wasif reviews PR #31 into main; no merge authorized
+- **Next:** waiting for Wasif's next task
 - **Updated:** 2026-10-02
 
 ## Ownership policy
